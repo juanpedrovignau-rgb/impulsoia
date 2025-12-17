@@ -4,8 +4,9 @@ dist
 .gitignore
 .dockerignore
 README.md
-Dockerfile
-nginx.conf
+# Docker files should NOT be ignored during build context
+# Dockerfile
+# nginx.conf
 # Ignore OS generated files
 .DS_Store
 Thumbs.db
