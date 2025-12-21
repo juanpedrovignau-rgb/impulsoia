@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { businessConfig } from '../config';
 
 export default function Header() {
     return (
         <header style={{ height: 'var(--header-height)', display: 'flex', alignItems: 'center', backgroundColor: 'rgba(26, 26, 26, 0.7)', backdropFilter: 'blur(10px)', position: 'sticky', top: 0, zIndex: 1000, borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div className="logo" style={{ fontSize: '1.5rem', fontWeight: '900', color: '#fff' }}>
-                    TALLER <span style={{ color: 'var(--accent-color)' }}>ISIDRO</span>
+                    {businessConfig.name.split(' ')[0]} <span style={{ color: 'var(--accent-color)' }}>{businessConfig.name.split(' ').slice(1).join(' ')}</span>
                 </div>
                 <nav>
                     <ul className="nav-menu" style={{ display: 'flex', listStyle: 'none', gap: '30px', fontWeight: '600' }}>

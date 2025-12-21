@@ -1,3 +1,5 @@
+import { businessConfig } from '../config';
+
 export default function Hero() {
     return (
         <section id="home" style={{
@@ -21,7 +23,7 @@ export default function Hero() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'rgba(0,0,0,0.6)',
+                    backgroundColor: 'rgba(0,0,0,0.3)',
                     zIndex: 1
                 }}></div>
                 <video
@@ -45,15 +47,15 @@ export default function Hero() {
                 <div style={{ maxWidth: '800px' }}>
                     <h1 className="hero-title" style={{ fontSize: '3.5rem', fontWeight: '900', textTransform: 'uppercase', lineHeight: '1.1', marginBottom: '15px' }}>
                         Tu Servicio <br />
-                        <span style={{ color: 'var(--accent-color)' }}>Integral</span> <br />
+                        <span style={{ color: 'var(--accent-color)' }}>{businessConfig.tagline}</span> <br />
                         Para el Auto
                     </h1>
                     <p style={{ fontSize: '1.1rem', color: '#ccc', marginBottom: '30px', maxWidth: '600px' }}>
-                        Mantenimiento profesional y reparaciones confiables. Devolvemos la vida a tu vehículo con cuidado experto y repuestos de primera calidad.
+                        {businessConfig.description}
                     </p>
                     <div style={{ display: 'flex', gap: '20px', marginBottom: '40px', flexWrap: 'wrap' }}>
-                        <button onClick={() => window.open('https://wa.me/5491159722457', '_blank')} className="btn btn-primary">Solicitar Presupuesto</button>
-                        <button onClick={() => window.open('https://wa.me/5491159722457?text=Hola,%20necesito%20una%20inspección%20para%20el%20seguro', '_blank')} className="btn btn-secondary">Inspección Seguro</button>
+                        <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary">Solicitar Presupuesto</button>
+                        <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}?text=Hola,%20necesito%20una%20inspección%20para%20el%20seguro`, '_blank')} className="btn btn-secondary">Inspección Seguro</button>
                     </div>
 
                     <div className="hero-features-grid">

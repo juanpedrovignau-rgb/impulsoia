@@ -1,3 +1,5 @@
+import { businessConfig } from '../config';
+
 export default function Contact() {
     return (
         <section id="contact" className="section-padding">
@@ -8,19 +10,19 @@ export default function Contact() {
 
                     <div style={{ marginBottom: '20px', fontSize: '1.5rem', fontWeight: 'bold' }}>
                         <span>Llamanos:</span> <br />
-                        <span style={{ color: 'var(--accent-color)', fontSize: '2rem' }}>11 5972-2457</span>
+                        <span style={{ color: 'var(--accent-color)', fontSize: '2rem' }}>{businessConfig.phone}</span>
                     </div>
 
                     <div style={{ marginBottom: '20px', fontSize: '1.2rem' }}>
                         <span style={{ fontWeight: 'bold' }}>Visitanos:</span> <br />
-                        <span style={{ color: 'var(--text-secondary)' }}>Gervasio de Posadas 999, Béccar</span>
+                        <span style={{ color: 'var(--text-secondary)' }}>{businessConfig.address}</span>
                     </div>
 
                     <p style={{ marginBottom: '30px', color: 'var(--text-secondary)' }}>
                         No dudes en contactarnos. Nuestro equipo está listo para ayudarte con cualquier consulta o para agendar tu próximo servicio.
                     </p>
 
-                    <button onClick={() => window.open('https://wa.me/5491159722457', '_blank')} className="btn btn-primary">Pedir Turno</button>
+                    <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary">Pedir Turno</button>
                 </div>
 
                 <div style={{ backgroundColor: 'var(--bg-tertiary)', padding: '40px', borderRadius: '4px' }}>
@@ -28,18 +30,18 @@ export default function Contact() {
                         Horarios de Atención
                     </h3>
                     <ul style={{ listStyle: 'none', color: '#ddd' }}>
-                        <li style={{ display: 'flex', justifyContent: 'space-between', padding: '15px 0', borderBottom: '1px solid #444' }}>
-                            <span>Lunes - Viernes</span>
-                            <span>8:00 - 16:30 hs</span>
-                        </li>
-                        <li style={{ display: 'flex', justifyContent: 'space-between', padding: '15px 0', borderBottom: '1px solid #444' }}>
-                            <span>Sábado</span>
-                            <span>8:00 - 13:00 hs</span>
-                        </li>
-                        <li style={{ display: 'flex', justifyContent: 'space-between', padding: '15px 0', color: 'var(--danger-color)' }}>
-                            <span>Domingo</span>
-                            <span>Cerrado</span>
-                        </li>
+                        {businessConfig.hours.map((hour, index) => (
+                            <li key={index} style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                padding: '15px 0',
+                                borderBottom: index < businessConfig.hours.length - 1 ? '1px solid #444' : 'none',
+                                color: hour.closed ? 'var(--danger-color)' : 'inherit'
+                            }}>
+                                <span>{hour.day}</span>
+                                <span>{hour.time}</span>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div>
