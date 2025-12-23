@@ -1,34 +1,50 @@
 export default function Blog() {
     const posts = [
-        { title: "5 Señales que tu Motor Necesita Atención", excerpt: "No ignores estas señales que podrían ahorrarte miles.", date: "12 Oct, 2025" },
-        { title: "Tips de Mantenimiento para Invierno", excerpt: "Prepará tu vehículo para el frío con este checklist.", date: "28 Sep, 2025" },
-        { title: "Aceite Sintético vs. Regular", excerpt: "Entendiendo qué aceite es mejor para la longevidad de tu auto.", date: "15 Ago, 2025" }
+        { title: "IA en Pymes: Duplicando la Eficiencia Operativa", excerpt: "Descubrí las herramientas que están cambiando las reglas del juego para delegar tareas repetitivas.", date: "20 Dic, 2025" },
+        { title: "Agentes Autónomos: El Futuro de los Chatbots", excerpt: "Cómo los modelos de lenguaje modernos pueden manejar ventas complejas sin intervención humana.", date: "15 Dic, 2025" },
+        { title: "Guía de Automatización: De 0 a 100", excerpt: "Una hoja de ruta práctica para identificar procesos automatizables y ahorrar horas de trabajo.", date: "05 Dic, 2025" }
     ];
 
     return (
-        <section id="blog" className="section-padding" style={{ backgroundColor: '#151515' }}>
+        <section id="blog" className="section-padding" style={{ backgroundColor: '#000' }}>
             <div className="container">
-                <div style={{ textAlign: 'center', marginBottom: '50px' }}>
-                    <span className="section-title-small">Blog</span>
-                    <h2 className="section-title-large">Últimos Artículos</h2>
-                    <p style={{ color: 'var(--text-secondary)' }}>Mantenete informado con nuestros consejos expertos.</p>
+                <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+                    <span className="section-title-small">Explora el Conocimiento</span>
+                    <h2 className="section-title-large">Perspectiva Tecnológica</h2>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
-                    {posts.map((post, i) => (
-                        <div key={i} style={{ backgroundColor: 'var(--bg-color)', padding: '30px', borderRadius: '4px', border: '1px solid #222' }}>
-                            <div style={{ fontSize: '0.8rem', color: 'var(--accent-color)', marginBottom: '10px' }}>{post.date}</div>
-                            <h3 style={{ fontSize: '1.3rem', marginBottom: '15px' }}>{post.title}</h3>
-                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '20px' }}>{post.excerpt}</p>
-                            <a href="#" style={{ fontWeight: '700', textTransform: 'uppercase', fontSize: '0.85rem' }}>Leer Más &rarr;</a>
-                        </div>
-                    ))}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '40px' }}>
+                    {posts.map((post, i) => (PostCard(post, i)))}
                 </div>
 
-                <div style={{ textAlign: 'center', marginTop: '50px' }}>
-                    <button className="btn btn-secondary">Ver Blog</button>
+                <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                    <button className="btn btn-secondary">Explorar Todos los Artículos</button>
                 </div>
             </div>
         </section>
+    );
+}
+
+function PostCard(post, i) {
+    return (
+        <div key={i} className="glass-card" style={{ padding: '30px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+                <div style={{ fontSize: '0.7rem', color: 'var(--accent-yellow)', marginBottom: '15px', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px' }}>{post.date}</div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '15px', lineHeight: '1.4' }}>{post.title}</h3>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '20px', lineHeight: '1.6', fontWeight: '300' }}>{post.excerpt}</p>
+            </div>
+            <a href="#" style={{
+                fontWeight: '700',
+                textTransform: 'uppercase',
+                fontSize: '0.75rem',
+                color: 'var(--accent-color)',
+                textDecoration: 'none',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px'
+            }}>
+                Leer Artículo <span style={{ fontSize: '1.1rem' }}>&rarr;</span>
+            </a>
+        </div>
     );
 }

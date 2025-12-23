@@ -1,19 +1,63 @@
+import { businessConfig } from '../config';
+
 export default function About() {
     return (
-        <section id="about" className="section-padding" style={{ backgroundColor: '#151515' }}>
-            <div className="container grid-2-cols">
-                <div>
-                    <span className="section-title-small">Nosotros</span>
-                    <h2 className="section-title-large">Expertos en <br /> Mecánica Automotriz</h2>
-                    <p style={{ color: 'var(--text-secondary)', marginBottom: '30px' }}>
-                        Somos un equipo dedicado de expertos automotrices comprometidos con brindar un servicio de primer nivel para tu vehículo.
-                        Con años de experiencia y herramientas de diagnóstico de última generación, aseguramos tu seguridad y satisfacción
-                        en cada kilómetro.
+        <section id="about" className="section-padding" style={{ backgroundColor: '#000', overflow: 'hidden' }}>
+            <div className="container grid-2-cols" style={{ alignItems: 'center', gap: '80px' }}>
+                <div style={{ textAlign: 'left' }}>
+                    <span className="section-title-small">Sobre Nosotros</span>
+                    <h2 className="section-title-large">Expertos en <br />Innovación Digital</h2>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '30px', fontWeight: '300', lineHeight: '1.8' }}>
+                        En <b style={{ color: '#fff' }}>Impulso IA</b>, no solo implementamos tecnología; transformamos la cultura operativa de las empresas. Nuestra misión es democratizar el acceso a la Inteligencia Artificial de alto nivel.
                     </p>
-                    <button className="btn btn-primary">Sobre Nosotros</button>
+                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                        <div style={{ background: 'var(--accent-soft)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                            <h4 style={{ color: 'var(--accent-color)', fontSize: '1.5rem', fontWeight: '900' }}>10+</h4>
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Años Exp.</p>
+                        </div>
+                        <div style={{ background: 'var(--accent-soft)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                            <h4 style={{ color: 'var(--accent-yellow)', fontSize: '1.5rem', fontWeight: '900' }}>50+</h4>
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Proyectos</p>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <img src="/mechanic.jpg" alt="Expert mechanic working on engine" style={{ borderRadius: '4px', width: '100%', height: 'auto', boxShadow: '0 10px 30px rgba(0,0,0,0.5)' }} />
+
+                <div style={{ position: 'relative' }}>
+                    <div style={{
+                        borderRadius: '24px',
+                        width: '100%',
+                        maxWidth: '500px',
+                        overflow: 'hidden',
+                        backgroundColor: '#000',
+                        boxShadow: '0 0 50px rgba(0, 206, 209, 0.15)',
+                        border: '1px solid rgba(0, 206, 209, 0.2)'
+                    }}>
+                        <video
+                            autoPlay
+                            muted
+                            loop
+                            playsInline
+                            style={{ width: '100%', display: 'block' }}
+                        >
+                            <source src="/chatbot-whatsapp.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    {/* Floating badge */}
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '-20px',
+                        right: '-20px',
+                        background: 'var(--accent-yellow)',
+                        color: '#000',
+                        padding: '15px 25px',
+                        borderRadius: '50px',
+                        fontWeight: '900',
+                        fontSize: '0.8rem',
+                        boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+                        textTransform: 'uppercase'
+                    }}>
+                        IA en Tiempo Real
+                    </div>
                 </div>
             </div>
         </section>
