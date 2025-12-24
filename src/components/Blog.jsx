@@ -6,7 +6,7 @@ export default function Blog() {
     ];
 
     return (
-        <section id="blog" className="section-padding" style={{ backgroundColor: '#000' }}>
+        <section id="blog" className="section-padding" style={{ backgroundColor: '#000', paddingTop: '20px' }}>
             <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '60px' }}>
                     <span className="section-title-small">Explora el Conocimiento</span>

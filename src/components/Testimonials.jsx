@@ -37,7 +37,7 @@ export default function Testimonials() {
     }, [nextSlide]);
 
     return (
-        <section className="section-padding" style={{ backgroundColor: '#000', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
+        <section className="section-padding" style={{ backgroundColor: '#000', textAlign: 'center', position: 'relative', overflow: 'hidden', paddingBottom: '20px' }}>
             <div className="container">
                 <span className="section-title-small">Testimonios de Éxito</span>
                 <h2 className="section-title-large" style={{ marginBottom: '60px' }}>Casos Reales con IA</h2>
