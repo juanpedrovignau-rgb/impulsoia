@@ -17,7 +17,7 @@ export default function Blog() {
                     {posts.map((post, i) => (PostCard(post, i)))}
                 </div>
 
-                <div style={{ textAlign: 'center', marginTop: '60px' }}>
+                <div style={{ textAlign: 'center', marginTop: '20px' }}>
                     <button className="btn btn-secondary">Explorar Todos los Artículos</button>
                 </div>
             </div>

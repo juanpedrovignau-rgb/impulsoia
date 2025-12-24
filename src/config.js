@@ -3,7 +3,7 @@ export const businessConfig = {
     tagline: "Inteligencia Artificial para tu Negocio",
     description: "Transformamos tu empresa con soluciones de Inteligencia Artificial a medida. Optimizamos procesos y potenciamos tu crecimiento tecnológico.",
     phone: "",
-    whatsappNumber: "5491159722457",
+    whatsappNumber: "5491167026555",
     address: "Buenos Aires, Argentina",
     locationDetail: "Software & AI Consulting",
     email: "contacto@impulsoia.com",

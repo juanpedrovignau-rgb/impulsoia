@@ -58,7 +58,6 @@ export default function Footer() {
                     <div style={{ display: 'flex', gap: '20px' }}>
                         <span>Privacidad</span>
                         <span>Términos</span>
-                        <span style={{ color: 'var(--accent-yellow)' }}>Hecho con IA</span>
                     </div>
                 </div>
             </div>
