@@ -2,8 +2,46 @@ import { businessConfig } from '../config';
 
 export default function Contact() {
     return (
-        <section id="contact" className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
-            <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'start' }}>
+        <section id="contact" className="section-padding" style={{ position: 'relative', backgroundColor: 'var(--bg-primary)', overflow: 'hidden' }}>
+            {/* Video Background */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: 0
+            }}>
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.85)',
+                    zIndex: 2
+                }}></div>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 1
+                    }}
+                >
+                    <source src="/agente-ventas-ia.mp4" type="video/mp4" />
+                </video>
+            </div>
+
+            <div className="container" style={{ position: 'relative', zIndex: 3, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '80px', alignItems: 'start' }}>
                 <div>
                     <span className="section-title-small">Contacto Directo</span>
                     <h2 className="section-title-large">Conectá con<br />Expertos en IA</h2>
