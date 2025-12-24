@@ -144,7 +144,7 @@ export default function Hero() {
                             required
                         ></textarea>
 
-                        <button type="submit" className="btn btn-primary" style={{ marginTop: '5px', width: '100%', height: '48px', fontSize: '0.9rem' }}>AGENDAR LLAMADA</button>
+                        <button type="submit" className="btn btn-primary" style={{ marginTop: '5px', width: '100%', height: '48px', fontSize: '0.9rem' }}>📞 LLAMADA GRATIS</button>
                     </form>
                 </div>
             </div>
