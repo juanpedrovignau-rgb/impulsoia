@@ -24,21 +24,49 @@ export default function Hero() {
                     width: '100%',
                     height: '100%',
                     backgroundColor: 'rgba(0,0,0,0.8)',
-                    zIndex: 2 // Overlay on top of image
+                    zIndex: 2 // Overlay on top of media
                 }}></div>
-                <img
-                    src={businessConfig.hero.image}
-                    alt="Hero Background"
-                    style={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'cover',
-                        zIndex: 1 // Image behind overlay
-                    }}
-                />
+
+                {businessConfig.hero.video ? (
+                    <video
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 1
+                        }}
+                    >
+                        <source src={businessConfig.hero.video} type="video/mp4" />
+                        {/* Fallback to image if video fails to load */}
+                        <img
+                            src={businessConfig.hero.image}
+                            alt="Hero Background"
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                    </video>
+                ) : (
+                    <img
+                        src={businessConfig.hero.image}
+                        alt="Hero Background"
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            zIndex: 1 // Image behind overlay
+                        }}
+                    />
+                )}
             </div>
 
             <div className="container grid-2-cols" style={{

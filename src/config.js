@@ -20,7 +20,8 @@ export const businessConfig = {
         title: "Impulsa tu Negocio con",
         subtitle: "Inteligencia Artificial",
         features: ["Consultoría Estratégica", "Automatización de Procesos", "Agentes Inteligentes", "Estrategia CRM & Ventas"],
-        image: "/ai-hero-bg.png"
+        image: "/ai-hero-bg.png",
+        video: "/agente-ventas-ia.mp4"
     },
     about: {
         title: "Expertos en Innovación Digital",
