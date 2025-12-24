@@ -2,16 +2,14 @@ import React from 'react';
 
 export default function Insight() {
     return (
-        <section style={{
+        <section className="section-padding" style={{
             backgroundColor: 'var(--bg-secondary)',
-            padding: '100px 0',
             borderTop: '1px solid rgba(255,255,255,0.05)',
             borderBottom: '1px solid rgba(255,255,255,0.05)',
             textAlign: 'center'
         }}>
             <div className="container">
-                <h2 style={{
-                    fontSize: '2.8rem',
+                <h2 className="section-title-large" style={{
                     fontWeight: '800',
                     color: '#fff',
                     lineHeight: '1.2',

@@ -57,8 +57,7 @@ export default function Metrics() {
                 }}>
                     {businessConfig.metrics.stats && businessConfig.metrics.stats.map((metric, index) => (
                         <div key={index} className="glass-card" style={{ padding: '40px 20px', borderBottom: '2px solid rgba(0, 206, 209, 0.2)' }}>
-                            <div style={{
-                                fontSize: '3.5rem',
+                            <div className="metric-number" style={{
                                 fontWeight: '900',
                                 color: 'var(--accent-color)',
                                 marginBottom: '10px',
@@ -67,7 +66,7 @@ export default function Metrics() {
                                 {metric.number}
                             </div>
                             <div style={{
-                                fontSize: '0.9rem',
+                                fontSize: '0.85rem',
                                 color: 'var(--accent-yellow)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '2px',

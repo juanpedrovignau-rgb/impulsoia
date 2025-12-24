@@ -138,6 +138,16 @@ button {
   -webkit-text-fill-color: transparent;
 }
 
+.metric-number {
+  font-size: 3.5rem;
+}
+
+@media (max-width: 768px) {
+  .metric-number {
+    font-size: 2.5rem;
+  }
+}
+
 .glass-card {
   background: rgba(255, 255, 255, 0.02);
   -webkit-backdrop-filter: blur(20px);
@@ -237,7 +247,7 @@ button {
   }
 }
 
-/* Utility Classes for Responsive Layouts */
+/* Responsive Utility Classes */
 .grid-2-cols {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -251,84 +261,108 @@ button {
   gap: 40px;
 }
 
-.insurance-banner-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 20px;
+.text-left {
+  text-align: left;
 }
 
-.hero-features-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 1024px) {
+  .section-title-large {
+    font-size: 3rem;
+  }
+
+  .grid-4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
-  .hero-features-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .hero-title {
+    font-size: 3rem !important;
+    line-height: 1.1;
   }
 
-  .container {
-    padding: 0 20px;
+  .section-title-large {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+
+  .grid-2-cols,
+  .grid-4-cols {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .text-md-center {
+    text-align: center !important;
   }
 
   .section-padding {
     padding: 60px 0;
   }
 
-  .section-title-large {
-    font-size: 2.5rem;
+  .container {
+    padding: 0 24px;
   }
 
-  .grid-2-cols {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .navbar {
-    padding: 15px 20px;
-  }
-
+  /* Navigation */
   .nav-links {
-    display: none;
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    padding: 15px;
+    justify-content: space-around;
+    z-index: 1000;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .nav-link {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
 }
 
 @media (max-width: 480px) {
-  .hero-features-grid {
-    grid-template-columns: 1fr;
+  .hero-title {
+    font-size: 2.25rem !important;
   }
 
   .section-title-large {
     font-size: 2rem;
-    line-height: 1.2;
-  }
-
-  .section-title-small {
-    font-size: 0.75rem;
-  }
-
-  .btn {
-    padding: 14px 28px;
-    font-size: 0.85rem;
-  }
-
-  .glass-card {
-    padding: 25px;
-  }
-
-  .container {
-    padding: 0 15px;
   }
 
   .section-padding {
     padding: 40px 0;
   }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .glass-card {
+    padding: 25px !important;
+  }
+
+  .hero-features-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
-/* Hero Zoom Out Animation */
+/* Animations */
 @keyframes zoomOutEffect {
   from {
     transform: scale(1.4);

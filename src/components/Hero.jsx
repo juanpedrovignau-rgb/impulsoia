@@ -74,12 +74,11 @@ export default function Hero() {
                 zIndex: 5,
                 paddingTop: '40px',
                 paddingBottom: '20px',
-                alignItems: 'flex-start',
                 minHeight: 'calc(100vh - var(--header-height))'
             }}>
-                <div style={{ textAlign: 'left' }}>
+                <div className="text-md-center" style={{ textAlign: 'left' }}>
                     <span className="section-title-small">Consultoría de Élite</span>
-                    <h1 className="hero-title" style={{ fontSize: '5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
+                    <h1 className="hero-title" style={{ fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
                         {businessConfig.hero.title} <br />
                         <span style={{
                             background: 'linear-gradient(to right, #ffffff, var(--accent-color))',
@@ -88,33 +87,33 @@ export default function Hero() {
                             textShadow: '0 0 30px rgba(0, 206, 209, 0.3)'
                         }}>{businessConfig.hero.subtitle}</span>
                     </h1>
-                    <p style={{ fontSize: '1.25rem', maxWidth: '550px', marginBottom: '45px', color: 'var(--text-secondary)', fontWeight: '300' }}>
+                    <p style={{ fontSize: '1.1rem', maxWidth: '550px', margin: '0 0 45px', color: 'var(--text-secondary)', fontWeight: '300' }}>
                         Lideramos la transición hacia procesos autónomos con <b style={{ color: '#fff' }}>Inteligencia Artificial</b> de última generación.
                     </p>
 
-                    <div className="hero-features-grid" style={{ gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '40px', maxWidth: '450px' }}>
+                    <div className="hero-features-grid" style={{ display: 'grid', gap: '20px', marginBottom: '40px', maxWidth: '450px' }}>
                         {businessConfig.hero.features.map((feature, index) => (
-                            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '1rem', color: '#fff' }}>
+                            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.9rem', color: '#fff', justifyContent: 'inherit' }}>
                                 <div style={{
-                                    width: '24px',
-                                    height: '24px',
+                                    width: '20px',
+                                    height: '20px',
                                     borderRadius: '50%',
                                     backgroundColor: 'var(--accent-soft)',
                                     display: 'flex',
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     color: 'var(--accent-yellow)',
-                                    fontSize: '0.8rem',
+                                    fontSize: '0.7rem',
                                     flexShrink: 0,
                                     fontWeight: '900'
                                 }}>✓</div>
-                                <span>{feature}</span>
+                                <span style={{ textAlign: 'left' }}>{feature}</span>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', marginLeft: 'auto', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 auto', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
                     <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.5rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
                     <p style={{ fontSize: '0.8rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
 

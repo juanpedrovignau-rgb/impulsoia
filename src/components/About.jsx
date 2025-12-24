@@ -3,26 +3,26 @@ import { businessConfig } from '../config';
 export default function About() {
     return (
         <section id="about" className="section-padding" style={{ backgroundColor: '#000', overflow: 'hidden' }}>
-            <div className="container grid-2-cols" style={{ alignItems: 'center', gap: '80px' }}>
-                <div style={{ textAlign: 'left' }}>
+            <div className="container grid-2-cols" style={{ alignItems: 'center' }}>
+                <div className="text-md-center" style={{ textAlign: 'left' }}>
                     <span className="section-title-small">Sobre Nosotros</span>
                     <h2 className="section-title-large">Expertos en <br />Innovación Digital</h2>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', marginBottom: '30px', fontWeight: '300', lineHeight: '1.8' }}>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '30px', fontWeight: '300', lineHeight: '1.8' }}>
                         En <b style={{ color: '#fff' }}>Impulso IA</b>, no solo implementamos tecnología; transformamos la cultura operativa de las empresas. Nuestra misión es democratizar el acceso a la Inteligencia Artificial de alto nivel.
                     </p>
-                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-                        <div style={{ background: 'var(--accent-soft)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                    <div style={{ display: 'flex', gap: '20px', alignItems: 'center', justifyContent: 'inherit' }}>
+                        <div style={{ background: 'var(--accent-soft)', padding: '15px 20px', borderRadius: '12px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
                             <h4 style={{ color: 'var(--accent-color)', fontSize: '1.5rem', fontWeight: '900' }}>10+</h4>
-                            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Años Exp.</p>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Años Exp.</p>
                         </div>
-                        <div style={{ background: 'var(--accent-soft)', padding: '20px', borderRadius: '12px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                        <div style={{ background: 'var(--accent-soft)', padding: '15px 20px', borderRadius: '12px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
                             <h4 style={{ color: 'var(--accent-yellow)', fontSize: '1.5rem', fontWeight: '900' }}>50+</h4>
-                            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Proyectos</p>
+                            <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', textTransform: 'uppercase' }}>Proyectos</p>
                         </div>
                     </div>
                 </div>
 
-                <div style={{ position: 'relative' }}>
+                <div style={{ position: 'relative', width: '100%', maxWidth: '500px', margin: '0 auto' }}>
                     <div style={{
                         borderRadius: '24px',
                         width: '100%',
