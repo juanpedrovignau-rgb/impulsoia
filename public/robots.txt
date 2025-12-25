@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://impulsoia.cloud/sitemap.xml
+Sitemap: https://impulsoia.com/sitemap.xml
