@@ -1,4 +1,5 @@
 import { businessConfig } from '../config';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
@@ -22,8 +23,10 @@ export default function Footer() {
                     <h4 style={{ color: '#fff', marginBottom: '25px', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px' }}>Soluciones</h4>
                     <ul style={{ listStyle: 'none', fontSize: '0.9rem', lineHeight: '2.5' }}>
                         {businessConfig.services.map((service, index) => (
-                            <li key={index} style={{ cursor: 'pointer', transition: '0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = '#888'}>
-                                {service.title}
+                            <li key={index}>
+                                <a href="/#services" style={{ color: 'inherit', textDecoration: 'none', transition: '0.3s' }} onMouseOver={e => e.target.style.color = '#fff'} onMouseOut={e => e.target.style.color = '#888'}>
+                                    {service.title}
+                                </a>
                             </li>
                         ))}
                     </ul>
@@ -32,9 +35,9 @@ export default function Footer() {
                 <div style={{ gridColumn: 'span 1' }}>
                     <h4 style={{ color: '#fff', marginBottom: '25px', textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px' }}>Empresa</h4>
                     <ul style={{ listStyle: 'none', fontSize: '0.9rem', lineHeight: '2.5' }}>
-                        <li>Sobre Nosotros</li>
-                        <li>Proyectos</li>
-                        <li>Blog Técnico</li>
+                        <li><a href="/#about" style={{ color: 'inherit', textDecoration: 'none' }}>Sobre Nosotros</a></li>
+                        <li><a href="/#services" style={{ color: 'inherit', textDecoration: 'none' }}>Proyectos</a></li>
+                        <li><Link to="/blog" style={{ color: 'inherit', textDecoration: 'none' }}>Blog Técnico</Link></li>
                         <li>Carreras</li>
                     </ul>
                 </div>

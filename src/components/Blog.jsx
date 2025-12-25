@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export default function Blog() {
     const posts = [
         { title: "IA en Pymes: Duplicando la Eficiencia Operativa", excerpt: "Descubrí las herramientas que están cambiando las reglas del juego para delegar tareas repetitivas.", date: "20 Dic, 2025" },
@@ -18,7 +20,7 @@ export default function Blog() {
                 </div>
 
                 <div style={{ textAlign: 'center', marginTop: '20px' }}>
-                    <button className="btn btn-secondary">Explorar Todos los Artículos</button>
+                    <Link to="/blog" className="btn btn-secondary">Explorar Todos los Artículos</Link>
                 </div>
             </div>
         </section>
@@ -33,7 +35,7 @@ function PostCard(post, i) {
                 <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '15px', lineHeight: '1.4' }}>{post.title}</h3>
                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '20px', lineHeight: '1.6', fontWeight: '300' }}>{post.excerpt}</p>
             </div>
-            <a href="#" style={{
+            <Link to="/blog" style={{
                 fontWeight: '700',
                 textTransform: 'uppercase',
                 fontSize: '0.75rem',
@@ -44,7 +46,7 @@ function PostCard(post, i) {
                 gap: '8px'
             }}>
                 Leer Artículo <span style={{ fontSize: '1.1rem' }}>&rarr;</span>
-            </a>
+            </Link>
         </div>
     );
 }
