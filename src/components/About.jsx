@@ -22,7 +22,7 @@ export default function About() {
                     </div>
                 </div>
 
-                <div style={{ position: 'relative', width: '100%', maxWidth: '500px', margin: '0 auto' }}>
+                <div className="glass-card" style={{ padding: '30px', margin: '0 auto', width: '100%', maxWidth: '100%' }}>
                     <div style={{
                         borderRadius: '24px',
                         width: '100%',

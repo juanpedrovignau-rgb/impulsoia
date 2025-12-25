@@ -68,7 +68,7 @@ export default function Contact() {
                         </div>
                     </div>
 
-                    <div className="glass-card" style={{ padding: '30px', margin: '0 auto', width: '100%', maxWidth: '500px' }}>
+                    <div className="glass-card" style={{ padding: '30px', margin: '0 auto', width: '100%', maxWidth: '100%' }}>
                         <h3 style={{ fontSize: '1.8rem', fontWeight: '900', marginBottom: '30px', color: '#fff' }}>
                             Enviar Consulta
                         </h3>

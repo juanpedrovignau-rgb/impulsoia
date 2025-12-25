@@ -76,9 +76,9 @@ export default function Hero() {
                 paddingBottom: '20px',
                 minHeight: 'calc(100vh - var(--header-height))'
             }}>
-                <div className="text-md-center" style={{ textAlign: 'left' }}>
+                <div style={{ textAlign: 'left' }}>
                     <span className="section-title-small">Consultoría de Élite</span>
-                    <h1 className="hero-title" style={{ fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
+                    <h1 className="hero-title" style={{ fontSize: '5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
                         {businessConfig.hero.title} <br />
                         <span style={{
                             background: 'linear-gradient(to right, #ffffff, var(--accent-color))',
@@ -87,63 +87,42 @@ export default function Hero() {
                             textShadow: '0 0 30px rgba(0, 206, 209, 0.3)'
                         }}>{businessConfig.hero.subtitle}</span>
                     </h1>
-                    <p style={{ fontSize: '1.1rem', maxWidth: '550px', margin: '0 0 45px', color: 'var(--text-secondary)', fontWeight: '300' }}>
+                    <p style={{ fontSize: '1.25rem', maxWidth: '550px', marginBottom: '45px', color: 'var(--text-secondary)', fontWeight: '300' }}>
                         Lideramos la transición hacia procesos autónomos con <b style={{ color: '#fff' }}>Inteligencia Artificial</b> de última generación.
                     </p>
-
-                    <div className="hero-features-grid" style={{ display: 'grid', gap: '20px', marginBottom: '40px', maxWidth: '450px' }}>
-                        {businessConfig.hero.features.map((feature, index) => (
-                            <div key={index} style={{ display: 'flex', alignItems: 'center', gap: '12px', fontSize: '0.9rem', color: '#fff', justifyContent: 'inherit' }}>
-                                <div style={{
-                                    width: '20px',
-                                    height: '20px',
-                                    borderRadius: '50%',
-                                    backgroundColor: 'var(--accent-soft)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    color: 'var(--accent-yellow)',
-                                    fontSize: '0.7rem',
-                                    flexShrink: 0,
-                                    fontWeight: '900'
-                                }}>✓</div>
-                                <span style={{ textAlign: 'left' }}>{feature}</span>
-                            </div>
-                        ))}
-                    </div>
                 </div>
 
-                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 auto', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
-                    <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.5rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
-                    <p style={{ fontSize: '0.8rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
+                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 0 0 auto', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                    <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
+                    <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
 
-                    <form style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <form style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                            <input type="text" placeholder="Nombre" style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.85rem' }} required />
-                            <input type="text" placeholder="Apellido" style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.85rem' }} required />
+                            <input type="text" placeholder="Nombre" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                            <input type="text" placeholder="Apellido" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                            <input type="tel" placeholder="WhatsApp" style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.85rem' }} required />
-                            <input type="email" placeholder="Email" style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.85rem' }} required />
+                            <input type="tel" placeholder="WhatsApp" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                            <input type="email" placeholder="Email" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
                         </div>
-                        <input type="text" placeholder="Instagram" style={{ padding: '10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.85rem' }} required />
+                        <input type="text" placeholder="Instagram" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
 
                         <textarea
                             placeholder="¿Qué proceso o área de tu empresa te gustaría mejorar con IA?"
                             rows="4"
                             style={{
-                                padding: '10px',
+                                padding: '12px',
                                 background: 'rgba(255,255,255,0.03)',
                                 border: '1px solid rgba(255,255,255,0.1)',
                                 borderRadius: '8px',
                                 color: '#fff',
-                                fontSize: '0.85rem',
+                                fontSize: '0.9rem',
                                 resize: 'none'
                             }}
                             required
                         ></textarea>
 
-                        <button type="submit" className="btn btn-primary" style={{ marginTop: '5px', width: '100%', height: '48px', fontSize: '0.9rem' }}>📞 CONSULTORÍA SIN CARGO</button>
+                        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem' }}>📞 LLAMADA GRATIS</button>
                     </form>
                 </div>
             </div>

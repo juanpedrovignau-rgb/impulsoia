@@ -94,8 +94,8 @@ button {
   background: rgba(255, 255, 255, 0.05);
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 .btn-secondary:hover {
@@ -203,11 +203,12 @@ button {
   }
 
   .nav-menu {
-    gap: 15px !important;
-    font-size: 0.85rem;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-top: 15px;
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+    z-index: 1100;
   }
 }
 
@@ -311,28 +312,26 @@ button {
 
   .container {
     padding: 0 24px;
-  }
-
-  /* Navigation */
-  .nav-links {
-    display: flex !important;
-    position: fixed;
-    bottom: 0;
-    left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    padding: 15px;
-    justify-content: space-around;
-    z-index: 1000;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    /* Full width on mobile */
   }
 
-  .nav-link {
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+  .nav-menu {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 15px;
+  }
+
+  .nav-menu ul {
+    gap: 15px !important;
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .mobile-menu-btn {
+    display: none !important;
   }
 }
 
