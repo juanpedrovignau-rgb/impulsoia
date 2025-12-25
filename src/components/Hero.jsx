@@ -72,11 +72,15 @@ export default function Hero() {
             <div className="container grid-2-cols" style={{
                 position: 'relative',
                 zIndex: 5,
-                paddingTop: '40px',
+                paddingTop: '20px',
                 paddingBottom: '20px',
-                minHeight: 'calc(100vh - var(--header-height))'
+                minHeight: 'calc(100vh - var(--header-height))',
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                flexWrap: 'wrap'
             }}>
-                <div style={{ textAlign: 'left' }}>
+                <div style={{ textAlign: 'left', flex: '1', minWidth: '300px' }}>
                     <span className="section-title-small">Consultoría de Élite</span>
                     <h1 className="hero-title" style={{ fontSize: '5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
                         {businessConfig.hero.title} <br />
@@ -92,7 +96,7 @@ export default function Hero() {
                     </p>
                 </div>
 
-                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 0 0 auto', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
+                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 0 0 auto', border: '1px solid rgba(0, 206, 209, 0.1)', minWidth: '300px' }}>
                     <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
                     <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
 
@@ -122,7 +126,7 @@ export default function Hero() {
                             required
                         ></textarea>
 
-                        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem' }}>📞 LLAMADA GRATIS</button>
+                        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem' }}>📞 CONSULTORÍA SIN CARGO</button>
                     </form>
                 </div>
             </div>
