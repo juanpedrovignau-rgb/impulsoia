@@ -78,9 +78,30 @@ export default function BlogPage() {
                             overflow: 'hidden',
                             border: '1px solid rgba(255,255,255,0.05)'
                         }}>
-                            {/* Article Header with Video Background */}
+                            {/* Article Header with Image Background */}
                             <div style={{ position: 'relative', padding: '60px 40px', overflow: 'hidden' }}>
-                                <VideoBackground overlayOpacity={0.7} />
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'rgba(0,0,0,0.7)',
+                                    zIndex: 2
+                                }}></div>
+                                <img
+                                    src={post.image}
+                                    alt={post.title}
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                        zIndex: 1
+                                    }}
+                                />
                                 <div style={{ position: 'relative', zIndex: 5 }}>
                                     <div style={{ fontSize: '0.8rem', color: 'var(--accent-yellow)', marginBottom: '15px', fontWeight: 'bold', textTransform: 'uppercase' }}>{post.date}</div>
                                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '0', lineHeight: '1.1', color: '#fff' }}>{post.title}</h2>
