@@ -1,6 +1,18 @@
 import { businessConfig } from '../config';
+import React, { useState } from 'react';
 
 export default function Hero() {
+    const [status, setStatus] = useState('idle');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('loading');
+        // Prepara los datos del formulario (opcional procesarlos aquí para n8n)
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setStatus('success');
+        e.target.reset();
+    };
+
     return (
         <section id="home" style={{
             minHeight: '100vh',
@@ -57,7 +69,7 @@ export default function Hero() {
                         src={businessConfig.hero.image}
                         alt="Hero Background"
                         style={{
-                            position: 'absolute',
+                            position: 0,
                             top: 0,
                             left: 0,
                             width: '100%',
@@ -100,34 +112,46 @@ export default function Hero() {
                     <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
                     <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
 
-                    <form style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                            <input type="text" placeholder="Nombre" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
-                            <input type="text" placeholder="Apellido" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                    {status === 'success' ? (
+                        <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '12px', border: '1px solid var(--accent-color)' }}>
+                            <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✅</div>
+                            <h4 style={{ marginBottom: '10px' }}>¡Solicitud Enviada!</h4>
+                            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Te contactaremos por WhatsApp a la brevedad.</p>
+                            <button onClick={() => setStatus('idle')} className="btn btn-secondary" style={{ marginTop: '20px' }}>Volver</button>
                         </div>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-                            <input type="tel" placeholder="WhatsApp" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
-                            <input type="email" placeholder="Email" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
-                        </div>
-                        <input type="text" placeholder="Instagram" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                    ) : (
+                        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                <input name="name" type="text" placeholder="Nombre" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                                <input name="lastname" type="text" placeholder="Apellido" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                            </div>
+                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                                <input name="whatsapp" type="tel" placeholder="WhatsApp" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                                <input name="email" type="email" placeholder="Email" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
+                            </div>
+                            <input name="instagram" type="text" placeholder="Instagram" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
 
-                        <textarea
-                            placeholder="¿Qué proceso o área de tu empresa te gustaría mejorar con IA?"
-                            rows="4"
-                            style={{
-                                padding: '12px',
-                                background: 'rgba(255,255,255,0.03)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: '#fff',
-                                fontSize: '0.9rem',
-                                resize: 'none'
-                            }}
-                            required
-                        ></textarea>
+                            <textarea
+                                name="content"
+                                placeholder="¿Qué proceso o área de tu empresa te gustaría mejorar con IA?"
+                                rows="4"
+                                style={{
+                                    padding: '12px',
+                                    background: 'rgba(255,255,255,0.03)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '8px',
+                                    color: '#fff',
+                                    fontSize: '0.9rem',
+                                    resize: 'none'
+                                }}
+                                required
+                            ></textarea>
 
-                        <button type="submit" className="btn btn-primary" style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem' }}>📞 CONSULTORÍA SIN CARGO</button>
-                    </form>
+                            <button type="submit" disabled={status === 'loading'} className="btn btn-primary" style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem', opacity: status === 'loading' ? 0.7 : 1 }}>
+                                {status === 'loading' ? 'ENVIANDO...' : '📞 CONSULTORÍA SIN CARGO'}
+                            </button>
+                        </form>
+                    )}
                 </div>
             </div>
         </section>

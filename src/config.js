@@ -26,7 +26,7 @@ export const businessConfig = {
     about: {
         title: "Expertos en Innovación Digital",
         description: "En Impulso IA, creemos que la tecnología debe trabajar para las personas. Somos un equipo apasionado por la inteligencia artificial y su capacidad para transformar industrias. Ayudamos a empresas a dar el salto hacia el futuro.",
-        image: "/ai-about-amber.png"
+        image: "/ai-about.png"
     },
     services: [
         { title: "Consultoría Estratégica", icon: "🧠", description: "Diseñamos la hoja de ruta para integrar IA en tu modelo de negocio." },

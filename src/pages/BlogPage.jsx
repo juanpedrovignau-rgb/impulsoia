@@ -63,7 +63,7 @@ export default function BlogPage() {
                     <main>
                         <article className="glass-card" style={{ padding: '0', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
                             <div style={{
-                                maxWIdth: '800px',
+                                maxWidth: '800px',
                                 margin: '0 auto',
                                 color: 'var(--text-secondary)',
                                 lineHeight: '1.9',
