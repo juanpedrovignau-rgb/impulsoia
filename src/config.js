@@ -63,7 +63,7 @@ export const businessConfig = {
             excerpt: "La inteligencia artificial está transformando el panorama de las Pymes en 2025. Al implementar agentes autónomos y herramientas de automatización, las empresas locales están logrando duplicar su eficiencia operativa en tiempo récord.",
             date: "2025-12-20",
             dateFormatted: "20 Dic, 2025",
-            image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1000&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2000&auto=format&fit=crop",
             content: `
             ## Introducción: El Amanecer de la Pyme Aumentada
             
@@ -158,7 +158,7 @@ export const businessConfig = {
             excerpt: "Los chatbots convencionales han evolucionado hacia Agentes Autónomos capaces de tomar decisiones basadas en contexto real. Estos sistemas de IA no solo responden consultas, sino que ejecutan flujos de trabajo completos.",
             date: "2025-12-15",
             dateFormatted: "15 Dic, 2025",
-            image: "https://images.unsplash.com/photo-1531746790731-6c087fecd05a?q=80&w=1000&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=2000&auto=format&fit=crop",
             content: `
             ## Introducción: Más allá de las Respuestas Programadas
             
@@ -215,7 +215,7 @@ export const businessConfig = {
             excerpt: "Iniciar el camino de la automatización empresarial requiere una hoja de ruta clara para maximizar el ROI. El primer paso es identificar los cuellos de botella operativos donde la IA puede generar un impacto inmediato.",
             date: "2025-12-05",
             dateFormatted: "05 Dic, 2025",
-            image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
+            image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2000&auto=format&fit=crop",
             content: `
             ## Introducción: El Mapa Estratégico hacia la Autonomía
             

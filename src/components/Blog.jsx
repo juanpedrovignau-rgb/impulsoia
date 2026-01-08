@@ -36,7 +36,7 @@ function PostCard(post, i) {
                     <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '15px', lineHeight: '1.4' }}>{post.title}</h3>
                     <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', marginBottom: '20px', lineHeight: '1.6', fontWeight: '300' }}>{post.excerpt}</p>
                 </div>
-                <Link to={`/ blog / ${post.slug} `} style={{
+                <Link to={`/blog/${post.slug}`} style={{
                     fontWeight: '700',
                     textTransform: 'uppercase',
                     fontSize: '0.75rem',

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { businessConfig } from '../config';
 import { Link, useParams } from 'react-router-dom';
 import VideoBackground from '../components/VideoBackground';
@@ -62,14 +62,53 @@ export default function BlogPage() {
                 <div className="container blog-main-grid" style={{ marginTop: '60px' }}>
                     <main>
                         <article className="glass-card" style={{ padding: '0', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
-                            <div style={{ padding: '50px' }}>
-                                <div style={{ color: 'var(--text-secondary)', lineHeight: '1.9', fontSize: '1.15rem', fontWeight: '300', whiteSpace: 'pre-line' }}>
-                                    {post.content}
-                                </div>
-                                <div style={{ display: 'flex', gap: '15px', marginTop: '50px', paddingTop: '30px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
-                                    <button onClick={() => handleShare(post)} className="btn btn-secondary">🔗 Compartir</button>
-                                    <a href={`https://wa.me/${businessConfig.whatsappNumber}`} className="btn btn-primary">Agendar Consultoría</a>
-                                </div>
+                            <div style={{
+                                maxWIdth: '800px',
+                                margin: '0 auto',
+                                color: 'var(--text-secondary)',
+                                lineHeight: '1.9',
+                                fontSize: '1.15rem',
+                                fontWeight: '300'
+                            }}>
+                                {post.content.split('\n').map((line, index) => {
+                                    if (line.startsWith('## ')) {
+                                        return <h2 key={index} style={{ fontSize: '2rem', fontWeight: '900', marginTop: '50px', marginBottom: '25px', color: '#fff', letterSpacing: '-0.5px' }}>{line.replace('## ', '')}</h2>;
+                                    }
+                                    if (line.startsWith('### ')) {
+                                        return <h3 key={index} style={{ fontSize: '1.5rem', fontWeight: '800', marginTop: '35px', marginBottom: '15px', color: 'var(--accent-color)' }}>{line.replace('### ', '')}</h3>;
+                                    }
+                                    if (line.trim() === '') return null;
+                                    if (line.trim() === '---') return <hr key={index} style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '40px 0' }} />;
+
+                                    // Handle lists
+                                    if (line.match(/^\d+\. /)) {
+                                        return <div key={index} style={{ marginBottom: '15px', paddingLeft: '20px', display: 'flex', gap: '10px' }}>
+                                            <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>{line.split('. ')[0]}.</span>
+                                            <span>{line.split('. ').slice(1).join('. ')}</span>
+                                        </div>;
+                                    }
+                                    if (line.trim().startsWith('- ')) {
+                                        return <div key={index} style={{ marginBottom: '12px', paddingLeft: '20px', display: 'flex', gap: '10px' }}>
+                                            <span style={{ color: 'var(--accent-color)' }}>•</span>
+                                            <span>{line.trim().replace('- ', '')}</span>
+                                        </div>;
+                                    }
+
+                                    // Basic bold parsing
+                                    const parts = line.split(/(\*\*.*?\*\*)/g);
+                                    const formattedLine = parts.map((part, i) => {
+                                        if (part.startsWith('**') && part.endsWith('**')) {
+                                            return <strong key={i} style={{ color: '#fff', fontWeight: '700', borderBottom: '1px solid var(--accent-color)' }}>{part.slice(2, -2)}</strong>;
+                                        }
+                                        return part;
+                                    });
+
+                                    return <p key={index} style={{ marginBottom: '25px' }}>{formattedLine}</p>;
+                                })}
+                            </div>
+                            <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '60px', paddingTop: '40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+                                <button onClick={() => handleShare(post)} className="btn btn-secondary">🔗 Compartir Artículo</button>
+                                <a href={`https://wa.me/${businessConfig.whatsappNumber}`} className="btn btn-primary" style={{ boxShadow: '0 0 20px var(--accent-glow)' }}>AGENDAR CONSULTORÍA GRATIS</a>
                             </div>
                         </article>
                     </main>
@@ -132,24 +171,50 @@ export default function BlogPage() {
     );
 }
 
-function Sidebar({ businessConfig }) {
+function Sidebar() {
+    const [status, setStatus] = useState('idle');
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('loading');
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        data.source = 'Blog Sidebar Form';
+
+        try {
+            // Reemplazar con URL real de n8n
+            // await fetch('YOUR_N8N_WEBHOOK_URL', { ... });
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            setStatus('success');
+            e.target.reset();
+        } catch {
+            setStatus('error');
+        }
+    };
+
     return (
         <div className="glass-card" style={{ padding: '40px', position: 'sticky', top: '120px', border: '1px solid rgba(0, 206, 209, 0.1)' }}>
             <h3 style={{ fontSize: '1.8rem', fontWeight: '900', marginBottom: '15px', textAlign: 'center' }}>Potenciá tu Negocio</h3>
             <p style={{ fontSize: '1rem', color: 'var(--text-secondary)', textAlign: 'center', marginBottom: '30px', fontWeight: '300' }}>
                 Agendá una sesión estratégica gratuita y descubrí el potencial de la IA en tu empresa.
             </p>
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank');
-                }}
-                style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
-            >
-                <input type="text" placeholder="Nombre Completo" style={{ padding: '15px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#fff' }} required />
-                <input type="tel" placeholder="WhatsApp" style={{ padding: '15px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#fff' }} required />
-                <button type="submit" className="btn btn-primary" style={{ width: '100%', height: '60px', fontSize: '1.1rem' }}>AGENDAR CONSULTA</button>
-            </form>
+
+            {status === 'success' ? (
+                <div style={{ textAlign: 'center', padding: '20px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '12px', border: '1px solid var(--accent-color)' }}>
+                    <p style={{ fontWeight: 'bold', color: 'var(--accent-color)' }}>¡Gracias por tu interés!</p>
+                    <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>Te contactaremos pronto.</p>
+                </div>
+            ) : (
+                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                    <input name="name" type="text" placeholder="Nombre Completo" style={{ padding: '15px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#fff' }} required />
+                    <input name="whatsapp" type="tel" placeholder="WhatsApp" style={{ padding: '15px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '10px', color: '#fff' }} required />
+                    <button type="submit" disabled={status === 'loading'} className="btn btn-primary" style={{ width: '100%', height: '60px', fontSize: '1.1rem' }}>
+                        {status === 'loading' ? 'ENVIANDO...' : 'AGENDAR CONSULTA'}
+                    </button>
+                    {status === 'error' && <p style={{ color: '#ff4444', textAlign: 'center', fontSize: '0.8rem' }}>Error. Intentalo de nuevo.</p>}
+                </form>
+            )}
+
             <div style={{ marginTop: '50px', minHeight: '300px', background: 'rgba(0, 206, 209, 0.02)', border: '1px dashed rgba(0, 206, 209, 0.2)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
                 <span style={{ fontSize: '0.75rem', color: 'rgba(0, 206, 209, 0.4)', marginBottom: '15px', textTransform: 'uppercase', letterSpacing: '2px' }}>Espacio Publicitario</span>
                 <div style={{ width: '80%', height: '200px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '8px' }}></div>

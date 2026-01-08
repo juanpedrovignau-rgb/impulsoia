@@ -1,6 +1,38 @@
 import { businessConfig } from '../config';
+import React, { useState } from 'react';
 
 export default function Contact() {
+    const [status, setStatus] = useState('idle'); // idle, loading, success, error
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus('loading');
+
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+        data.source = 'Home Contact Form';
+
+        try {
+            // Reemplazar con URL real de n8n
+            // const response = await fetch('YOUR_N8N_WEBHOOK_URL', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(data)
+            // });
+
+            // Simulación de envío exitoso
+            await new Promise(resolve => setTimeout(resolve, 1500));
+            setStatus('success');
+            e.target.reset();
+
+            // Opcional: Abrir WhatsApp después de guardar
+            // window.open(`https://wa.me/${businessConfig.whatsappNumber}?text=Hola, envié una consulta sobre: ${data.subject}`, '_blank');
+        } catch (error) {
+            console.error('Error al enviar:', error);
+            setStatus('error');
+        }
+    };
+
     return (
         <section id="contact" className="section-padding" style={{ position: 'relative', backgroundColor: 'var(--bg-primary)', overflow: 'hidden' }}>
             {/* Video Background */}
@@ -72,11 +104,23 @@ export default function Contact() {
                         <h3 style={{ fontSize: '1.8rem', fontWeight: '900', marginBottom: '30px', color: '#fff' }}>
                             Enviar Consulta
                         </h3>
-                        <form style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                            <input type="text" placeholder="Asunto" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} />
-                            <textarea placeholder="¿Cómo podemos ayudarte?" rows="5" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', resize: 'none' }}></textarea>
-                            <button type="submit" className="btn btn-primary" style={{ width: '100%', height: '60px' }}>Enviar Mensaje</button>
-                        </form>
+                        {status === 'success' ? (
+                            <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '12px', border: '1px solid var(--accent-color)' }}>
+                                <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✅</div>
+                                <h4 style={{ marginBottom: '10px' }}>¡Mensaje Enviado!</h4>
+                                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Nos pondremos en contacto contigo a la brevedad.</p>
+                                <button onClick={() => setStatus('idle')} className="btn btn-secondary" style={{ marginTop: '20px' }}>Enviar otro</button>
+                            </div>
+                        ) : (
+                            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                <input name="subject" type="text" placeholder="Asunto" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} required />
+                                <textarea name="message" placeholder="¿Cómo podemos ayudarte?" rows="5" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', resize: 'none' }} required></textarea>
+                                <button type="submit" disabled={status === 'loading'} className="btn btn-primary" style={{ width: '100%', height: '60px', opacity: status === 'loading' ? 0.7 : 1 }}>
+                                    {status === 'loading' ? 'ENVIANDO...' : 'Enviar Mensaje'}
+                                </button>
+                                {status === 'error' && <p style={{ color: '#ff4444', textAlign: 'center', fontSize: '0.8rem' }}>Error al enviar. Intenta de nuevo.</p>}
+                            </form>
+                        )}
                     </div>
                 </div>
             </div>
