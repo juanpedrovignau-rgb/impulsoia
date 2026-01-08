@@ -59,8 +59,8 @@ export default function Footer() {
                 <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.8rem' }}>
                     <span>&copy; {new Date().getFullYear()} {businessConfig.name}</span>
                     <div style={{ display: 'flex', gap: '20px' }}>
-                        <span>Privacidad</span>
-                        <span>Términos</span>
+                        <Link to="/legal/privacy" style={{ color: 'inherit', textDecoration: 'none' }}>Privacidad</Link>
+                        <Link to="/legal/terms" style={{ color: 'inherit', textDecoration: 'none' }}>Términos</Link>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import { businessConfig } from '../config';
 import { Link, useParams } from 'react-router-dom';
 import VideoBackground from '../components/VideoBackground';
 import SEO from '../components/SEO';
+import AdSlot from '../components/AdSlot';
 
 export default function BlogPage() {
     const { slug } = useParams();
@@ -103,7 +104,17 @@ export default function BlogPage() {
                                         return part;
                                     });
 
-                                    return <p key={index} style={{ marginBottom: '25px' }}>{formattedLine}</p>;
+                                    return (
+                                        <React.Fragment key={index}>
+                                            {index === 5 && (
+                                                <AdSlot
+                                                    adSlot="1234567890"
+                                                    style={{ backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}
+                                                />
+                                            )}
+                                            <p style={{ marginBottom: '25px' }}>{formattedLine}</p>
+                                        </React.Fragment>
+                                    );
                                 })}
                             </div>
                             <div style={{ display: 'flex', justifyContent: 'center', gap: '15px', marginTop: '60px', paddingTop: '40px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
@@ -215,9 +226,8 @@ function Sidebar() {
                 </form>
             )}
 
-            <div style={{ marginTop: '50px', minHeight: '300px', background: 'rgba(0, 206, 209, 0.02)', border: '1px dashed rgba(0, 206, 209, 0.2)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                <span style={{ fontSize: '0.75rem', color: 'rgba(0, 206, 209, 0.4)', marginBottom: '15px', textTransform: 'uppercase', letterSpacing: '2px' }}>Espacio Publicitario</span>
-                <div style={{ width: '80%', height: '200px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '8px' }}></div>
+            <div style={{ marginTop: '50px', minHeight: '300px', background: 'rgba(0, 206, 209, 0.02)', border: '1px dashed rgba(0, 206, 209, 0.2)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', overflow: 'hidden' }}>
+                <AdSlot adSlot="0987654321" adFormat="rectangle" />
             </div>
         </div>
     );
