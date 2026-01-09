@@ -18,11 +18,11 @@ export default function Header() {
     }, []);
 
     const navItems = [
-        { name: 'Inicio', href: '/#home' },
-        { name: 'Nosotros', href: '/#about' },
-        { name: 'Servicios', href: '/#services' },
+        { name: 'Inicio', href: '#home' },
+        { name: 'Nosotros', href: '#about' },
+        { name: 'Servicios', href: '#services' },
         { name: 'Blog', href: '/blog' },
-        { name: 'Contacto', href: '/#contact' }
+        { name: 'Contacto', href: '#contact' }
     ];
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -66,17 +66,32 @@ export default function Header() {
                     <ul>
                         {navItems.map((item) => (
                             <li key={item.href}>
-                                {item.href.startsWith('/#') ? (
-                                    <a
-                                        href={item.href}
-                                        onClick={() => {
-                                            setActiveTab(item.href.replace('/', ''));
-                                            setIsMenuOpen(false);
-                                        }}
-                                        className={`nav-link ${activeTab === item.href.replace('/', '') ? 'active' : ''}`}
-                                    >
-                                        {item.name}
-                                    </a>
+                                {item.href.startsWith('#') ? (
+                                    location.pathname === '/' ? (
+                                        <a
+                                            href={item.href}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' });
+                                                setActiveTab(item.href);
+                                                setIsMenuOpen(false);
+                                            }}
+                                            className={`nav-link ${activeTab === item.href ? 'active' : ''}`}
+                                        >
+                                            {item.name}
+                                        </a>
+                                    ) : (
+                                        <Link
+                                            to={`/${item.href}`}
+                                            onClick={() => {
+                                                setActiveTab(item.href);
+                                                setIsMenuOpen(false);
+                                            }}
+                                            className="nav-link"
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    )
                                 ) : (
                                     <Link
                                         to={item.href}
@@ -84,7 +99,7 @@ export default function Header() {
                                             setActiveTab(item.href);
                                             setIsMenuOpen(false);
                                         }}
-                                        className={`nav-link ${location.pathname === item.href ? 'active' : ''}`}
+                                        className={`nav-link ${location.pathname.startsWith(item.href) ? 'active' : ''}`}
                                     >
                                         {item.name}
                                     </Link>
