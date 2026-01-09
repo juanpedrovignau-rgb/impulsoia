@@ -83,28 +83,7 @@ export const businessConfig = {
             ### 1. Back-Office y Administración: La Revolución Silenciosa
             El back-office es a menudo el "agujero negro" de la productividad. El procesamiento manual de documentos es propenso a errores y extremadamente lento. 
             
-       ### 3. Dynamic Ad Delivery
-- **[AdSlot.jsx](file:///c:/Users/user/impulso-ia/src/components/AdSlot.jsx)**: A robust React component that safely handles the Google AdSense script push, preventing race conditions or layout shifts.
-- **Strategic Placement**: 
-    - **In-Article**: Injected an ad slot between content blocks in `BlogPage.jsx`.
-    - **Sidebar**: Included an ad slot in the blog sidebar for desktop viewers.
-
-## Content Expansion: Article #1
-
-I have deployed the first deep-dive article designed for authority and leads.
-
-- **Title**: IA vs. Personal Extra: ¿Cuándo es momento de automatizar tu departamento de ventas?
-- **Keywords**: ROI ventas, automatización comercial, agentes autónomos.
-- **Creative Asset**: Custom generated image representing a futuristic AI sales console.
-
-````carousel
-![New Article in Blog List](/C:/Users/user/.gemini/antigravity/brain/01b25e99-095e-47b5-ba9a-8c7010c1d7c3/blog_list_new_article_1767922116885.png)
-<!-- slide -->
-![In-Depth Content Render](/C:/Users/user/.gemini/antigravity/brain/01b25e99-095e-47b5-ba9a-8c7010c1d7c3/article_content_verify_1767922144702.png)
-````
-
-## Visual Verification (AdSense Infrastructure)
- unitario en una factura no coincide con la cotización previa guardada en el sistema, bloqueando el pago y notificando a finanzas automáticamente.
+            **La Solución de IA:** Mediante el uso de *Intelligent Document Processing* (IDP), las Pymes pueden automatizar la entrada de datos de facturas, contratos y notas de entrega. Los Agentes de IA no solo leen el texto, sino que comprenden la relación entre los campos. Por ejemplo, pueden detectar si el precio unitario en una factura no coincide con la cotización previa guardada en el sistema, bloqueando el pago y notificando a finanzas automáticamente.
             
             **Resultado:** Reducción del tiempo de procesamiento administrativo en un 85% y eliminación total de recargos por errores u olvidos en pagos.
 
