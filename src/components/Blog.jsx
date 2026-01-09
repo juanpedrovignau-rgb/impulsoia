@@ -2,7 +2,7 @@ import { businessConfig } from '../config';
 import { Link } from 'react-router-dom';
 
 export default function Blog() {
-    const posts = [...businessConfig.blog].sort((a, b) => new Date(b.date) - new Date(a.date));
+    const posts = [...businessConfig.blog].sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 3);
 
     return (
         <section id="blog" className="section-padding" style={{ backgroundColor: '#000', paddingTop: '20px' }}>
