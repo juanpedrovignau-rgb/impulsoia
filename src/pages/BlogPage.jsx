@@ -7,7 +7,7 @@ import AdSlot from '../components/AdSlot';
 
 export default function BlogPage() {
     const { slug } = useParams();
-    const posts = businessConfig.blog;
+    const posts = [...businessConfig.blog].sort((a, b) => new Date(b.date) - new Date(a.date));
 
     // Scroll to top on mount or slug change
     useEffect(() => {
@@ -27,9 +27,10 @@ export default function BlogPage() {
         }
     };
 
+    const post = slug ? posts.find(p => p.slug === slug) : null;
+
     // If slug is present, show single post
     if (slug) {
-        const post = posts.find(p => p.slug === slug);
         if (!post) {
             return (
                 <div style={{ backgroundColor: '#000', minHeight: '100vh', color: '#fff', textAlign: 'center', padding: '100px' }}>
@@ -72,34 +73,76 @@ export default function BlogPage() {
                                 fontWeight: '300'
                             }}>
                                 {post.content.split('\n').map((line, index) => {
-                                    if (line.startsWith('## ')) {
-                                        return <h2 key={index} style={{ fontSize: '2rem', fontWeight: '900', marginTop: '50px', marginBottom: '25px', color: '#fff', letterSpacing: '-0.5px' }}>{line.replace('## ', '')}</h2>;
-                                    }
-                                    if (line.startsWith('### ')) {
-                                        return <h3 key={index} style={{ fontSize: '1.5rem', fontWeight: '800', marginTop: '35px', marginBottom: '15px', color: 'var(--accent-color)' }}>{line.replace('### ', '')}</h3>;
-                                    }
-                                    if (line.trim() === '') return null;
+                                    if (line.trim() === '') return <br key={index} />;
                                     if (line.trim() === '---') return <hr key={index} style={{ border: 'none', borderTop: '1px solid rgba(255,255,255,0.1)', margin: '40px 0' }} />;
+
+                                    // Handle Headers (Subtitles)
+                                    if (line.trim().startsWith('## ')) {
+                                        const headerText = line.trim().replace(/^## /, '');
+                                        return <h2 key={index} style={{
+                                            color: '#fff',
+                                            fontSize: '1.8rem',
+                                            fontWeight: '800',
+                                            marginTop: '45px',
+                                            marginBottom: '20px',
+                                            letterSpacing: '-0.5px'
+                                        }}>{headerText}</h2>;
+                                    }
+
+                                    if (line.trim().startsWith('### ')) {
+                                        const headerText = line.trim().replace(/^### /, '');
+                                        return <h3 key={index} style={{
+                                            color: 'var(--accent-color)',
+                                            fontSize: '1.4rem',
+                                            fontWeight: '700',
+                                            marginTop: '35px',
+                                            marginBottom: '15px'
+                                        }}>{headerText}</h3>;
+                                    }
 
                                     // Handle lists
                                     if (line.match(/^\d+\. /)) {
-                                        return <div key={index} style={{ marginBottom: '15px', paddingLeft: '20px', display: 'flex', gap: '10px' }}>
-                                            <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>{line.split('. ')[0]}.</span>
-                                            <span>{line.split('. ').slice(1).join('. ')}</span>
-                                        </div>;
-                                    }
-                                    if (line.trim().startsWith('- ')) {
-                                        return <div key={index} style={{ marginBottom: '12px', paddingLeft: '20px', display: 'flex', gap: '10px' }}>
-                                            <span style={{ color: 'var(--accent-color)' }}>•</span>
-                                            <span>{line.trim().replace('- ', '')}</span>
-                                        </div>;
+                                        const listNumber = line.split('. ')[0];
+                                        const restOfLine = line.split('. ').slice(1).join('. ');
+                                        const parts = restOfLine.split(/(\*\*.*?\*\*)/g);
+                                        const formattedLine = parts.map((part, i) => {
+                                            if (part.startsWith('**') && part.endsWith('**')) {
+                                                return <strong key={i} style={{ color: '#fff', fontWeight: '800' }}>{part.slice(2, -2)}</strong>;
+                                            }
+                                            return part;
+                                        });
+
+                                        return (
+                                            <div key={index} style={{ marginBottom: '15px', paddingLeft: '20px', display: 'flex', gap: '10px', lineHeight: '1.8', fontSize: '1.1rem' }}>
+                                                <span style={{ color: 'var(--accent-color)', fontWeight: 'bold' }}>{listNumber}.</span>
+                                                <span>{formattedLine}</span>
+                                            </div>
+                                        );
                                     }
 
-                                    // Basic bold parsing
+                                    if (line.trim().startsWith('- ')) {
+                                        const content = line.trim().replace('- ', '');
+                                        const parts = content.split(/(\*\*.*?\*\*)/g);
+                                        const formattedLine = parts.map((part, i) => {
+                                            if (part.startsWith('**') && part.endsWith('**')) {
+                                                return <strong key={i} style={{ color: '#fff', fontWeight: '700' }}>{part.slice(2, -2)}</strong>;
+                                            }
+                                            return part;
+                                        });
+
+                                        return (
+                                            <div key={index} style={{ marginBottom: '12px', paddingLeft: '20px', display: 'flex', gap: '10px', lineHeight: '1.7' }}>
+                                                <span style={{ color: 'var(--accent-color)' }}>•</span>
+                                                <span>{formattedLine}</span>
+                                            </div>
+                                        );
+                                    }
+
+                                    // Standard Paragraph with bold support
                                     const parts = line.split(/(\*\*.*?\*\*)/g);
                                     const formattedLine = parts.map((part, i) => {
                                         if (part.startsWith('**') && part.endsWith('**')) {
-                                            return <strong key={i} style={{ color: '#fff', fontWeight: '700', borderBottom: '1px solid var(--accent-color)' }}>{part.slice(2, -2)}</strong>;
+                                            return <strong key={i} style={{ color: '#fff', fontWeight: '800' }}>{part.slice(2, -2)}</strong>;
                                         }
                                         return part;
                                     });
@@ -112,7 +155,9 @@ export default function BlogPage() {
                                                     style={{ backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '12px' }}
                                                 />
                                             )}
-                                            <p style={{ marginBottom: '25px' }}>{formattedLine}</p>
+                                            <p style={{ marginBottom: '25px', lineHeight: '1.8', fontSize: '1.1rem', color: 'rgba(255,255,255,0.85)' }}>
+                                                {formattedLine}
+                                            </p>
                                         </React.Fragment>
                                     );
                                 })}
