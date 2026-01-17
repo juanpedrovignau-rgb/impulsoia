@@ -74,7 +74,7 @@ export const businessConfig = {
     ],
     metrics: {
         title: "Nuestro Impacto en el Mercado",
-        quote: "En 2026, el 85% de las interacciones cliente-empresa serán sin humanos y automatizadas.\n\nLidera el cambio. No te quedes atrás.",
+        quote: "",
         stats: [
             { number: "500+", label: "Procesos Automatizados" },
             { number: "98%", label: "Eficiencia Mejorada" },
@@ -754,6 +754,53 @@ export const businessConfig = {
             *¿No sabes cuál elegir? Usa nuestra **Calculadora de Costo de Inacción** en la barra lateral para ver cuánto te está costando no decidir.*
             `,
             keywords: "mejores CRM IA 2026, comparativa CRM pymes, hubspot vs salesforce 2026, CRM con inteligencia artificial, software ventas automatizado"
+        },
+        {
+            id: 14,
+            slug: "recruiting-ia-rrhh",
+            title: "Recruiting 4.0: Tu nuevo equipo de RRHH es una IA",
+            excerpt: "La búsqueda de talento ha cambiado para siempre. Descubre cómo la IA filtra miles de CVs en segundos, elimina sesgos y garantizar que solo entrevistes a los candidatos ideales.",
+            date: "2026-02-01",
+            dateFormatted: "01 Feb, 2026",
+            image: "/recruiting-ia.png",
+            content: `
+            ## El Fin del "Post & Pray"
+
+            Los departamentos de Recursos Humanos tradicionales operan bajo una lógica reactiva: publicar una oferta y "rezar" para que llegue un buen candidato, para luego ahogarse en un mar de CVs irrelevantes. Un reclutador promedio gasta el 60% de su tiempo leyendo hojas de vida que no cumplen con los requisitos básicos.
+
+            El **Recruiting 4.0** invierte esta ecuación. La Inteligencia Artificial no se cansa, no tiene prejuicios y procesa información a una velocidad que ningún humano puede igualar.
+
+            ## Filtrado Inteligente: Encontrando Agujas en Pajares
+
+            Imagina recibir 500 aplicaciones para un puesto de Gerente de Marketing. Un humano tardaría días en revisarlas. Un agente de IA las procesa en 3 minutos.
+
+            Pero no es solo buscar palabras clave. La IA semántica entiende que "gestión de comunidades" y "social media manager" son conceptos relacionados. Analiza la trayectoria, la consistencia de las fechas y hasta predice el "fit" cultural basándose en el tono de la carta de presentación.
+
+            **Resultado:** Tu equipo de RRHH recibe una "Shortlist" de los 5 mejores candidatos, explicada con métricas de por qué fueron seleccionados.
+
+            ## Eliminación de Sesgos Inconscientes
+
+            Todos tenemos sesgos. Tendemos a contratar a gente que se parece a nosotros. La IA, correctamente calibrada, es ciega al género, la edad, la etnia o la universidad de procedencia. Solo le importan las **Habilidades (Skills)** y la **Experiencia Probada**.
+
+            Esto no solo es ético; es rentable. Las empresas con mayor diversidad cognitiva superan financieramente a sus competidores en un 35%.
+
+            ## La Entrevista Aumentada
+
+            Antes de que un humano hable con el candidato, un **Agente de Voz** puede realizar una pre-entrevista telefónica de 10 minutos.
+            *   Chequea disponibilidad y expectativas salariales.
+            *   Evalúa el nivel de inglés conversacional.
+            *   Realiza preguntas situacionales básicas.
+
+            El reclutador humano recibe la grabación, la transcripción y un resumen ejecutivo con un "Semáforo" de recomendación.
+
+            ## Conclusión: Humanizando lo que importa
+
+            Al delegar la tarea robótica del filtrado a la IA, liberamos a los profesionales de RRHH para hacer lo que mejor hacen: conectar con las personas, vender la visión de la empresa y evaluar la química del equipo.
+
+            ---
+            *¿Tu equipo de RRHH está saturado? Implementa nuestro sistema de **Recruiting AI** y reduce tu tiempo de contratación en un 70%. Agenda una demo hoy.*
+            `,
+            keywords: "recruiting IA, rrhh 4.0, selección personal inteligencia artificial, automatización reclutamiento, eliminación sesgos contratación"
         }
     ]
 };

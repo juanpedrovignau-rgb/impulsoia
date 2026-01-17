@@ -46,8 +46,9 @@ export default function BlogPage() {
                     title={`${post.title} | Blog Impulso IA`}
                     description={post.excerpt}
                     keywords={post.keywords}
-                    ogImage={post.image}
-                    postData={post}
+                    image={post.image}
+                    article={true}
+                    date={post.date}
                 />
 
                 <div style={{ position: 'relative', padding: '160px 0 100px', textAlign: 'center', overflow: 'hidden' }}>

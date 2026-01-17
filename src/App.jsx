@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
+import SEO from './components/SEO';
 import Footer from './components/Footer';
 import ScrollToHash from './components/ScrollToHash';
 import WhatsAppFloat from './components/WhatsAppFloat';
@@ -12,6 +13,7 @@ function App() {
     <Router>
       <ScrollToHash />
       <div className="app">
+        <SEO />
         <Header />
         <main>
           <Routes>

@@ -1,89 +1,94 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Helmet } from 'react-helmet-async';
+import { useLocation } from 'react-router-dom';
 import { businessConfig } from '../config';
 
-const SEO = ({ title, description, keywords, ogImage, postData }) => {
-    useEffect(() => {
-        // Update document title
-        document.title = title || businessConfig.seo.title;
+export default function SEO({ title, description, keywords, image, article, date }) {
+    const location = useLocation();
+    const siteUrl = 'https://impulsoia.cloud';
+    const currentUrl = `${siteUrl}${location.pathname}`;
+    const defaultImage = `${siteUrl}${businessConfig.hero.image}`;
 
-        // Update meta description
-        let metaDescription = document.querySelector('meta[name="description"]');
-        if (!metaDescription) {
-            metaDescription = document.createElement('meta');
-            metaDescription.name = 'description';
-            document.head.appendChild(metaDescription);
-        }
-        metaDescription.content = description || businessConfig.seo.description;
+    const seoTitle = title ? `${title} | ${businessConfig.name}` : businessConfig.seo.title;
+    const seoDescription = description || businessConfig.seo.description;
+    const seoKeywords = keywords || businessConfig.seo.keywords;
+    const seoImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : defaultImage;
 
-        // Update Open Graph Image
-        let metaOgImage = document.querySelector('meta[property="og:image"]');
-        if (!metaOgImage) {
-            metaOgImage = document.createElement('meta');
-            metaOgImage.setAttribute('property', 'og:image');
-            document.head.appendChild(metaOgImage);
-        }
-        metaOgImage.content = ogImage || (postData ? postData.image : window.location.origin + businessConfig.hero.image);
+    // Schema.org JSON-LD for Organization
+    const organizationSchema = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": businessConfig.name,
+        "url": siteUrl,
+        "logo": `${siteUrl}/vite.svg`,
+        "description": businessConfig.description,
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": businessConfig.phone || "+54 9 11 6702-6555",
+            "contactType": "sales",
+            "areaServed": "AR",
+            "availableLanguage": "Spanish"
+        },
+        "sameAs": [
+            businessConfig.social.instagram,
+            businessConfig.social.facebook
+        ]
+    };
 
-        // Update meta keywords
-        let metaKeywords = document.querySelector('meta[name="keywords"]');
-        if (!metaKeywords) {
-            metaKeywords = document.createElement('meta');
-            metaKeywords.name = 'keywords';
-            document.head.appendChild(metaKeywords);
-        }
-        metaKeywords.content = keywords || businessConfig.seo.keywords;
-
-        // Structured Data (JSON-LD) for SEOIA
-        let script = document.getElementById('seo-jsonld');
-        if (script) script.remove();
-
-        const schemaData = postData ? {
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
-            "headline": postData.title,
-            "image": postData.image,
-            "datePublished": postData.date,
-            "author": {
-                "@type": "Organization",
-                "name": businessConfig.name
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": businessConfig.name,
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": window.location.origin + "/favicon.ico"
-                }
-            },
-            "description": postData.excerpt
-        } : {
-            "@context": "https://schema.org",
-            "@type": "ProfessionalService",
+    // Schema.org JSON-LD for BlogPosting (if it's an article)
+    const articleSchema = article ? {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": title,
+        "image": [seoImage],
+        "datePublished": date,
+        "dateModified": date, // Ideally this would be updatedDate
+        "author": {
+            "@type": "Organization",
+            "name": businessConfig.name
+        },
+        "publisher": {
+            "@type": "Organization",
             "name": businessConfig.name,
-            "image": window.location.origin + businessConfig.hero.image,
-            "@id": window.location.origin,
-            "url": window.location.origin,
-            "telephone": businessConfig.whatsappNumber,
-            "address": {
-                "@type": "PostalAddress",
-                "streetAddress": businessConfig.address,
-                "addressLocality": "Buenos Aires",
-                "addressCountry": "AR"
+            "logo": {
+                "@type": "ImageObject",
+                "url": `${siteUrl}/vite.svg`
             }
-        };
+        },
+        "description": description
+    } : null;
 
-        const newScript = document.createElement('script');
-        newScript.id = 'seo-jsonld';
-        newScript.type = 'application/ld+json';
-        newScript.text = JSON.stringify(schemaData);
-        document.head.appendChild(newScript);
+    return (
+        <Helmet>
+            {/* Standard Metadata */}
+            <title>{seoTitle}</title>
+            <meta name="description" content={seoDescription} />
+            <meta name="keywords" content={seoKeywords} />
+            <link rel="canonical" href={currentUrl} />
 
-        return () => {
-            if (newScript) newScript.remove();
-        };
-    }, [title, description, keywords, ogImage, postData]);
+            {/* Open Graph / Facebook */}
+            <meta property="og:type" content={article ? 'article' : 'website'} />
+            <meta property="og:url" content={currentUrl} />
+            <meta property="og:title" content={title || businessConfig.seo.title} />
+            <meta property="og:description" content={seoDescription} />
+            <meta property="og:image" content={seoImage} />
 
-    return null;
-};
+            {/* Twitter */}
+            <meta property="twitter:card" content="summary_large_image" />
+            <meta property="twitter:url" content={currentUrl} />
+            <meta property="twitter:title" content={title || businessConfig.seo.title} />
+            <meta property="twitter:description" content={seoDescription} />
+            <meta property="twitter:image" content={seoImage} />
 
-export default SEO;
+            {/* Structured Data (JSON-LD) */}
+            <script type="application/ld+json">
+                {JSON.stringify(organizationSchema)}
+            </script>
+            {article && (
+                <script type="application/ld+json">
+                    {JSON.stringify(articleSchema)}
+                </script>
+            )}
+        </Helmet>
+    );
+}
