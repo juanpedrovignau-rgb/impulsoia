@@ -716,7 +716,7 @@ export const businessConfig = {
             excerpt: "¿Buscas el mejor CRM para tu equipo? Analizamos Hubspot, Salesforce y opciones 'underdog' que usan IA para automatizar el 80% de tus ventas. Guía de compra definitiva.",
             date: "2026-01-28",
             dateFormatted: "28 Ene, 2026",
-            image: "/crm-comparison-2026.png",
+            image: "/crm-sales-team-realistic.png",
             content: `
             ## No busques un CRM, busca un "Cerebro de Ventas"
 
