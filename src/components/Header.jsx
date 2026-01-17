@@ -19,28 +19,17 @@ export default function Header() {
 
     const navItems = [
         { name: 'Inicio', href: '#home' },
-        { name: 'Nosotros', href: '#about' },
         { name: 'Servicios', href: '#services' },
+        { name: 'Nosotros', href: '#about' },
         { name: 'Blog', href: '/blog' },
         { name: 'Contacto', href: '#contact' }
     ];
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+    const closeMenu = () => setIsMenuOpen(false);
 
     return (
-        <header style={{
-            height: 'var(--header-height)',
-            display: 'flex',
-            alignItems: 'center',
-            backgroundColor: isMenuOpen ? '#000' : 'rgba(0,0,0,0.85)',
-            backdropFilter: 'blur(15px)',
-            WebkitBackdropFilter: 'blur(15px)',
-            position: 'sticky',
-            top: 0,
-            zIndex: 1000,
-            borderBottom: '1px solid rgba(255,255,255,0.05)',
-            transition: 'var(--transition)'
-        }}>
+        <header>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
                 <Link to="/" className="logo" style={{ fontSize: '1.8rem', fontWeight: '900', color: '#fff', letterSpacing: '-1px', zIndex: 1101 }}>
                     {businessConfig.name.split(' ')[0]} <span style={{ color: 'var(--logo-ia-color)', textShadow: '0 0 15px var(--accent-glow)' }}>{businessConfig.name.split(' ').slice(1).join(' ')}</span>
@@ -51,13 +40,6 @@ export default function Header() {
                     onClick={toggleMenu}
                     className="mobile-menu-btn"
                     aria-label="Toggle Menu"
-                    style={{
-                        display: 'none', // Controlled by CSS media queries
-                        background: 'transparent',
-                        fontSize: '1.5rem',
-                        color: '#fff',
-                        zIndex: 1101
-                    }}
                 >
                     {isMenuOpen ? '✕' : '☰'}
                 </button>
@@ -67,37 +49,26 @@ export default function Header() {
                         {navItems.map((item) => (
                             <li key={item.href}>
                                 {item.href.startsWith('#') ? (
-                                    location.pathname === '/' ? (
-                                        <a
-                                            href={item.href}
-                                            onClick={(e) => {
+                                    <Link
+                                        to={`/${item.href}`}
+                                        onClick={(e) => {
+                                            if (location.pathname === '/') {
                                                 e.preventDefault();
                                                 document.querySelector(item.href)?.scrollIntoView({ behavior: 'smooth' });
-                                                setActiveTab(item.href);
-                                                setIsMenuOpen(false);
-                                            }}
-                                            className={`nav-link ${activeTab === item.href ? 'active' : ''}`}
-                                        >
-                                            {item.name}
-                                        </a>
-                                    ) : (
-                                        <Link
-                                            to={`/${item.href}`}
-                                            onClick={() => {
-                                                setActiveTab(item.href);
-                                                setIsMenuOpen(false);
-                                            }}
-                                            className="nav-link"
-                                        >
-                                            {item.name}
-                                        </Link>
-                                    )
+                                            }
+                                            setActiveTab(item.href);
+                                            closeMenu();
+                                        }}
+                                        className={`nav-link ${activeTab === item.href ? 'active' : ''}`}
+                                    >
+                                        {item.name}
+                                    </Link>
                                 ) : (
                                     <Link
                                         to={item.href}
                                         onClick={() => {
                                             setActiveTab(item.href);
-                                            setIsMenuOpen(false);
+                                            closeMenu();
                                         }}
                                         className={`nav-link ${location.pathname.startsWith(item.href) ? 'active' : ''}`}
                                     >

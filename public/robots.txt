@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
+Sitemap: https://impulsoia.cloud/sitemap.xml
 
-Sitemap: https://impulsoia.com/sitemap.xml
+# Allow AI Bots for SEOAI
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /

@@ -74,7 +74,7 @@ export default function Contact() {
             </div>
 
             <div className="container" style={{ position: 'relative', zIndex: 3 }}>
-                <div className="grid-2-cols" style={{ alignItems: 'start' }}>
+                <div className="grid-2-cols" style={{ alignItems: 'start', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px' }}>
                     <div className="text-md-center" style={{ textAlign: 'left' }}>
                         <span className="section-title-small">Contacto Directo</span>
                         <h2 className="section-title-large">Conectá con<br />Expertos en IA</h2>

@@ -77,6 +77,30 @@ export default function Metrics() {
                         </div>
                     ))}
                 </div>
+
+                <div style={{ marginTop: '80px', padding: '0 20px' }}>
+                    <p style={{
+                        fontSize: '1.5rem',
+                        fontStyle: 'italic',
+                        color: '#fff',
+                        maxWidth: '800px',
+                        margin: '0 auto',
+                        lineHeight: '1.6',
+                        fontFamily: 'Playfair Display, serif'
+                    }}>
+                        "{businessConfig.metrics.quote.split('\n\n')[0]}"
+                    </p>
+                    <p style={{
+                        fontSize: '1.2rem',
+                        color: 'var(--accent-color)',
+                        marginTop: '20px',
+                        fontWeight: '700',
+                        textTransform: 'uppercase',
+                        letterSpacing: '1px'
+                    }}>
+                        {businessConfig.metrics.quote.split('\n\n')[1]}
+                    </p>
+                </div>
             </div>
         </section>
     );

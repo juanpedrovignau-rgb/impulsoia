@@ -1,30 +1,65 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://impulsoia.com/</loc>
-    <lastmod>2025-12-25</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://impulsoia.cloud/</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://impulsoia.com/blog</loc>
-    <lastmod>2025-12-25</lastmod>
+    <loc>https://impulsoia.cloud/blog</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Money Page (Priority Higher) -->
+  <url>
+    <loc>https://impulsoia.cloud/blog/top-5-crms-ia-pymes-2026</loc>
+    <lastmod>2026-01-09</lastmod>
     <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <!-- Blog Articles -->
+  <url>
+    <loc>https://impulsoia.cloud/blog/agentes-voz-ia-atencion-24-7</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://impulsoia.com/blog/ia-en-pymes-duplicando-eficiencia</loc>
-    <lastmod>2025-12-20</lastmod>
+    <loc>https://impulsoia.cloud/blog/sales-coaching-ia-tiempo-real</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://impulsoia.cloud/blog/ceo-dashboard-chat-erp</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://impulsoia.cloud/blog/marketing-hiper-personalizado-ia</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://impulsoia.com/blog/agentes-autonomos-futuro-chatbots</loc>
-    <lastmod>2025-12-15</lastmod>
+    <loc>https://impulsoia.cloud/blog/revolucion-zero-touch-idp</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://impulsoia.com/blog/guia-automatizacion-de-0-a-100</loc>
-    <lastmod>2025-12-05</lastmod>
+    <loc>https://impulsoia.cloud/blog/logistica-precognitiva-ia</loc>
+    <lastmod>2026-01-09</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <!-- Legacy/Other Articles Simulated -->
+  <url>
+    <loc>https://impulsoia.cloud/blog/agentes-autonomos-ventas-2025</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

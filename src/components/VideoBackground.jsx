@@ -28,6 +28,7 @@ const VideoBackground = ({ overlayOpacity = 0.8, height = '100%' }) => {
                     muted
                     loop
                     playsInline
+                    poster={businessConfig.hero.image}
                     style={{
                         position: 'absolute',
                         top: '50%',

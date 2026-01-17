@@ -29,16 +29,52 @@ export const businessConfig = {
         image: "/ai-about.png"
     },
     services: [
-        { title: "Consultoría Estratégica", icon: "🧠", description: "Diseñamos la hoja de ruta para integrar IA en tu modelo de negocio." },
-        { title: "Automatización de Procesos", icon: "⚙️", description: "Eliminamos tareas repetitivas mediante agentes inteligentes." },
-        { title: "Desarrollo de Chatbots", icon: "💬", description: "Atención al cliente 24/7 con modelos de lenguaje avanzados." },
-        { title: "Agente ventas IA & CRM", icon: "📈", description: "Optimiza tu embudo de ventas y gestiona clientes con inteligencia comercial." },
-        { title: "Agente Asistente IA", icon: "👔", description: "Soporte y gestión de tareas diarias para potenciar la productividad de tu equipo." },
-        { title: "Agente IA Facturas", icon: "📄", description: "Automatización inteligente de procesos contables y gestión documental." }
+        {
+            title: "Agente ventas IA & CRM",
+            icon: "📈",
+            description: "Optimiza tu embudo de ventas y gestiona clientes con inteligencia comercial.",
+            badge: "🔥 MÁS POPULAR",
+            benefits: ["Aumento de conversión +40%", "Seguimiento 24/7 automático", "Integración total con CRM"]
+        },
+        {
+            title: "Agente Asistente IA",
+            icon: "👔",
+            description: "Soporte y gestión de tareas diarias para potenciar la productividad de tu equipo.",
+            badge: "🚀 EFICIENCIA",
+            benefits: ["Ahorra 20h semanales", "Gestión de agenda y emails", "Respuesta instantánea"]
+        },
+        {
+            title: "Agente IA Facturas",
+            icon: "📄",
+            description: "Automatización inteligente de procesos contables y gestión documental.",
+            badge: "💎 PRECISIÓN",
+            benefits: ["Elimina error humano", "Procesamiento en segundos", "Reportes en tiempo real"]
+        },
+        {
+            title: "Consultoría Estratégica",
+            icon: "🧠",
+            description: "Diseñamos la hoja de ruta para integrar IA en tu modelo de negocio.",
+            badge: "🧠 ESTRATEGIA",
+            benefits: ["Roadmap a 12 meses", "Análisis de viabilidad", "Workshop con expertos"]
+        },
+        {
+            title: "Automatización de Procesos",
+            icon: "⚙️",
+            description: "Eliminamos tareas repetitivas mediante agentes inteligentes.",
+            badge: "⚙️ ESCALA",
+            benefits: ["Reducción de costos 60%", "Operación 24/7 garantizada", "Escalabilidad ilimitada"]
+        },
+        {
+            title: "Desarrollo de Chatbots",
+            icon: "💬",
+            description: "Atención al cliente 24/7 con modelos de lenguaje avanzados.",
+            badge: "💬 ATENCIÓN",
+            benefits: ["Soporte multilingüe", "Resolución instantánea", "Personalidad de marca"]
+        }
     ],
     metrics: {
         title: "Nuestro Impacto en el Mercado",
-        quote: "La inteligencia artificial no reemplazará a los humanos, pero los humanos que usan IA sí reemplazarán a los que no.",
+        quote: "En 2026, el 85% de las interacciones cliente-empresa serán sin humanos y automatizadas.\n\nLidera el cambio. No te quedes atrás.",
         stats: [
             { number: "500+", label: "Procesos Automatizados" },
             { number: "98%", label: "Eficiencia Mejorada" },
@@ -452,6 +488,272 @@ export const businessConfig = {
             *¿Está tu información segura en la nube pública? Realizamos **Auditorías de Soberanía Cognitiva** para asegurar que tu ventaja competitiva permanezca dentro de tu empresa. Contacta con nuestros expertos hoy.*
             `,
             keywords: "soberanía de datos IA, IA privada para empresas, seguridad llms corporativos, privacidad inteligencia artificial 2026, consultoría ciberseguridad IA"
+        },
+        {
+            id: 7,
+            slug: "marketing-hiper-personalizado-ia",
+            title: "Marketing que Lee la Mente: De la Segmentación Masiva a la Hiper-Personalización con IA",
+            excerpt: "¿Tu web sigue tratando a todos igual? Eso es quemar dinero en 2026. Descubre cómo los agentes de IA crean experiencias únicas para cada visitante en tiempo real.",
+            date: "2026-01-12",
+            dateFormatted: "12 Ene, 2026",
+            image: "/marketing-mind-reading.png",
+            content: `
+            ## El Fin de la Segmentación Demográfica
+
+            Durante décadas, el marketing se basó en una premisa simple pero defectuosa: agrupar a las personas por "parecido". Mujeres de 25 a 40 años, hombres interesados en tecnología, etc. En 2026, esto es tan arcaico como enviar un fax.
+
+            La IA Generativa y los Agentes de Comportamiento han dado paso a la **Hiper-Personalización**: la capacidad de tratar a cada uno de tus 100,000 visitantes como si fuera el único cliente en la tienda.
+
+            ## ¿Cómo funciona el "Mind-Reading" Digital?
+
+            Imagina que entras a una tienda y el vendedor no solo sabe tu nombre, sino que recuerda que la semana pasada miraste zapatos pero no compraste por el precio, sabe que hoy es tu cumpleaños y que prefieres el color azul. Además, cambia la vitrina instantáneamente para mostrarte *exactamente* lo que quieres ver.
+
+            Esto es lo que hace un Agente de Personalización en tu web:
+            1.  **Analiza en Tiempo Real:** Fuente de tráfico, historial de navegación, tiempo en página, clicks anteriores.
+            2.  **Predice Intención:** ¿Está explorando? ¿Está comparando precios? ¿Está listo para comprar?
+            3.  **Adapta la Interfaz:** Cambia los titulares, las imágenes de producto y las ofertas al vuelo.
+
+            ## Caso: El E-commerce Camaleónico
+
+            Uno de nuestros clientes, un retailer de moda, implementó esta tecnología.
+            *   **Visitante A (Pragmático):** Ve una home limpia, con especificaciones técnicas de la tela y una oferta de "Envío Gratis si compras hoy".
+            *   **Visitante B (Inspiracional):** Ve la misma URL, pero con videos de pasarela, testimonios de influencers y un copy emocional sobre "sentirse único".
+
+            **Resultado:** La tasa de conversión se disparó un **340%** en las primeras 6 semanas.
+
+            ## El Nuevo Estándar de Privacidad
+
+            A diferencia de las cookies invasivas del pasado, la IA trabaja con *First-Party Data* y contexto inmediato. No necesita saber quién eres fuera de su tienda; solo necesita entender qué quieres *ahora*. Es más privado, pero infinitamente más efectivo.
+
+            ---
+            *¿Quieres que tu web venda sola? Descarga nuestra **Auditoría de Madurez IA** gratuita o agenda una demo para ver cómo nuestros agentes pueden personalizar tu experiencia de cliente.*
+            `,
+            keywords: "marketing hiper-personalizado, personalización web IA, marketing 2026, automatización ecommerce, customer experience AI"
+        },
+        {
+            id: 8,
+            slug: "revolucion-zero-touch-idp",
+            title: "La Revolución 'Zero-Touch': Por qué tipear facturas manuales es un suicidio financiero",
+            excerpt: "El empleado más caro de tu empresa es el que copia datos de un PDF a Excel. Automatiza el 99% de tu flujo documental con IDP y libera el verdadero potencial humano.",
+            date: "2026-01-14",
+            dateFormatted: "14 Ene, 2026",
+            image: "/zero-touch-idp.png",
+            content: `
+            ## El Costo Invisible del Caos de Papel (y PDF)
+
+            En la era digital, es irónico que el "cuello de botella" de la mayoría de las empresas siga siendo leer documentos. Facturas de proveedores, remitos logísticos, contratos legales... miles de horas humanas desperdiciadas en la tarea más robótica posible: leer, copiar, pegar.
+
+            Esto no es solo aburrido; es financieramente desastroso. Un error de tipeo en una factura de $50,000 puede costar semanas de correos, multas e intereses.
+
+            ## IDP: Cuando la IA aprende a Leer
+
+            El **Procesamiento Inteligente de Documentos (IDP)** no es el viejo OCR que fallaba si el papel estaba arrugado. Es IA con visión computacional y comprensión semántica.
+            *   **Entiende el Contexto:** Sabe que "Total a Pagar" y "Monto Final" son lo mismo.
+            *   **Valida Datos:** Cruza la información extraída con tu base de datos de proveedores para detectar fraudes o errores.
+            *   **Aprende:** Si le corriges algo una vez, nunca vuelve a cometer ese error.
+
+            ## Caso de Uso: Cuentas por Pagar al Instante
+
+            Implementamos un sistema *Zero-Touch* para una logística mediana. Antes, 4 personas procesaban 2,000 facturas al mes. Tardaban 10 días en cerrar el mes.
+            
+            **Con Impulso IA:**
+            1.  El proveedor envía la factura por mail.
+            2.  El Agente IDP la lee, la valida y la carga en el ERP en 3 segundos.
+            3.  Si todo coincide con la orden de compra, se programa el pago automáticamente.
+            4.  Si hay una discrepancia, alerta a un humano.
+
+            **Impacto:** Reducción del 95% del tiempo administrativo y 0% de errores de pago.
+
+            ---
+            *¿Cuánto tiempo pierde tu equipo tipeando? Usa nuestra **Calculadora de Costo de Inacción** y descubre el impacto real en tu rentabilidad.*
+            `,
+            keywords: "IDP, procesamiento inteligente documentos, automatización facturas, cero papel, eficiencia administrativa IA"
+        },
+        {
+            id: 9,
+            slug: "logistica-precognitiva-ia",
+            title: "La Bola de Cristal Logística: Cómo predecir el futuro de tu inventario",
+            excerpt: "La IA sabía que te quedarías sin stock 2 semanas antes que tú. Pasa de apagar incendios a evitar que sucedan con la Logística Predictiva.",
+            date: "2026-01-16",
+            dateFormatted: "16 Ene, 2026",
+            image: "/logistics-predictive.png",
+            content: `
+            ## De la Reacción a la Predicción
+
+            Tradicionalmente, la cadena de suministro funcionaba en modo "bombero": se rompe algo, corremos a arreglarlo. Se acaba el stock, corremos a comprar (pagando sobreprecios). El camión se rompe, reprogramamos (enojando al cliente).
+
+            La **Logística Precognitiva** cambia el juego. Utilizando modelos predictivos masivos que cruzan datos de ventas históricas, clima, noticias globales y tráfico en tiempo real, la IA puede ver el futuro.
+
+            ## Evitando la Rotura de Stock (y el Exceso)
+
+            El "Santo Grial" del retail es tener *exactamente* lo que se va a vender, ni más ni menos.
+            *   **Predicción de Demanda:** "La semana que viene lloverá, aumentará la demanda de paraguas un 200% y bajará la de helados un 40%. Ajustando pedidos automáticamente."
+            *   **Optimización de Rutas Dinámica:** No solo busca el camino más corto, sino que predice dónde habrá congestión dentro de 2 horas y desvía la flota antes de que queden atrapados.
+
+            ## El Centro de Comando Autónomo
+
+            Imagina un mapa holográfico de toda tu operación. Luces rojas se encienden solas, pero no marcan problemas actuales, sino problemas *probables* dentro de 48 horas. Y junto a la alerta, tres opciones de solución ya cotizadas y listas para ser aprobadas con un click.
+
+            Eso es control total. Eso es Impulso IA.
+
+            ---
+            *No dejes que el azar controle tu negocio. Agenda una **Sesión Estratégica** y blinda tu cadena de suministro con inteligencia artificial.*
+            `,
+            keywords: "logística predictiva, supply chain AI, inteligencia artificial inventario, optimización rutas, supply chain 4.0"
+        },
+        {
+            id: 10,
+            slug: "agentes-voz-ia-atencion-24-7",
+            title: "La Nueva Voz de tu Marca: Por qué los Agentes de Voz IA venden más que los humanos",
+            excerpt: "Tu Call Center te está robando ventas mientras duermes. Los Agentes de Voz IA responden al instante, nunca se cansan y cierran ventas a una fracción del costo.",
+            date: "2026-01-20",
+            dateFormatted: "20 Ene, 2026",
+            image: "/voice-agent-ia.png",
+            content: `
+            ## El Silencio es Costoso
+
+            ¿Cuántas llamadas pierde tu empresa fuera del horario laboral? ¿Cuántos clientes cuelgan esperando ser atendidos? En la economía de la inmediatez, si no respondes en 5 segundos, has perdido al cliente.
+
+            Los **Agentes de Voz Generativa** no son los viejos IVR ("marque 1 para ventas"). Son IAs con las que puedes conversar naturalmente, interrumpir, hacer preguntas complejas y recibir respuestas empáticas indistinguibles de un humano.
+
+            ## Más allá del "Hola"
+
+            Un Agente de Voz bien entrenado no solo atiende; **vende**.
+            1.  **Escalabilidad Infinita:** Puede atender 1 llamada o 10,000 simultáneamente sin perder la calma.
+            2.  **Conocimiento Total:** Tiene acceso instantáneo a todo tu stock, precios y políticas. Nunca dice "voy a consultar".
+            3.  **Persuasión Programada:** Sigue los mejores scripts de ventas, maneja objeciones con técnicas probadas y nunca tiene un "mal día".
+
+            ## Caso de Éxito: Clínica Dental
+
+            Una red de clínicas perdía el 40% de sus llamadas entrantes. Implementamos un Agente de Voz para agendamiento.
+            *   **Resultado:** Agendamiento 24/7. Tasa de "No-Show" reducida al enviarse recordatorios por voz y WhatsApp automáticamente.
+            *   **ROI:** El costo del sistema es el 10% de lo que costaba el Call Center tercerizado.
+
+            ## ¿Reemplazo o Potenciación?
+
+            No se trata de despedir a tu equipo, sino de liberarlos. Deja que la IA maneje las 800 consultas repetitivas sobre "precio y horarios", y que tus humanos expertos se dediquen a cerrar los tratos VIP de alto valor.
+
+            ---
+            *Escucha la diferencia. Agenda una demo y **habla con nuestro Agente IA** ahora mismo para ver cómo puede transformar tu atención al cliente.*
+            `,
+            keywords: "agentes de voz IA, voice bots, call center automatizado 24/7, inteligencia artificial ventas telefonicas, atención cliente IA"
+        },
+        {
+            id: 11,
+            slug: "sales-coaching-ia-tiempo-real",
+            title: "Clonando a tu Mejor Vendedor: Coaching de Ventas Automatizado en Tiempo Real",
+            excerpt: "Tu Gerente de Ventas no puede escuchar 1,000 llamadas. Nuestra IA sí. Descubre cómo mejorar el cierre de tu equipo junior analizando el 100% de sus conversaciones.",
+            date: "2026-01-22",
+            dateFormatted: "22 Ene, 2026",
+            image: "/sales-coaching-ia.png",
+            content: `
+            ## El Problema del Teléfono Descompuesto
+
+            En un equipo comercial típico, tienes a un "Rockstar" que cierra el 40% de sus llamadas y a cinco juniors que apenas llegan al 10%. Tu Gerente de Ventas intenta escuchar grabaciones al azar para dar feedback, pero apenas cubre el 2% de las interacciones reales.
+
+            El resultado: **Oportunidades perdidas masivas** y un equipo que tarda meses en aprender.
+
+            ## Inteligencia Conversacional: Tu Nuevo Gerente Biónico
+
+            Imagina un sistema que "escucha" todas las llamadas en tiempo real. No para espiar, sino para asistir.
+            *   **Análisis de Sentimiento:** Detecta si el cliente se está frustrando por el tono de voz y alerta al vendedor.
+            *   **Detección de Objeciones:** Si el cliente dice "es muy caro", el sistema muestra en pantalla instantáneamente el mejor argumento de contra-oferta usado por tu vendedor Rockstar.
+            *   **Checklist de Calidad:** Verifica que se hayan mencionado los legales, las garantías y se haya intentado el *Upsell*.
+
+            ## Clonando el Éxito
+
+            Implementamos esto en una aseguradora. Tomamos las 50 mejores llamadas del año (los "cierres perfectos") y entrenamos el modelo.
+            Ahora, cada vez que un junior entra en una llamada, tiene a la IA susurrándole al oído (o en pantalla): *"Ahora pregunta por la cobertura de terceros"*, *"¡Cuidado! Estás hablando muy rápido"*.
+
+            **Resultado:** Los nuevos ingresos igualaron el rendimiento de los veteranos en solo 3 semanas, en lugar de los 6 meses habituales.
+
+            ---
+            *¿Quieres ver qué pasa realmente en tus llamadas de ventas? Instala nuestra **Auditoría de Conversaciones** y descubre cuánto dinero estás dejando sobre la mesa.*
+            `,
+            keywords: "sales coaching IA, inteligencia conversacional, entrenamiento ventas automático, análisis de llamadas IA, productividad comercial"
+        },
+        {
+            id: 12,
+            slug: "ceo-dashboard-chat-erp",
+            title: "Tu Data Room Personal: Cómo tomar decisiones de millón de dólares conversando con tu ERP",
+            excerpt: "Deja de pedir reportes para el lunes. Pregúntale a tu base de datos hoy. La era de los tableros estáticos ha terminado; bienvenida la Inteligencia de Negocios Conversacional.",
+            date: "2026-01-25",
+            dateFormatted: "25 Ene, 2026",
+            image: "/ceo-dashboard-ia.png",
+            content: `
+            ## La Tiranía del Reporte Estático
+
+            Es lunes por la mañana. Necesitas saber el margen de rentabilidad del producto X en la región Y. Le pides el reporte a Finanzas. Te dicen que lo tendrán para el miércoles. Para cuando llega, la oportunidad ya pasó o el incendio ya quemó todo.
+
+            Tomamos decisiones de alta velocidad con herramientas de baja velocidad (Excel, PowerBI estáticos).
+
+            ## Hablando con tu Empresa
+
+            La **Inteligencia de Negocios Generativa** conecta un LLM (como GPT-4o o Claude) a tu base de datos SQL segura.
+            Ya no necesitas aprender a filtrar tablas dinámicas. Solo preguntas:
+            *   *"¿Cuál fue el producto con más devoluciones la semana pasada y por qué?"*
+            *   *"Compárame las ventas de Q1 vs Q1 del año pasado ajustando por inflación."*
+            *   *"Simula qué pasa con mi flujo de caja si el proveedor X aumenta un 10% sus precios."*
+
+            Y obtienes la respuesta, el gráfico y la explicación en segundos.
+
+            ## El Caso del CEO "Data-Driven"
+
+            Un CEO de retail solía esperar al cierre de mes para tomar decisiones de inventario. Implementamos un Dashboard Conversacional.
+            Un martes cualquiera, preguntó: *"¿Qué tiendas tienen exceso de stock de invierno?"*. La IA le mostró 3 sucursales. En ese mismo chat, ordenó: *"Genera una orden de traslado de ese stock a la sucursal Centro"*.
+            
+            **Resultado:** Reducción de stock inmovilizado en un 25% y fin de las liquidaciones forzadas.
+
+            ---
+            *¿Tu empresa te habla o te esconde secretos? Prueba nuestra demo de **Business Intelligence Conversacional** y toma el control total de tus datos.*
+            `,
+            keywords: "BI conversacional, chat with data, inteligencia negocios IA, dashboard ejecutivo IA, toma decisiones data driven"
+        },
+        {
+            id: 13,
+            slug: "top-5-crms-ia-pymes-2026",
+            title: "Top 5 CRMs con IA para Pymes en 2026 (Comparativa)",
+            excerpt: "¿Buscas el mejor CRM para tu equipo? Analizamos Hubspot, Salesforce y opciones 'underdog' que usan IA para automatizar el 80% de tus ventas. Guía de compra definitiva.",
+            date: "2026-01-28",
+            dateFormatted: "28 Ene, 2026",
+            image: "/crm-comparison-2026.png",
+            content: `
+            ## No busques un CRM, busca un "Cerebro de Ventas"
+
+            En 2026, usar un CRM solo para "guardar contactos" es tirar el dinero. Los nuevos sistemas con IA no solo almacenan datos; **actúan** sobre ellos. Redactan correos, puntúan leads y te dicen a quién llamar hoy. 
+            
+            Hemos probado los 5 líderes del mercado para que tú no tengas que hacerlo. Aquí están los ganadores.
+
+            ## 1. HubSpot (Mejor "All-in-One")
+            **Ideal para:** Equipos de marketing y ventas que quieren todo en un solo lugar.
+            *   **Lo bueno:** Su motor "Breeze AI" escribe correos de prospección indistinguibles de un humano. La versión gratuita es generosa.
+            *   **Lo malo:** Se vuelve costoso rápidamente si tienes muchos contactos.
+            *   **Veredicto IA:** 9/10.
+
+            ## 2. Salesforce (La Potencia Enterprise)
+            **Ideal para:** Empresas medianas/grandes con procesos complejos.
+            *   **Lo bueno:** "Einstein GPT" es la IA más madura del mercado. Predice con exactitud qué oportunidad se va a cerrar este mes.
+            *   **Lo malo:** Curva de aprendizaje empinada. Necesitas un implementador.
+            *   **Veredicto IA:** 8.5/10 (Solo por la complejidad).
+
+            ## 3. Pipedrive (Para Vendedores Puros)
+            **Ideal para:** Equipos comerciales que "odian" los CRMs.
+            *   **Lo bueno:** Su asistente de ventas IA te dice exactamente qué paso te saltaste en el embudo. Es visual y adictivo.
+            *   **Lo malo:** El marketing automation es limitado.
+            *   **Veredicto IA:** 8/10.
+
+            ## ¿Cuál deberías elegir?
+
+            Si quieres **facilidad de uso**, ve por **Pipedrive**. 
+            Si quieres **potencia bruta** y tienes presupuesto, **Salesforce**.
+            Si quieres **automatizar marketing y ventas** juntos, **HubSpot** es el rey.
+
+            ---
+            *> **Nota de Transparencia:** Algunos enlaces pueden ser de afiliados. Esto no afecta nuestra imparcialidad.*
+
+            *¿No sabes cuál elegir? Usa nuestra **Calculadora de Costo de Inacción** en la barra lateral para ver cuánto te está costando no decidir.*
+            `,
+            keywords: "mejores CRM IA 2026, comparativa CRM pymes, hubspot vs salesforce 2026, CRM con inteligencia artificial, software ventas automatizado"
         }
     ]
 };
