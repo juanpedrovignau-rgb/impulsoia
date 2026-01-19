@@ -57,7 +57,7 @@ export default function Services() {
                 <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary" style={{ marginBottom: '80px' }}>Consultar por un Proyecto</button>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
-                    {businessConfig.services.map((s, i) => {
+                    {businessConfig.services.slice(0, 3).map((s, i) => {
                         const Icon = iconComponents[s.title];
                         return (
                             <div key={i} className="glass-card" style={{

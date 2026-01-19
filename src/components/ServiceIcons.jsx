@@ -140,3 +140,34 @@ export const ChatbotIcon = () => (
         </line>
     </svg>
 );
+
+export const WebsiteIcon = () => (
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <linearGradient id="websiteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#00CED1" />
+                <stop offset="100%" stopColor="#FFC107" />
+            </linearGradient>
+        </defs>
+        {/* Browser Window */}
+        <rect x="15" y="20" width="50" height="40" rx="4" stroke="url(#websiteGradient)" strokeWidth="2" fill="url(#websiteGradient)" opacity="0.1" />
+        <line x1="15" y1="30" x2="65" y2="30" stroke="url(#websiteGradient)" strokeWidth="2" />
+        {/* Three dots (browser buttons) */}
+        <circle cx="22" cy="25" r="2" fill="#00CED1" />
+        <circle cx="28" cy="25" r="2" fill="#00CED1" />
+        <circle cx="34" cy="25" r="2" fill="#FFC107" />
+        {/* Abstract Website Content (Blocks) */}
+        <rect x="20" y="35" width="40" height="4" rx="1" fill="#00CED1" opacity="0.6">
+            <animate attributeName="width" values="10;40;10" dur="4s" repeatCount="indefinite" />
+        </rect>
+        <rect x="20" y="45" width="25" height="10" rx="2" fill="#FFC107" opacity="0.4" />
+        <rect x="48" y="45" width="12" height="10" rx="2" fill="#00CED1" opacity="0.4" />
+        {/* Magic Wand/Cursor */}
+        <path d="M55 55 L70 40" stroke="url(#websiteGradient)" strokeWidth="2" strokeLinecap="round">
+            <animateTransform attributeName="transform" type="translate" values="0,0; -5,5; 0,0" dur="3s" repeatCount="indefinite" />
+        </path>
+        <circle cx="70" cy="40" r="3" fill="#FFC107">
+            <animate attributeName="r" values="3;5;3" dur="1s" repeatCount="indefinite" />
+        </circle>
+    </svg>
+);

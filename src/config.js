@@ -70,6 +70,13 @@ export const businessConfig = {
             description: "Atención al cliente 24/7 con modelos de lenguaje avanzados.",
             badge: "💬 ATENCIÓN",
             benefits: ["Soporte multilingüe", "Resolución instantánea", "Personalidad de marca"]
+        },
+        {
+            title: "Creación de websites automatizados",
+            icon: "🌐",
+            description: "Desarrollo de sitios web dinámicos y autogestionables mediante IA.",
+            badge: "✨ INNOVACIÓN",
+            benefits: ["Despliegue en minutos", "SEO automatizado", "Diseño adaptativo"]
         }
     ],
     metrics: {
