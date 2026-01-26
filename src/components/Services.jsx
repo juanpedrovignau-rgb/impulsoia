@@ -1,5 +1,5 @@
 import { businessConfig } from '../config';
-import { SalesAgentIcon, AssistantIcon, InvoiceIcon, ConsultingIcon, AutomationIcon, ChatbotIcon } from './ServiceIcons';
+import { SalesAgentIcon, AssistantIcon, InvoiceIcon, ConsultingIcon, AutomationIcon, ChatbotIcon, WebsiteIcon } from './ServiceIcons';
 
 export default function Services() {
 
@@ -9,7 +9,8 @@ export default function Services() {
         "Agente IA Facturas": InvoiceIcon,
         "Consultoría Estratégica": ConsultingIcon,
         "Automatización de Procesos": AutomationIcon,
-        "Desarrollo de Chatbots": ChatbotIcon
+        "Desarrollo de Chatbots": ChatbotIcon,
+        "Creación de websites automatizados": WebsiteIcon
     };
 
     return (
@@ -54,9 +55,9 @@ export default function Services() {
                 <p style={{ maxWidth: '650px', margin: '0 auto 50px', color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '300' }}>
                     Diseñamos arquitecturas inteligentes que automatizan la complejidad y liberan el potencial de tu equipo.
                 </p>
-                <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary" style={{ marginBottom: '80px' }}>Consultar por un Proyecto</button>
 
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px' }}>
+                {/* FIRST SECTION: Featured Packs */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '40px', marginBottom: '100px' }}>
                     {businessConfig.services.slice(0, 3).map((s, i) => {
                         const Icon = iconComponents[s.title];
                         return (
@@ -141,6 +142,55 @@ export default function Services() {
                             </div>
                         );
                     })}
+                </div>
+
+                {/* SECOND SECTION: Specialist Solutions (Modern List/Grid) */}
+                <div style={{ padding: '60px 40px', background: 'rgba(255,255,255,0.02)', borderRadius: '32px', border: '1px solid rgba(255,255,255,0.05)', backdropFilter: 'blur(10px)', textAlign: 'left' }}>
+                    <div style={{ marginBottom: '50px' }}>
+                        <h3 style={{ fontSize: '2rem', fontWeight: '900', color: '#fff', marginBottom: '10px' }}>Especialidades y Consultoría</h3>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>Servicios especializados para transformar cada área de tu negocio.</p>
+                    </div>
+
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', gap: '30px' }}>
+                        {businessConfig.services.slice(3).map((s, i) => {
+                            const Icon = iconComponents[s.title];
+                            return (
+                                <div key={i} style={{
+                                    padding: '30px',
+                                    borderRadius: '20px',
+                                    border: '1px solid rgba(255,255,255,0.03)',
+                                    display: 'flex',
+                                    gap: '25px',
+                                    alignItems: 'center',
+                                    transition: 'all 0.3s ease',
+                                    background: 'rgba(0,0,0,0.2)'
+                                }}
+                                    onMouseOver={(e) => {
+                                        e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                                        e.currentTarget.style.borderColor = 'rgba(0,206,209,0.2)';
+                                        e.currentTarget.querySelector('.service-icon-container').style.transform = 'scale(1.1)';
+                                    }}
+                                    onMouseOut={(e) => {
+                                        e.currentTarget.style.background = 'rgba(0,0,0,0.2)';
+                                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.03)';
+                                        e.currentTarget.querySelector('.service-icon-container').style.transform = 'scale(1)';
+                                    }}
+                                >
+                                    <div className="service-icon-container" style={{ flexShrink: 0, transition: 'transform 0.3s ease' }}>
+                                        {Icon ? <Icon /> : <div style={{ fontSize: '2.5rem' }}>{s.icon}</div>}
+                                    </div>
+                                    <div>
+                                        <h4 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#fff', marginBottom: '8px' }}>{s.title}</h4>
+                                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', lineHeight: '1.5', margin: '0' }}>{s.description}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div style={{ marginTop: '80px' }}>
+                    <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary">Agendar Consultoría Gratuita</button>
                 </div>
             </div>
         </section>
