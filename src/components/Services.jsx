@@ -151,51 +151,60 @@ export default function Services() {
 
                 {/* SECOND SECTION: Specialist Solutions */}
                 <div style={{
-                    padding: 'clamp(20px, 5vw, 60px) clamp(15px, 4vw, 40px)',
-                    background: 'rgba(255,255,255,0.02)',
-                    borderRadius: '32px',
+                    padding: 'clamp(30px, 8vw, 80px) clamp(15px, 5vw, 50px)',
+                    background: 'rgba(255,255,255,0.015)',
+                    borderRadius: '40px',
                     border: '1px solid rgba(255,255,255,0.05)',
                     backdropFilter: 'blur(10px)',
-                    textAlign: 'left'
+                    textAlign: 'center',
+                    marginTop: '20px'
                 }}>
-                    <div style={{ marginBottom: '40px' }}>
-                        <h3 style={{ fontSize: 'clamp(1.5rem, 5vw, 2rem)', fontWeight: '900', color: '#fff', marginBottom: '10px' }}>Especialidades y Consultoría</h3>
-                        <p style={{ color: 'var(--text-secondary)', fontSize: '1rem' }}>Servicios avanzados para potenciar áreas clave.</p>
+                    <div style={{ marginBottom: '60px', maxWidth: '800px', margin: '0 auto 60px' }}>
+                        <h3 style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', fontWeight: '900', color: '#fff', marginBottom: '15px', letterSpacing: '-1px' }}>Especialidades y Consultoría</h3>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '300' }}>Arquitecturas de alto nivel diseñadas para la eficiencia absoluta.</p>
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 350px), 1fr))', gap: '20px' }}>
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 380px), 1fr))',
+                        gap: '24px',
+                        textAlign: 'left'
+                    }}>
                         {businessConfig.services.slice(3).map((s, i) => {
                             const Icon = iconComponents[s.title];
                             return (
                                 <div key={i} style={{
-                                    padding: '25px',
-                                    borderRadius: '20px',
+                                    padding: '35px',
+                                    borderRadius: '24px',
                                     border: '1px solid rgba(255,255,255,0.03)',
                                     display: 'flex',
-                                    gap: '20px',
+                                    gap: '25px',
                                     alignItems: 'flex-start',
-                                    transition: 'all 0.3s ease',
-                                    background: 'rgba(0,0,0,0.2)'
+                                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                                    background: 'rgba(0,0,0,0.3)',
+                                    height: '100%'
                                 }}
                                     onMouseOver={(e) => {
                                         e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
                                         e.currentTarget.style.borderColor = 'rgba(0,206,209,0.2)';
+                                        e.currentTarget.style.transform = 'translateY(-5px)';
                                         const icon = e.currentTarget.querySelector('.service-icon-container');
-                                        if (icon) icon.style.transform = 'scale(1.1)';
+                                        if (icon) icon.style.transform = 'scale(1.1) rotate(5deg)';
                                     }}
                                     onMouseOut={(e) => {
-                                        e.currentTarget.style.background = 'rgba(0,0,0,0.2)';
+                                        e.currentTarget.style.background = 'rgba(0,0,0,0.3)';
                                         e.currentTarget.style.borderColor = 'rgba(255,255,255,0.03)';
+                                        e.currentTarget.style.transform = 'translateY(0)';
                                         const icon = e.currentTarget.querySelector('.service-icon-container');
-                                        if (icon) icon.style.transform = 'scale(1)';
+                                        if (icon) icon.style.transform = 'scale(1) rotate(0deg)';
                                     }}
                                 >
-                                    <div className="service-icon-container" style={{ flexShrink: 0, transition: 'transform 0.3s ease', width: '60px' }}>
-                                        {Icon ? <div style={{ transform: 'scale(0.8)', transformOrigin: 'top left' }}><Icon /></div> : <div style={{ fontSize: '2rem' }}>{s.icon}</div>}
+                                    <div className="service-icon-container" style={{ flexShrink: 0, transition: 'transform 0.4s ease', width: '60px' }}>
+                                        {Icon ? <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}><Icon /></div> : <div style={{ fontSize: '2.5rem' }}>{s.icon}</div>}
                                     </div>
                                     <div>
-                                        <h4 style={{ fontSize: '1.1rem', fontWeight: '700', color: '#fff', marginBottom: '8px' }}>{s.title}</h4>
-                                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.85rem', lineHeight: '1.5', margin: '0' }}>{s.description}</p>
+                                        <h4 style={{ fontSize: '1.2rem', fontWeight: '800', color: '#fff', marginBottom: '10px', letterSpacing: '-0.3px' }}>{s.title}</h4>
+                                        <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', lineHeight: '1.6', margin: '0', fontWeight: '300' }}>{s.description}</p>
                                     </div>
                                 </div>
                             );
