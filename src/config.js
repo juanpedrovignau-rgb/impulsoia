@@ -96,7 +96,7 @@ export const businessConfig = {
     seo: {
         title: "Impulso IA | Soluciones de Inteligencia Artificial",
         description: "Impulso IA ayuda a las empresas a integrar inteligencia artificial en sus procesos diarios.",
-        keywords: "inteligencia artificial, automatizacion, consultoria ia, software"
+        keywords: "inteligencia artificial, automatizacion empresas, consultoria ia, agentes autonomos, eficiencia operativa, transformacion digital, chatbots avanzados"
     },
     blog: [
         {

@@ -1,16 +1,46 @@
-# React + Vite
+# Impulso IA - Soluciones de Inteligencia Artificial
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Impulso IA](https://impulsoia.cloud/social-preview.png)
 
-Currently, two official plugins are available:
+Impulso IA es una agencia de consultoría y desarrollo especializada en la integración de Inteligencia Artificial para optimizar procesos de negocio, automatizar ventas y escalar operaciones empresariales.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Tecnologías
 
-## React Compiler
+- **Core:** React 19 + Vite 7
+- **Routing:** React Router 7
+- **Styling:** Vanilla CSS (Glassmorphism & High-end UI)
+- **Deployment:** Automatizado vía Easypanel / Docker
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠️ Estructura del Proyecto
 
-## Expanding the ESLint configuration
+- `src/config.js`: Archivo centralizado de configuración (Copywriting, Servicios, Blog, Contacto).
+- `src/components/`: Componentes modulares y reutilizables.
+- `src/pages/`: Vistas principales (Home, Blog, Legal).
+- `src/index.css`: Sistema de diseño global y variables.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 📦 Instalación y Desarrollo
+
+1. Clonar el repositorio:
+
+   ```bash
+   git clone https://github.com/juanpedrovignau-rgb/impulsoia.git
+   ```
+
+2. Instalar dependencias:
+
+   ```bash
+   npm install
+   ```
+
+3. Correr en modo desarrollo:
+
+   ```bash
+   npm run dev
+   ```
+
+## 🌐 Despliegue
+
+El proyecto está configurado para despliegue continuo en [impulsoia.cloud](https://impulsoia.cloud).
+
+---
+© 2026 Impulso IA. Todos los derechos reservados.
