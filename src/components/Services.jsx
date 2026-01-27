@@ -116,7 +116,7 @@ export default function Services() {
                                 <div
                                     key={i}
                                     className="specialty-card reveal"
-                                    style={{ animationDelay: `${(i % 2) * 0.1 + 0.2}s` }}
+                                    style={{ transitionDelay: `${(i % 2) * 0.1 + 0.2}s` }}
                                 >
                                     <div className="specialty-icon-wrapper">
                                         {Icon ? <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}><Icon /></div> : <div style={{ fontSize: '2.5rem' }}>{s.icon}</div>}
