@@ -65,6 +65,7 @@ export default function SEO({ title, description, keywords, image, article, date
             <meta name="description" content={seoDescription} />
             <meta name="keywords" content={seoKeywords} />
             <link rel="canonical" href={currentUrl} />
+            <link rel="alternate" hreflang="es" href={currentUrl} />
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content={article ? 'article' : 'website'} />
@@ -72,6 +73,7 @@ export default function SEO({ title, description, keywords, image, article, date
             <meta property="og:title" content={title || businessConfig.seo.title} />
             <meta property="og:description" content={seoDescription} />
             <meta property="og:image" content={seoImage} />
+            <meta property="og:locale" content="es_ES" />
 
             {/* Twitter */}
             <meta property="twitter:card" content="summary_large_image" />
