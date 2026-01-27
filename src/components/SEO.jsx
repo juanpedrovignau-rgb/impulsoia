@@ -24,7 +24,7 @@ export default function SEO({ title, description, keywords, image, article, date
         "description": businessConfig.description,
         "contactPoint": {
             "@type": "ContactPoint",
-            "telephone": businessConfig.phone || "+54 9 11 6702-6555",
+            "telephone": businessConfig.phone || `+${businessConfig.whatsappNumber}`,
             "contactType": "sales",
             "areaServed": "AR",
             "availableLanguage": "Spanish"
