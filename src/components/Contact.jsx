@@ -1,37 +1,44 @@
 import { businessConfig } from '../config';
-import React, { useState } from 'react';
+import React, { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+
+const N8N_WEBHOOK_URL = 'https://n8n.tallerisidro.cloud/webhook/impulso-ia-leads';
+
+const contactAction = async (prevState, formData) => {
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        return { success: true, error: null };
+    } catch (error) {
+        console.error('Error al enviar:', error);
+        return { success: false, error: 'Ocurrió un error al enviar el mensaje.' };
+    }
+};
+
+function SubmitButton() {
+    const { pending } = useFormStatus();
+    return (
+        <button
+            type="submit"
+            disabled={pending}
+            className="btn btn-primary"
+            style={{ width: '100%', height: '60px', opacity: pending ? 0.7 : 1 }}
+        >
+            {pending ? 'ENVIANDO...' : 'Enviar Mensaje'}
+        </button>
+    );
+}
 
 export default function Contact() {
-    const [status, setStatus] = useState('idle'); // idle, loading, success, error
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setStatus('loading');
-
-        const formData = new FormData(e.target);
-        const data = Object.fromEntries(formData.entries());
-        data.source = 'Home Contact Form';
-
-        try {
-            // Reemplazar con URL real de n8n
-            // const response = await fetch('YOUR_N8N_WEBHOOK_URL', {
-            //     method: 'POST',
-            //     headers: { 'Content-Type': 'application/json' },
-            //     body: JSON.stringify(data)
-            // });
-
-            // Simulación de envío exitoso
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            setStatus('success');
-            e.target.reset();
-
-            // Opcional: Abrir WhatsApp después de guardar
-            // window.open(`https://wa.me/${businessConfig.whatsappNumber}?text=Hola, envié una consulta sobre: ${data.subject}`, '_blank');
-        } catch (error) {
-            console.error('Error al enviar:', error);
-            setStatus('error');
-        }
-    };
+    const [state, formAction] = useActionState(contactAction, { success: false, error: null });
 
     return (
         <section id="contact" className="section-padding" style={{ position: 'relative', backgroundColor: 'var(--bg-primary)', overflow: 'hidden' }}>
@@ -74,7 +81,7 @@ export default function Contact() {
             </div>
 
             <div className="container" style={{ position: 'relative', zIndex: 3 }}>
-                <div className="grid-2-cols" style={{ alignItems: 'start', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '50px' }}>
+                <div className="grid-2-cols" style={{ alignItems: 'start' }}>
                     <div className="text-md-center" style={{ textAlign: 'left' }}>
                         <span className="section-title-small">Contacto Directo</span>
                         <h2 className="section-title-large">Conectá con<br />Expertos en IA</h2>
@@ -104,21 +111,31 @@ export default function Contact() {
                         <h3 style={{ fontSize: '1.8rem', fontWeight: '900', marginBottom: '30px', color: '#fff' }}>
                             Enviar Consulta
                         </h3>
-                        {status === 'success' ? (
+                        {state?.success ? (
                             <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '12px', border: '1px solid var(--accent-color)' }}>
                                 <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✅</div>
                                 <h4 style={{ marginBottom: '10px' }}>¡Mensaje Enviado!</h4>
                                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Nos pondremos en contacto contigo a la brevedad.</p>
-                                <button onClick={() => setStatus('idle')} className="btn btn-secondary" style={{ marginTop: '20px' }}>Enviar otro</button>
+                                {/* Botón opcional para resetear el estado si fuera necesario */}
                             </div>
                         ) : (
-                            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-                                <input name="subject" type="text" placeholder="Asunto" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} required />
+                            <form action={formAction} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                                <input type="hidden" name="source" value="Formulario de Contacto (Pie de Página)" />
+
+                                <div className="responsive-grid-2-cols" style={{ gap: '20px' }}>
+                                    <input name="name" type="text" placeholder="Nombre completo" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} required />
+                                    <input name="email" type="email" placeholder="Email" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} required />
+                                </div>
+
+                                <div className="responsive-grid-2-cols" style={{ gap: '20px' }}>
+                                    <input name="whatsapp" type="tel" placeholder="WhatsApp (opcional)" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} />
+                                    <input name="subject" type="text" placeholder="Asunto" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff' }} required />
+                                </div>
+
                                 <textarea name="message" placeholder="¿Cómo podemos ayudarte?" rows="5" style={{ padding: '16px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '12px', color: '#fff', resize: 'none' }} required></textarea>
-                                <button type="submit" disabled={status === 'loading'} className="btn btn-primary" style={{ width: '100%', height: '60px', opacity: status === 'loading' ? 0.7 : 1 }}>
-                                    {status === 'loading' ? 'ENVIANDO...' : 'Enviar Mensaje'}
-                                </button>
-                                {status === 'error' && <p style={{ color: '#ff4444', textAlign: 'center', fontSize: '0.8rem' }}>Error al enviar. Intenta de nuevo.</p>}
+
+                                <SubmitButton />
+                                {state?.error && <p style={{ color: '#ff4444', textAlign: 'center', fontSize: '0.8rem' }}>{state.error}</p>}
                             </form>
                         )}
                     </div>

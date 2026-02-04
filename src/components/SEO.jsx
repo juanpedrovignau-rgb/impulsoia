@@ -35,6 +35,47 @@ export default function SEO({ title, description, keywords, image, article, date
         ]
     };
 
+    // Schema.org for AI Services/Agents (SoftwareApplication)
+    const softwareSchema = businessConfig.services.map(s => ({
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": s.title,
+        "applicationCategory": "BusinessApplication",
+        "description": s.description,
+        "operatingSystem": "Web",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "description": "Consultoría personalizada"
+        },
+        "featureList": s.benefits?.join(', ')
+    }));
+
+    // Schema.org for FAQ (Great for AI snippet visibility)
+    const faqSchema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "¿Qué es un Agente de IA?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Un agente de IA es una entidad de software autónoma capaz de razonar, planificar y ejecutar tareas complejas para optimizar procesos de negocio."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "¿Cómo ayuda la IA a mi empresa?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "La IA permite automatizar tareas repetitivas, mejorar la atención al cliente 24/7 y generar análisis predictivos para la toma de decisiones."
+                }
+            }
+        ]
+    };
+
     // Schema.org JSON-LD for BlogPosting (if it's an article)
     const articleSchema = article ? {
         "@context": "https://schema.org",
@@ -42,7 +83,7 @@ export default function SEO({ title, description, keywords, image, article, date
         "headline": title,
         "image": [seoImage],
         "datePublished": date,
-        "dateModified": date, // Ideally this would be updatedDate
+        "dateModified": date,
         "author": {
             "@type": "Organization",
             "name": businessConfig.name
@@ -86,6 +127,14 @@ export default function SEO({ title, description, keywords, image, article, date
             <script type="application/ld+json">
                 {JSON.stringify(organizationSchema)}
             </script>
+            <script type="application/ld+json">
+                {JSON.stringify(softwareSchema)}
+            </script>
+            {!article && (
+                <script type="application/ld+json">
+                    {JSON.stringify(faqSchema)}
+                </script>
+            )}
             {article && (
                 <script type="application/ld+json">
                     {JSON.stringify(articleSchema)}

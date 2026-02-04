@@ -92,6 +92,29 @@ button {
     padding: 0 15px;
     width: 100%;
   }
+
+  /* Stack form grids and other 2-col layouts on mobile */
+  .grid-2-cols,
+  .responsive-grid-2-cols {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+}
+
+/* Global Reset for Form Elements to prevent border cut-off */
+input, 
+textarea, 
+select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.responsive-grid-2-cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .btn {

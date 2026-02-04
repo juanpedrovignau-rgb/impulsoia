@@ -1,7 +1,6 @@
 import React from 'react';
 import Hero from '../components/Hero';
 import Insight from '../components/Insight';
-import About from '../components/About';
 import Services from '../components/Services';
 import Metrics from '../components/Metrics';
 import Testimonials from '../components/Testimonials';
@@ -14,7 +13,6 @@ export default function HomePage() {
             <Hero />
             <Insight />
             <Services />
-            <About />
             <Metrics />
             <Testimonials />
             <Blog />

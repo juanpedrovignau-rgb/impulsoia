@@ -1,17 +1,43 @@
 import { businessConfig } from '../config';
-import React, { useState } from 'react';
+import React, { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+
+const N8N_WEBHOOK_URL = 'https://n8n.tallerisidro.cloud/webhook/impulso-ia-leads';
+
+const diagnosticAction = async (prevState, formData) => {
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        const response = await fetch(N8N_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        return { success: true, error: null };
+    } catch {
+        return { success: false, error: 'Error al enviar la solicitud.' };
+    }
+};
+
+function HeroSubmitButton() {
+    const { pending } = useFormStatus();
+    return (
+        <button
+            type="submit"
+            disabled={pending}
+            className="btn btn-primary"
+            style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem', opacity: pending ? 0.7 : 1 }}
+        >
+            {pending ? 'ENVIANDO...' : '📞 CONSULTORÍA SIN CARGO'}
+        </button>
+    );
+}
 
 export default function Hero() {
-    const [status, setStatus] = useState('idle');
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setStatus('loading');
-        // Prepara los datos del formulario (opcional procesarlos aquí para n8n)
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setStatus('success');
-        e.target.reset();
-    };
+    const [state, formAction] = useActionState(diagnosticAction, { success: false, error: null });
 
     return (
         <section id="home" style={{
@@ -112,20 +138,20 @@ export default function Hero() {
                     <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
                     <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
 
-                    {status === 'success' ? (
+                    {state?.success ? (
                         <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '12px', border: '1px solid var(--accent-color)' }}>
                             <div style={{ fontSize: '3rem', marginBottom: '20px' }}>✅</div>
                             <h4 style={{ marginBottom: '10px' }}>¡Solicitud Enviada!</h4>
                             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>Te contactaremos por WhatsApp a la brevedad.</p>
-                            <button onClick={() => setStatus('idle')} className="btn btn-secondary" style={{ marginTop: '20px' }}>Volver</button>
                         </div>
                     ) : (
-                        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                        <form action={formAction} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                            <input type="hidden" name="source" value="Formulario Hero (Llamada Diagnóstico)" />
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
                                 <input name="name" type="text" placeholder="Nombre" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
                                 <input name="lastname" type="text" placeholder="Apellido" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
                             </div>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+                            <div className="responsive-grid-2-cols" style={{ gap: '10px' }}>
                                 <input name="whatsapp" type="tel" placeholder="WhatsApp" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
                                 <input name="email" type="email" placeholder="Email" style={{ padding: '12px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }} required />
                             </div>
@@ -147,9 +173,8 @@ export default function Hero() {
                                 required
                             ></textarea>
 
-                            <button type="submit" disabled={status === 'loading'} className="btn btn-primary" style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem', opacity: status === 'loading' ? 0.7 : 1 }}>
-                                {status === 'loading' ? 'ENVIANDO...' : '📞 CONSULTORÍA SIN CARGO'}
-                            </button>
+                            <HeroSubmitButton />
+                            {state?.error && <p style={{ color: '#ff4444', textAlign: 'center', fontSize: '0.8rem' }}>{state.error}</p>}
                         </form>
                     )}
                 </div>
