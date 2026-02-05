@@ -10,6 +10,7 @@ export default function Insight() {
         }}>
             <div className="container">
                 <h2 className="section-title-large" style={{
+                    fontSize: '2.2rem',
                     fontWeight: '800',
                     color: '#fff',
                     lineHeight: '1.2',
