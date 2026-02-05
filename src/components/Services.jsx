@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { businessConfig } from '../config';
 import { SalesAgentIcon, AssistantIcon, InvoiceIcon, ConsultingIcon, AutomationIcon, ChatbotIcon, WebsiteIcon } from './ServiceIcons';
+import Testimonials from './Testimonials';
 import './Services.css';
 
 export default function Services() {
@@ -101,6 +102,8 @@ export default function Services() {
                         );
                     })}
                 </div>
+
+                <Testimonials isInternal={true} />
 
                 {/* SECOND SECTION: Specialist Solutions */}
                 <div className="specialties-container reveal">

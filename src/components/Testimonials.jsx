@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
-export default function Testimonials() {
+export default function Testimonials({ isInternal = false }) {
     const testimonials = [
         {
             name: "Lucas Giardelli",
@@ -37,8 +37,18 @@ export default function Testimonials() {
     }, [nextSlide]);
 
     return (
-        <section className="section-padding" style={{ backgroundColor: '#000', textAlign: 'center', position: 'relative', overflow: 'hidden', paddingBottom: '20px' }}>
-            <div className="container">
+        <section
+            className={isInternal ? "" : "section-padding"}
+            style={{
+                backgroundColor: isInternal ? 'transparent' : '#000',
+                textAlign: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                paddingBottom: isInternal ? '60px' : '20px',
+                paddingTop: isInternal ? '40px' : ''
+            }}
+        >
+            <div className={isInternal ? "" : "container"}>
                 <span className="section-title-small">Testimonios de Éxito</span>
                 <h2 className="section-title-large" style={{ marginBottom: '60px' }}>Casos Reales con IA</h2>
 
