@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { businessConfig } from '../config';
 import { SalesAgentIcon, AssistantIcon, InvoiceIcon, ConsultingIcon, AutomationIcon, ChatbotIcon, WebsiteIcon } from './ServiceIcons';
+import Testimonials from './Testimonials';
 import './Services.css';
 
 export default function Services() {
@@ -63,11 +64,11 @@ export default function Services() {
                         return (
                             <div
                                 key={i}
-                                className={`service-card-featured reveal reveal-delay-${i + 1}`}
+                                className={`service-card-featured reveal reveal-delay-${i + 1} theme-${['ventas', 'asistente', 'facturas'][i]}`}
                             >
                                 {/* Badge */}
                                 <div className="card-badge">
-                                    {s.badge}
+                                    {s.badge} {i === 0 && <span className="recommended-tag">★ MÁS BUSCADO</span>}
                                 </div>
 
                                 <div className="card-content">
@@ -101,6 +102,8 @@ export default function Services() {
                         );
                     })}
                 </div>
+
+                <Testimonials isInternal={true} />
 
                 {/* SECOND SECTION: Specialist Solutions */}
                 <div className="specialties-container reveal">

@@ -9,7 +9,7 @@ export default function Footer() {
                         {businessConfig.name.split(' ')[0]} <span>{businessConfig.name.split(' ').slice(1).join(' ')}</span>
                     </div>
                     <p>
-                        Transformando el presente con arquitecturas inteligentes para el mañana.
+                        Diseñando arquitecturas inteligentes globales para empresas de habla hispana y Estados Unidos.
                     </p>
                     <div className="social-links">
                         {['LinkedIn', 'X', 'GitHub'].map(social => (
@@ -34,7 +34,7 @@ export default function Footer() {
                 <div className="footer-col">
                     <h4>Empresa</h4>
                     <ul>
-                        <li><a href="/#about" className="footer-link">Sobre Nosotros</a></li>
+                        <li><a href="/#home" className="footer-link">Inicio</a></li>
                         <li><a href="/#services" className="footer-link">Proyectos</a></li>
                         <li><Link to="/blog" className="footer-link">Blog Técnico</Link></li>
                         <li style={{ color: '#555' }}>Carreras</li>

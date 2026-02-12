@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap');
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
 
 :root {
@@ -92,6 +90,29 @@ button {
     padding: 0 15px;
     width: 100%;
   }
+
+  /* Stack form grids and other 2-col layouts on mobile */
+  .grid-2-cols,
+  .responsive-grid-2-cols {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+}
+
+/* Global Reset for Form Elements to prevent border cut-off */
+input, 
+textarea, 
+select {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.responsive-grid-2-cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
 }
 
 .btn {
@@ -497,4 +518,26 @@ header {
     flex-direction: column;
     gap: 15px;
   }
+}
+
+/* Contact Form Spinner */
+.contact-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: contact-spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes contact-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Contact form select option dark styling */
+select option {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 10px;
 }

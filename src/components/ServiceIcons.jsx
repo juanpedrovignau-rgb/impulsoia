@@ -4,6 +4,7 @@ import React from 'react';
 
 export const SalesAgentIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Agente de Ventas IA</title>
         <defs>
             <linearGradient id="salesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
@@ -27,6 +28,7 @@ export const SalesAgentIcon = () => (
 
 export const AssistantIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Asistente IA</title>
         <defs>
             <linearGradient id="assistantGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
@@ -51,6 +53,7 @@ export const AssistantIcon = () => (
 
 export const InvoiceIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Automatización de Facturas</title>
         <defs>
             <linearGradient id="invoiceGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
@@ -75,6 +78,7 @@ export const InvoiceIcon = () => (
 
 export const ConsultingIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Consultoría Estratégica</title>
         <defs>
             <linearGradient id="consultingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
@@ -98,6 +102,7 @@ export const ConsultingIcon = () => (
 
 export const AutomationIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Automatización de Procesos</title>
         <defs>
             <linearGradient id="automationGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
@@ -119,6 +124,7 @@ export const AutomationIcon = () => (
 
 export const ChatbotIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Desarrollo de Chatbots</title>
         <defs>
             <linearGradient id="chatbotGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
@@ -143,6 +149,7 @@ export const ChatbotIcon = () => (
 
 export const WebsiteIcon = () => (
     <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>Icono Sitios Web Automatizados</title>
         <defs>
             <linearGradient id="websiteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stopColor="#00CED1" />
