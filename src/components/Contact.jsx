@@ -28,13 +28,13 @@ const contactAction = async (prevState, formData) => {
 
         if (!response.ok) {
             console.error('n8n response status:', response.status, response.statusText);
-            throw new Error(`Error ${response.status}`);
+            return { success: false, error: `Error del servidor (${response.status}). Por favor, contactanos por WhatsApp.` };
         }
 
         return { success: true, error: null };
     } catch (error) {
         console.error('Error al enviar formulario a n8n:', error);
-        return { success: false, error: 'Ocurrió un error al enviar el formulario. Intentá de nuevo.' };
+        return { success: false, error: 'Error de conexión. Verificá tu internet e intentá de nuevo.' };
     }
 };
 

@@ -26,13 +26,13 @@ const diagnosticAction = async (prevState, formData) => {
 
         if (!response.ok) {
             console.error('n8n response:', response.status, response.statusText);
-            throw new Error(`Error ${response.status}`);
+            return { success: false, error: `Error (${response.status}). Intentá de nuevo o contactanos directamente.` };
         }
 
         return { success: true, error: null };
     } catch (error) {
         console.error('Error al enviar formulario Hero a n8n:', error);
-        return { success: false, error: 'Error al enviar la solicitud. Intentá de nuevo.' };
+        return { success: false, error: 'Error de red. Por favor, intentá de nuevo.' };
     }
 };
 
