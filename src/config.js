@@ -17,7 +17,7 @@ export const businessConfig = {
     ],
     hero: {
         title: "Impulsa tu Negocio con",
-        subtitle: "IA en Iberoamérica y EE.UU.",
+        subtitle: "Inteligencia Artificial",
         features: ["Consultoría Estratégica LatAm", "Automatización Global", "Agentes Multilingües", "Estrategia de Ventas USA Spanish Market"],
         image: "/ai-hero-bg.png",
         video: "/agente-ventas-ia.mp4"
