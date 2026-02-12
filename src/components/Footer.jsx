@@ -9,7 +9,7 @@ export default function Footer() {
                         {businessConfig.name.split(' ')[0]} <span>{businessConfig.name.split(' ').slice(1).join(' ')}</span>
                     </div>
                     <p>
-                        Transformando el presente con arquitecturas inteligentes para el mañana.
+                        Diseñando arquitecturas inteligentes globales para empresas de habla hispana y Estados Unidos.
                     </p>
                     <div className="social-links">
                         {['LinkedIn', 'X', 'GitHub'].map(social => (

@@ -519,3 +519,25 @@ header {
     gap: 15px;
   }
 }
+
+/* Contact Form Spinner */
+.contact-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-top-color: #000;
+  border-radius: 50%;
+  animation: contact-spin 0.6s linear infinite;
+  display: inline-block;
+}
+
+@keyframes contact-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Contact form select option dark styling */
+select option {
+  background: #1a1a2e;
+  color: #fff;
+  padding: 10px;
+}

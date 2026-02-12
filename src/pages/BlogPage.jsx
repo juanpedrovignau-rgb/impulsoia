@@ -193,7 +193,7 @@ export default function BlogPage() {
                                                 e.currentTarget.style.transform = 'translateY(0)';
                                             }}
                                         >
-                                            <img src={relatedPost.image} alt={relatedPost.title} style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
+                                            <img src={relatedPost.image} alt={relatedPost.title} loading="lazy" style={{ width: '100%', height: '150px', objectFit: 'cover' }} />
                                             <div style={{ padding: '15px' }}>
                                                 <h4 style={{ fontSize: '1rem', fontWeight: '700', color: '#fff', marginBottom: '8px', lineHeight: '1.3' }}>{relatedPost.title}</h4>
                                                 <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', lineHeight: '1.4' }}>{relatedPost.excerpt.substring(0, 80)}...</p>
@@ -244,7 +244,7 @@ export default function BlogPage() {
                         <article key={i} className="glass-card" style={{ padding: '0', marginBottom: '60px', textAlign: 'left', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.05)' }}>
                             <div style={{ position: 'relative', padding: '60px 40px', overflow: 'hidden' }}>
                                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(0,0,0,0.7)', zIndex: 2 }}></div>
-                                <img src={post.image} alt={post.title} style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }} />
+                                <img src={post.image} alt={post.title} loading="lazy" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: 1 }} />
                                 <div style={{ position: 'relative', zIndex: 5 }}>
                                     <time dateTime={post.date} style={{ fontSize: '0.8rem', color: 'var(--accent-yellow)', marginBottom: '15px', fontWeight: 'bold', textTransform: 'uppercase', display: 'block' }}>{post.dateFormatted}</time>
                                     <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '0', lineHeight: '1.1', color: '#fff' }}>{post.title}</h2>

@@ -64,11 +64,11 @@ export default function Services() {
                         return (
                             <div
                                 key={i}
-                                className={`service-card-featured reveal reveal-delay-${i + 1}`}
+                                className={`service-card-featured reveal reveal-delay-${i + 1} theme-${['ventas', 'asistente', 'facturas'][i]}`}
                             >
                                 {/* Badge */}
                                 <div className="card-badge">
-                                    {s.badge}
+                                    {s.badge} {i === 0 && <span className="recommended-tag">★ MÁS BUSCADO</span>}
                                 </div>
 
                                 <div className="card-content">

@@ -2,23 +2,37 @@ import { businessConfig } from '../config';
 import React, { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-const N8N_WEBHOOK_URL = 'https://n8n.tallerisidro.cloud/webhook/impulso-ia-leads';
+const N8N_FORM_URL = 'https://impulso-n8n.6shxj1.easypanel.host/form-test/350d547f-d833-4376-a962-e0c74dc7c575';
 
 const diagnosticAction = async (prevState, formData) => {
-    const data = Object.fromEntries(formData.entries());
+    const raw = Object.fromEntries(formData.entries());
+
+    // Build payload matching n8n "On form submission" field names
+    const payload = new URLSearchParams();
+    payload.append('Nombre', raw.name || '');
+    payload.append('Apellido', raw.lastname || '');
+    payload.append('Email', raw.email || '');
+    payload.append('Whatsapp', raw.whatsapp || '');
+    payload.append('Instagram', raw.instagram || '');
+    payload.append('Que proceso o area de tu empresa te gustaria mejorar con ia', raw.content || '');
+    payload.append('submitted_at', new Date().toISOString());
+    payload.append('source', raw.source || 'Hero Diagnóstico');
 
     try {
-        const response = await fetch(N8N_WEBHOOK_URL, {
+        const response = await fetch(N8N_FORM_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: payload
         });
 
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) {
+            console.error('n8n response:', response.status, response.statusText);
+            throw new Error(`Error ${response.status}`);
+        }
 
         return { success: true, error: null };
-    } catch {
-        return { success: false, error: 'Error al enviar la solicitud.' };
+    } catch (error) {
+        console.error('Error al enviar formulario Hero a n8n:', error);
+        return { success: false, error: 'Error al enviar la solicitud. Intentá de nuevo.' };
     }
 };
 
@@ -29,9 +43,9 @@ function HeroSubmitButton() {
             type="submit"
             disabled={pending}
             className="btn btn-primary"
-            style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem', opacity: pending ? 0.7 : 1 }}
+            style={{ marginTop: '10px', width: '100%', height: '55px', fontSize: '1.1rem', opacity: pending ? 0.7 : 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}
         >
-            {pending ? 'ENVIANDO...' : '📞 CONSULTORÍA SIN CARGO'}
+            {pending ? (<><span className="contact-spinner"></span> ENVIANDO...</>) : '📞 CONSULTORÍA SIN CARGO'}
         </button>
     );
 }
@@ -119,7 +133,7 @@ export default function Hero() {
                 flexWrap: 'wrap'
             }}>
                 <div style={{ textAlign: 'left', flex: '1', minWidth: '300px' }}>
-                    <span className="section-title-small">Consultoría de Élite</span>
+                    <span className="section-title-small">Líderes en Iberoamérica y EE.UU.</span>
                     <h1 className="hero-title" style={{ fontSize: '5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
                         {businessConfig.hero.title} <br />
                         <span style={{

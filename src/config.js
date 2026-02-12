@@ -4,22 +4,21 @@ export const businessConfig = {
     description: "Transformamos tu empresa con soluciones de Inteligencia Artificial a medida. Optimizamos procesos y potenciamos tu crecimiento tecnológico.",
     phone: "",
     whatsappNumber: "5491167026555",
-    address: "Buenos Aires, Argentina",
-    locationDetail: "Software & AI Consulting",
-    email: "contacto@impulsoia.com",
+    address: "Servicios Globales para Hispanoamérica y EE.UU.",
+    locationDetail: "Consultoría de IA Certificada Internacional",
+    email: "global@impulsoia.com",
     social: {
         instagram: "https://instagram.com/impulsoia",
         facebook: "https://facebook.com/impulsoia"
     },
     hours: [
-        { day: "Lunes - Viernes", time: "9:00 - 18:00 hs" },
-        { day: "Sábado", time: "Cerrado", closed: true },
-        { day: "Domingo", time: "Cerrado", closed: true }
+        { day: "Lunes - Viernes", time: "9:00 - 18:00 hs (EST/ART)" },
+        { day: "Atención Digital", time: "24/7 mediante Agentes IA", highlight: true }
     ],
     hero: {
         title: "Impulsa tu Negocio con",
-        subtitle: "Inteligencia Artificial",
-        features: ["Consultoría Estratégica", "Automatización de Procesos", "Agentes Inteligentes", "Estrategia CRM & Ventas"],
+        subtitle: "IA en Iberoamérica y EE.UU.",
+        features: ["Consultoría Estratégica LatAm", "Automatización Global", "Agentes Multilingües", "Estrategia de Ventas USA Spanish Market"],
         image: "/ai-hero-bg.png",
         video: "/agente-ventas-ia.mp4"
     },
@@ -94,9 +93,9 @@ export const businessConfig = {
         accent: "#00CED1"
     },
     seo: {
-        title: "Impulso IA | Soluciones de Inteligencia Artificial",
-        description: "Impulso IA ayuda a las empresas a integrar inteligencia artificial en sus procesos diarios.",
-        keywords: "inteligencia artificial, automatizacion empresas, consultoria ia, agentes autonomos, eficiencia operativa, transformacion digital, chatbots avanzados"
+        title: "Impulso IA | Soluciones de Inteligencia Artificial para el Mundo Hispanohablante",
+        description: "Impulso IA ayuda a empresas de Estados Unidos, México, España y toda Latinoamérica a integrar inteligencia artificial de élite en sus procesos.",
+        keywords: "inteligencia artificial ee.uu., automatizacion empresas mexico, consultoria ia colombia, agentes autonomos españa, inteligencia artificial habla hispana, rrhh ia estados unidos, crm ia latam"
     },
     blog: [
         {
