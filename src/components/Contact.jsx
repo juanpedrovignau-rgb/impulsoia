@@ -2,7 +2,7 @@ import { businessConfig } from '../config';
 import React, { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-const N8N_FORM_URL = 'https://impulso-n8n.6shxj1.easypanel.host/form-test/350d547f-d833-4376-a962-e0c74dc7c575';
+const N8N_FORM_URL = 'https://n8n.impulsoia.cloud/webhook/impulsoia-webhook';
 
 const contactAction = async (prevState, formData) => {
     const raw = Object.fromEntries(formData.entries());
@@ -11,14 +11,21 @@ const contactAction = async (prevState, formData) => {
     // Using URLSearchParams to send as application/x-www-form-urlencoded
     // This avoids CORS preflight (simple request) and is natively supported by n8n form triggers
     const payload = new URLSearchParams();
-    payload.append('Nombre', raw.nombre || '');
-    payload.append('Apellido', raw.apellido || '');
-    payload.append('Email', raw.email || '');
-    payload.append('Whatsapp', raw.whatsapp || '');
-    payload.append('Instagram', raw.instagram || '');
-    payload.append('Que proceso o area de tu empresa te gustaria mejorar con ia', raw.area_mejora || '');
+
+    // Core fields expected by n8n with standardized names
+    payload.append('event_type', 'form_submission'); // Critical for n8n filter
+    payload.append('name', `${raw.nombre || ''} ${raw.apellido || ''}`.trim());
+    payload.append('email', raw.email || '');
+    payload.append('phone', raw.whatsapp || '');
+    payload.append('company', raw.instagram || ''); // Mapping Instagram as company/identifier
+    payload.append('message', raw.area_mejora ? `Interés en mejorar: ${raw.area_mejora}` : '');
+
+    // Metadata
     payload.append('submitted_at', new Date().toISOString());
     payload.append('source', raw.source || 'Formulario Web');
+    // Keeping raw fields just in case
+    payload.append('raw_instagram', raw.instagram || '');
+    payload.append('raw_area_mejora', raw.area_mejora || '');
 
     try {
         const response = await fetch(N8N_FORM_URL, {
