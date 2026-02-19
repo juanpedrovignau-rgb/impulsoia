@@ -2,21 +2,30 @@ import { businessConfig } from '../config';
 import React, { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-const N8N_FORM_URL = 'https://impulso-n8n.6shxj1.easypanel.host/form-test/350d547f-d833-4376-a962-e0c74dc7c575';
+const N8N_FORM_URL = 'https://n8n.impulsoia.cloud/webhook/impulsoia-webhook';
 
 const diagnosticAction = async (prevState, formData) => {
     const raw = Object.fromEntries(formData.entries());
 
     // Build payload matching n8n "On form submission" field names
+    // Using URLSearchParams to send as application/x-www-form-urlencoded
     const payload = new URLSearchParams();
-    payload.append('Nombre', raw.name || '');
-    payload.append('Apellido', raw.lastname || '');
-    payload.append('Email', raw.email || '');
-    payload.append('Whatsapp', raw.whatsapp || '');
-    payload.append('Instagram', raw.instagram || '');
-    payload.append('Que proceso o area de tu empresa te gustaria mejorar con ia', raw.content || '');
+
+    // Standardized fields
+    payload.append('event_type', 'form_submission'); 
+    payload.append('name', `${raw.name || ''} ${raw.lastname || ''}`.trim());
+    payload.append('email', raw.email || '');
+    payload.append('phone', raw.whatsapp || '');
+    payload.append('company', raw.instagram || ''); 
+    payload.append('message', raw.content ? `Interés en mejorar: ${raw.content}` : '');
+
+    // Metadata
     payload.append('submitted_at', new Date().toISOString());
     payload.append('source', raw.source || 'Hero Diagnóstico');
+    
+    // Keeping raw fields just in case
+    payload.append('raw_instagram', raw.instagram || '');
+    payload.append('raw_content', raw.content || '');
 
     try {
         const response = await fetch(N8N_FORM_URL, {
@@ -32,7 +41,7 @@ const diagnosticAction = async (prevState, formData) => {
         return { success: true, error: null };
     } catch (error) {
         console.error('Error al enviar formulario Hero a n8n:', error);
-        return { success: false, error: 'Error de red. Por favor, intentá de nuevo.' };
+        return { success: false, error: 'Error de conexión. Por favor, intentá de nuevo.' };
     }
 };
 
