@@ -16,9 +16,10 @@ export const businessConfig = {
         { day: "Atención Digital", time: "24/7 mediante Agentes IA", highlight: true }
     ],
     hero: {
-        title: "Impulsa tu Negocio con",
-        subtitle: "Inteligencia Artificial",
-        features: ["Consultoría Estratégica LatAm", "Automatización Global", "Agentes Multilingües", "Estrategia de Ventas USA Spanish Market"],
+        title: "Automatizamos tu empresa",
+        subtitle: "con Inteligencia Artificial",
+        subheadline: "Creamos sistemas que automatizan ventas, atención y procesos operativos.",
+        features: ["Automatización de procesos", "IA para ventas y clientes", "Integración con tus sistemas"],
         image: "/ai-hero-bg.png",
         video: "/agente-ventas-ia.mp4"
     },
