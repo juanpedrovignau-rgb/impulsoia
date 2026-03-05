@@ -12,17 +12,17 @@ const diagnosticAction = async (prevState, formData) => {
     const payload = new URLSearchParams();
 
     // Standardized fields
-    payload.append('event_type', 'form_submission'); 
+    payload.append('event_type', 'form_submission');
     payload.append('name', `${raw.name || ''} ${raw.lastname || ''}`.trim());
     payload.append('email', raw.email || '');
     payload.append('phone', raw.whatsapp || '');
-    payload.append('company', raw.instagram || ''); 
+    payload.append('company', raw.instagram || '');
     payload.append('message', raw.content ? `Interés en mejorar: ${raw.content}` : '');
 
     // Metadata
     payload.append('submitted_at', new Date().toISOString());
     payload.append('source', raw.source || 'Hero Diagnóstico');
-    
+
     // Keeping raw fields just in case
     payload.append('raw_instagram', raw.instagram || '');
     payload.append('raw_content', raw.content || '');
@@ -142,24 +142,35 @@ export default function Hero() {
                 flexWrap: 'wrap'
             }}>
                 <div style={{ textAlign: 'left', flex: '1', minWidth: '300px' }}>
-                    <span className="section-title-small">Líderes en Iberoamérica y EE.UU.</span>
-                    <h1 className="hero-title" style={{ fontSize: '5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.9', letterSpacing: '-2px' }}>
-                        {businessConfig.hero.title} <br />
+                    <span className="section-title-small">Consultoría en Inteligencia Artificial & Automatización</span>
+                    <h1 className="hero-title" style={{ fontSize: '5.5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.85', letterSpacing: '-3px' }}>
+                        Impulso <span style={{ color: 'var(--accent-color)' }}>IA</span> <br />
                         <span style={{
-                            background: 'linear-gradient(to right, #ffffff, var(--accent-color))',
+                            background: 'linear-gradient(to right, #ffffff, var(--accent-yellow))',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            textShadow: '0 0 30px rgba(0, 206, 209, 0.3)'
-                        }}>{businessConfig.hero.subtitle}</span>
+                            textShadow: '0 0 30px rgba(255, 193, 7, 0.2)'
+                        }}>Inteligente</span>
                     </h1>
-                    <p style={{ fontSize: '1.25rem', maxWidth: '550px', marginBottom: '45px', color: 'var(--text-secondary)', fontWeight: '300' }}>
-                        Lideramos la transición hacia procesos autónomos con <b style={{ color: '#fff' }}>Inteligencia Artificial</b> de última generación.
+                    <p style={{ fontSize: '1.4rem', maxWidth: '600px', marginBottom: '45px', color: 'var(--text-secondary)', fontWeight: '300', lineHeight: '1.4' }}>
+                        Lideramos la transición hacia procesos autónomos con <b style={{ color: '#fff' }}>arquitecturas de IA</b> de última generación y automatización de alto nivel.
                     </p>
+
+                    {/* Trust Bar */}
+                    <div style={{ display: 'flex', gap: '30px', alignItems: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '0.7rem', fontWeight: '900', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--accent-color)' }}>TECNOLOGÍAS CORE:</span>
+                        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google_Cloud_logo.svg" alt="Google Cloud" style={{ height: '18px', filter: 'grayscale(1) brightness(2)' }} />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" alt="Meta" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
+                        </div>
+                    </div>
                 </div>
 
-                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 0 0 auto', border: '1px solid rgba(0, 206, 209, 0.1)', minWidth: '300px' }}>
-                    <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Llamada de Diagnóstico</h3>
-                    <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--text-secondary)' }}>Reserva tu sesión estratégica de 7 minutos</p>
+                <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 0 0 auto', border: '1px solid rgba(0, 206, 209, 0.2)', minWidth: '300px', background: 'rgba(255,255,255,0.03)', boxShadow: '0 20px 80px rgba(0,206,209,0.1)' }}>
+                    <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Sesión Estratégica</h3>
+                    <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--accent-yellow)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>7 Minutos para Transformar tu Empresa</p>
 
                     {state?.success ? (
                         <div style={{ textAlign: 'center', padding: '40px 20px', background: 'rgba(0, 206, 209, 0.05)', borderRadius: '12px', border: '1px solid var(--accent-color)' }}>

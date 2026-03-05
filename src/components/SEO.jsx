@@ -9,7 +9,9 @@ export default function SEO({ title, description, keywords, image, article, date
     const currentUrl = `${siteUrl}${location.pathname}`;
     const defaultImage = `${siteUrl}${businessConfig.hero.image}`;
 
-    const seoTitle = title ? `${title} | ${businessConfig.name}` : businessConfig.seo.title;
+    const seoTitle = title ?
+        (title.includes(businessConfig.name) ? title : `${title} | ${businessConfig.name}`)
+        : businessConfig.seo.title;
     const seoDescription = description || businessConfig.seo.description;
     const seoKeywords = keywords || businessConfig.seo.keywords;
     const seoImage = image ? (image.startsWith('http') ? image : `${siteUrl}${image}`) : defaultImage;

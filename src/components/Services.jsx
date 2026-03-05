@@ -72,8 +72,8 @@ export default function Services() {
                                 </div>
 
                                 <div className="card-content">
-                                    <div className="card-icon-container">
-                                        {Icon ? <Icon /> : <div style={{ fontSize: '3rem' }}>{s.icon}</div>}
+                                    <div className="card-image-container">
+                                        <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
                                     </div>
 
                                     <h3 className="card-title">{s.title}</h3>

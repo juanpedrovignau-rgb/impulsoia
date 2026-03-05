@@ -43,7 +43,7 @@ export default function BlogPage() {
         return (
             <div style={{ backgroundColor: '#000', minHeight: '100vh', paddingBottom: '100px' }}>
                 <SEO
-                    title={`${post.title} | Blog Impulso IA`}
+                    title={`${post.title} | Blog`}
                     description={post.excerpt}
                     keywords={post.keywords}
                     image={post.image}
@@ -222,7 +222,7 @@ export default function BlogPage() {
     return (
         <div style={{ backgroundColor: '#000', minHeight: '100vh', paddingBottom: '100px' }}>
             <SEO
-                title="Blog IA y Automatización | Impulso IA"
+                title="Blog IA y Automatización"
                 description="Descubre las últimas tendencias en Inteligencia Artificial y cómo automatizar tu negocio para escalar al siguiente nivel."
             />
 
@@ -279,12 +279,25 @@ function Sidebar() {
         data.source = 'Blog Sidebar Form';
 
         try {
-            // Reemplazar con URL real de n8n
-            // await fetch('YOUR_N8N_WEBHOOK_URL', { ... });
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const payload = new URLSearchParams();
+            payload.append('event_type', 'blog_sidebar_lead');
+            payload.append('name', data.name || '');
+            payload.append('phone', data.whatsapp || '');
+            payload.append('email', data.email || '');
+            payload.append('source', 'Blog Sidebar — Calculadora ROI');
+            payload.append('submitted_at', new Date().toISOString());
+
+            const response = await fetch('https://n8n.impulsoia.cloud/webhook/impulsoia-webhook', {
+                method: 'POST',
+                body: payload
+            });
+
+            if (!response.ok) throw new Error('Network response was not ok');
+
             setStatus('success');
             e.target.reset();
-        } catch {
+        } catch (error) {
+            console.error('Error submitting form:', error);
             setStatus('error');
         }
     };

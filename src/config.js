@@ -93,10 +93,30 @@ export const businessConfig = {
         accent: "#00CED1"
     },
     seo: {
-        title: "Impulso IA | Soluciones de Inteligencia Artificial para el Mundo Hispanohablante",
-        description: "Impulso IA ayuda a empresas de Estados Unidos, México, España y toda Latinoamérica a integrar inteligencia artificial de élite en sus procesos.",
-        keywords: "inteligencia artificial ee.uu., automatizacion empresas mexico, consultoria ia colombia, agentes autonomos españa, inteligencia artificial habla hispana, rrhh ia estados unidos, crm ia latam"
+        title: "Impulso IA | Soluciones de Inteligencia Artificial para tu Negocio",
+        description: "Transformamos empresas con arquitecturas de Inteligencia Artificial de élite. Automatización de procesos y agentes autónomos para escalar tu operación.",
+        keywords: "inteligencia artificial, automatizacion, consultoria ia, chatbots, agentes ia, soluciones ia"
     },
+    testimonials: [
+        {
+            name: "Carlos Rodríguez",
+            role: "CEO de Logística Global",
+            content: "Implementar los agentes de IA de Impulso IA redujo nuestro error operativo en un 85% en solo 3 meses. El retorno de inversión fue inmediato.",
+            avatar: "https://i.pravatar.cc/150?u=carlos"
+        },
+        {
+            name: "Elena Martínez",
+            role: "Directora de Operaciones en Fintech",
+            content: "La consultoría estratégica nos permitió ver oportunidades de automatización que no sabíamos que existían. Ahora operamos 24/7 sin aumentar la nómina.",
+            avatar: "https://i.pravatar.cc/150?u=elena"
+        },
+        {
+            name: "Roberto Gómez",
+            role: "Founder de E-commerce Senior",
+            content: "Nuestras ventas aumentaron un 40% gracias al Agente de Ventas IA. Atiende a cada cliente con una precisión que ningún humano logra en volumen.",
+            avatar: "https://i.pravatar.cc/150?u=roberto"
+        }
+    ],
     blog: [
         {
             id: 1,
