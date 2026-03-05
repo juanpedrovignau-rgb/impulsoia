@@ -35,7 +35,7 @@ export default function Testimonials({ isInternal = false }) {
                         </p>
 
                         <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: 'auto' }}>
-                            <img src={t.avatar} alt={t.name} style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--accent-color)' }} />
+                            <img src={t.avatar} alt={t.name} loading="lazy" style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--accent-color)' }} />
                             <div>
                                 <h4 style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '700' }}>{t.name}</h4>
                                 <p style={{ color: 'var(--accent-color)', fontSize: '0.8rem', fontWeight: '500', textTransform: 'uppercase' }}>{t.role}</p>
