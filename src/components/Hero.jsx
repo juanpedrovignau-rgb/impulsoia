@@ -143,25 +143,18 @@ export default function Hero() {
             }}>
                 <div style={{ textAlign: 'left', flex: '1', minWidth: '300px' }}>
                     <span className="section-title-small">Consultoría en Inteligencia Artificial & Automatización</span>
-                    <h1 className="hero-title" style={{ fontSize: '4.5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '1', letterSpacing: '-2px' }}>
-                        {businessConfig.hero.title.split(' ').slice(0, 1)} <span style={{ color: 'var(--accent-color)' }}>{businessConfig.hero.title.split(' ').slice(1).join(' ')}</span> <br />
+                    <h1 className="hero-title" style={{ fontSize: '5.5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.85', letterSpacing: '-3px' }}>
+                        Impulso <span style={{ color: 'var(--accent-color)' }}>IA</span> <br />
                         <span style={{
                             background: 'linear-gradient(to right, #ffffff, var(--accent-yellow))',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            textShadow: '0 0 30px rgba(255, 193, 7, 0.2)',
-                            fontSize: '3.5rem'
-                        }}>{businessConfig.hero.subtitle}</span>
+                            textShadow: '0 0 30px rgba(255, 193, 7, 0.2)'
+                        }}>Inteligente</span>
                     </h1>
-                    <p style={{ fontSize: '1.4rem', maxWidth: '600px', marginBottom: '30px', color: 'var(--text-secondary)', fontWeight: '300', lineHeight: '1.4' }}>
-                        {businessConfig.hero.subheadline}
+                    <p style={{ fontSize: '1.4rem', maxWidth: '600px', marginBottom: '45px', color: 'var(--text-secondary)', fontWeight: '300', lineHeight: '1.4' }}>
+                        Lideramos la transición hacia procesos autónomos con <b style={{ color: '#fff' }}>arquitecturas de IA</b> de última generación y automatización de alto nivel.
                     </p>
-
-                    <ul style={{ listStyleType: 'none', padding: 0, marginBottom: '45px', color: '#fff', fontSize: '1.1rem', lineHeight: '1.8' }}>
-                        {businessConfig.hero.features.map((feature, index) => (
-                            <li key={index}><span style={{ color: 'var(--accent-color)' }}>✔</span> {feature}</li>
-                        ))}
-                    </ul>
 
                     {/* Trust Bar */}
                     <div style={{ display: 'flex', gap: '30px', alignItems: 'center', opacity: 0.6, flexWrap: 'wrap' }}>
