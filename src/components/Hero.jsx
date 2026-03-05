@@ -162,8 +162,8 @@ export default function Hero() {
                         <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/OpenAI_Logo.svg" alt="OpenAI" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Google_Cloud_logo.svg" alt="Google Cloud" style={{ height: '18px', filter: 'grayscale(1) brightness(2)' }} />
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" alt="AWS" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Meta_Platforms_Inc._logo.svg" alt="Meta" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
+                            <img src="/n8n.png" alt="n8n" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Google_Gemini_logo.svg" alt="Gemini" style={{ height: '18px', filter: 'brightness(0) invert(1)' }} />
                         </div>
                     </div>
                 </div>
