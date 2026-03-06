@@ -1373,11 +1373,45 @@
             document.getElementById('formError').classList.add('hidden');
             document.getElementById('deleteLead').classList.toggle('hidden', !lead);
 
+            // Performance & Scoring
+            const score = calculateLeadScore(lead);
+            const duplicates = findPotentialDuplicates(lead);
+
+            let scoringHtml = `
+                <div class="flex items-center justify-between bg-bg-dark border border-border-dark rounded-xl p-4 mb-6">
+                    <div>
+                        <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Predictive Lead Score</p>
+                        <div class="flex items-center gap-3">
+                            <span class="text-2xl font-black ${score > 70 ? 'text-emerald-400' : score > 40 ? 'text-amber-400' : 'text-slate-400'}">${score}/100</span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded border ${score > 70 ? 'bg-emerald-400/10 border-emerald-400/20 text-emerald-400' : 'bg-slate-400/10 border-slate-400/20 text-slate-400'}">
+                                ${score > 70 ? 'Alta Prioridad' : score > 40 ? 'Interés Medio' : 'Bajo Interés'}
+                            </span>
+                        </div>
+                    </div>
+                    ${duplicates.length > 0 ? `
+                    <div class="text-right">
+                        <p class="text-[10px] font-bold text-red-400 uppercase tracking-widest mb-1 flex items-center justify-end gap-1">
+                            <span class="material-symbols-outlined text-[12px]">warning</span> Posible Duplicado
+                        </p>
+                        <p class="text-xs text-slate-400">Encontrado ${duplicates.length} coincidencia(s)</p>
+                    </div>` : ''}
+                </div>`;
+
             // Status bar
             const statusBar = document.getElementById('modalStatusBar');
             const btns = document.getElementById('statusButtons');
             if (lead) {
                 statusBar.classList.remove('hidden');
+                // Insert scoring at the top of modal body
+                const modalBody = document.querySelector('#leadModal .p-6.space-y-6');
+                const existingScoring = modalBody.querySelector('.scoring-box');
+                if (existingScoring) existingScoring.remove();
+
+                const box = document.createElement('div');
+                box.className = 'scoring-box';
+                box.innerHTML = scoringHtml;
+                modalBody.prepend(box);
+
                 btns.innerHTML = STATUSES.map(s => `
       <button onclick="quickSetStatus('${s}')" class="flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all ${lead.status === s ? 'bg-primary text-white shadow' : 'hover:bg-white/5 text-slate-400'}" id="sbtn-${s}">${STATUS_LABELS[s]}</button>
     `).join('');
@@ -1409,6 +1443,35 @@
             document.getElementById('sbtn-' + s).className = document.getElementById('sbtn-' + s).className.replace('hover:bg-white/5 text-slate-400', '') + ' bg-primary text-white shadow';
             // Toggle closing section
             document.getElementById('closingSection').classList.toggle('hidden', s !== 'CerradoPerdido');
+        }
+
+        function calculateLeadScore(l) {
+            if (!l) return 0;
+            let score = 30; // Base score
+            // Sources weight
+            if (['portal', 'web', 'whatsapp'].includes(l.source)) score += 20;
+            if (l.source === 'recomendacion') score += 25;
+            // Operation & Budget
+            if (l.operation === 'compra' || l.operation === 'venta') score += 10;
+            if (l.budget_max > 500000) score += 15;
+            // Interaction status
+            if (l.status === 'Visita') score += 20;
+            if (l.status === 'Oferta') score += 30;
+            // Recency penality if overdue
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            if (l.next_action_at && new Date(l.next_action_at + 'T00:00:00') < today) score -= 15;
+            return Math.min(Math.max(score, 0), 100);
+        }
+
+        function findPotentialDuplicates(lead) {
+            if (!lead || !lead.full_name) return [];
+            return state.leads.filter(l =>
+                l.id !== lead.id && !l.deleted_at && (
+                    (l.email && lead.email && l.email.toLowerCase() === lead.email.toLowerCase()) ||
+                    (l.phone && lead.phone && l.phone.replace(/\s/g, '') === lead.phone.replace(/\s/g, '')) ||
+                    (l.full_name.toLowerCase() === lead.full_name.toLowerCase())
+                )
+            );
         }
 
         function toggleClosingFields() {
