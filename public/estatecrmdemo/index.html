@@ -1,0 +1,1692 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EstateFlow CRM — Inmobiliaria</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3b82f6",
+                        "bg-dark": "#0f172a",
+                        "card-dark": "#1e293b",
+                        "border-dark": "#334155",
+                    },
+                    fontFamily: { display: ["Manrope", "sans-serif"] },
+                }
+            }
+        }
+    </script>
+    <style>
+        * {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        /* ---- SIDEBAR ---- */
+        #sidebar {
+            width: 220px;
+            min-width: 220px;
+            background: #0f172a;
+            border-right: 1px solid #334155;
+            display: flex;
+            flex-direction: column;
+            transition: width 0.25s ease;
+            z-index: 40;
+        }
+
+        .sidebar-label {
+            transition: opacity 0.2s;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin: 2px 8px;
+            text-decoration: none;
+            user-select: none;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+        }
+
+        .sidebar-item.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+        }
+
+        .sidebar-item .material-symbols-outlined {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #334155;
+            margin: 8px 16px;
+        }
+
+        /* ---- KANBAN ---- */
+        .kanban-col {
+            min-height: 200px;
+        }
+
+        .drag-over {
+            background: rgba(59, 130, 246, 0.08) !important;
+            border: 2px dashed #3b82f6 !important;
+        }
+
+        .card-dragging {
+            opacity: 0.4;
+        }
+
+        /* ---- ACTION BADGES ---- */
+        .badge-overdue {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .badge-today {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+
+        .badge-soon {
+            background: #dcfce7;
+            color: #16a34a;
+        }
+
+        .badge-none {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .dark .badge-overdue {
+            background: rgba(220, 38, 38, 0.15);
+            color: #fca5a5;
+        }
+
+        .dark .badge-today {
+            background: rgba(202, 138, 4, 0.15);
+            color: #fde047;
+        }
+
+        .dark .badge-soon {
+            background: rgba(22, 163, 74, 0.15);
+            color: #86efac;
+        }
+
+        .dark .badge-none {
+            background: rgba(100, 116, 139, 0.15);
+            color: #94a3b8;
+        }
+
+        /* ---- MISC ---- */
+        .modal-bg {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(4px);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e2d42;
+            border-radius: 3px;
+        }
+
+        input,
+        select,
+        textarea {
+            background: #1a2740 !important;
+            border-color: #1e2d42 !important;
+            color: #e2e8f0 !important;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #475569 !important;
+        }
+
+        /* ---- DASHBOARD STATS ---- */
+        .stat-card {
+            background: #111b2a;
+            border: 1px solid #1e2d42;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .placeholder-view {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            opacity: 0.35;
+            gap: 12px;
+        }
+
+        .placeholder-view .material-symbols-outlined {
+            font-size: 56px;
+        }
+
+        /* ---- LIGHT THEME OVERRIDES ---- */
+        html.light {
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --border-main: #e2e8f0;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        html.light body,
+        html.light .bg-bg-dark {
+            background-color: var(--bg-body) !important;
+            color: var(--text-main) !important;
+        }
+
+        html.light .bg-card-dark {
+            background-color: var(--bg-card) !important;
+        }
+
+        html.light .border-border-dark {
+            border-color: var(--border-main) !important;
+        }
+
+        html.light #sidebar {
+            background-color: var(--bg-card) !important;
+            border-color: var(--border-main) !important;
+        }
+
+        html.light input,
+        html.light select,
+        html.light textarea {
+            background-color: var(--bg-body) !important;
+            border-color: var(--border-main) !important;
+            color: var(--text-main) !important;
+        }
+
+        html.light .stat-card {
+            background-color: var(--bg-card) !important;
+            border-color: var(--border-main) !important;
+        }
+
+        /* Typography overrides */
+        html.light .text-white {
+            color: var(--text-main) !important;
+        }
+
+        html.light .text-slate-300 {
+            color: #334155 !important;
+        }
+
+        html.light .text-slate-400 {
+            color: var(--text-muted) !important;
+        }
+
+        html.light .text-slate-500 {
+            color: #64748b !important;
+        }
+
+        html.light .text-slate-600 {
+            color: #94a3b8 !important;
+        }
+
+        /* Keep white text on primary/success buttons */
+        html.light .bg-primary .text-white,
+        html.light button.bg-primary,
+        html.light .bg-emerald-600.text-white,
+        html.light .bg-red-600.text-white,
+        html.light .material-symbols-outlined.text-white {
+            color: #ffffff !important;
+        }
+
+        /* Kanban cols */
+        html.light .bg-card-dark\/50 {
+            background-color: #f1f5f9 !important;
+        }
+
+        html.light .hover\:bg-white\/\[0\.02\]:hover {
+            background-color: rgba(0, 0, 0, 0.02) !important;
+        }
+
+        html.light .bg-white\/5 {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+        }
+    </style>
+</head>
+
+<body class="bg-bg-dark text-slate-100 min-h-screen">
+
+    <!-- ==================== LOGIN SCREEN ==================== -->
+    <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+        <div class="w-full max-w-md">
+            <div class="flex items-center gap-3 justify-center mb-8">
+                <div class="size-12 bg-primary/20 flex items-center justify-center rounded-xl">
+                    <span class="material-symbols-outlined text-primary text-2xl">dashboard_customize</span>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold text-white">EstateFlow</h1>
+                    <p class="text-xs text-slate-500">CRM Inmobiliario Premium</p>
+                </div>
+            </div>
+            <div class="bg-card-dark border border-border-dark rounded-2xl p-8">
+                <h2 class="text-xl font-bold mb-1">Bienvenido</h2>
+                <p class="text-slate-500 text-sm mb-6">Ingresa tus credenciales para continuar</p>
+                <div id="loginError"
+                    class="hidden mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label
+                            class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Email</label>
+                        <input id="loginEmail" type="email" placeholder="admin@estateflow.com"
+                            class="w-full rounded-lg px-4 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                    </div>
+                    <div>
+                        <label
+                            class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Contraseña</label>
+                        <input id="loginPassword" type="password" placeholder="••••••••"
+                            class="w-full rounded-lg px-4 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                    </div>
+                    <button onclick="handleLogin()"
+                        class="w-full bg-primary text-white font-bold py-3 rounded-xl hover:bg-blue-500 transition-all shadow-lg shadow-primary/20 mt-2">
+                        Iniciar Sesión
+                    </button>
+                </div>
+                <p class="text-center text-xs text-slate-600 mt-6">Demo: admin@estateflow.com / demo1234</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== MAIN APP ==================== -->
+    <div id="app" class="hidden"
+        style="display:none; flex-direction:row; min-height:100vh; height:100vh; overflow:hidden">
+
+        <!-- ===== SIDEBAR ===== -->
+        <aside id="sidebar">
+            <!-- Brand -->
+            <div class="flex items-center gap-3 px-5 py-5 border-b border-border-dark">
+                <div class="size-9 bg-primary/20 flex items-center justify-center rounded-xl flex-shrink-0">
+                    <span class="material-symbols-outlined text-primary" style="font-size:20px">apartment</span>
+                </div>
+                <div class="sidebar-label">
+                    <p class="text-white font-extrabold text-base leading-tight">EstateCRM</p>
+                    <p class="text-slate-600 text-[10px] font-medium">Inmobiliaria Premium</p>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="flex-1 py-4 overflow-y-auto">
+                <p class="text-[10px] font-bold text-slate-600 uppercase tracking-wider px-6 mb-2 sidebar-label">
+                    Principal</p>
+
+                <a class="sidebar-item" id="nav-dashboard" onclick="showView('dashboard')">
+                    <span class="material-symbols-outlined">grid_view</span>
+                    <span class="sidebar-label">Dashboard</span>
+                </a>
+
+                <a class="sidebar-item" id="nav-kanban" onclick="showView('kanban')">
+                    <span class="material-symbols-outlined">view_kanban</span>
+                    <span class="sidebar-label">Leads</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+                <p class="text-[10px] font-bold text-slate-600 uppercase tracking-wider px-6 mb-2 mt-2 sidebar-label">
+                    Gestión</p>
+
+                <a class="sidebar-item" id="nav-clients" onclick="showView('clients')">
+                    <span class="material-symbols-outlined">people</span>
+                    <span class="sidebar-label">Clientes</span>
+                </a>
+
+                <a class="sidebar-item" id="nav-agents" onclick="showView('agents')">
+                    <span class="material-symbols-outlined">badge</span>
+                    <span class="sidebar-label">Asesores</span>
+                </a>
+
+                <a class="sidebar-item" id="nav-properties" onclick="showView('properties')">
+                    <span class="material-symbols-outlined">home_work</span>
+                    <span class="sidebar-label">Propiedades</span>
+                </a>
+
+                <a class="sidebar-item" id="nav-tasks" onclick="showView('tasks')">
+                    <span class="material-symbols-outlined">checklist</span>
+                    <span class="sidebar-label">Tasks</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a class="sidebar-item" id="nav-analytics" onclick="showView('analytics')">
+                    <span class="material-symbols-outlined">monitoring</span>
+                    <span class="sidebar-label">Analytics</span>
+                </a>
+            </nav>
+
+            <!-- User footer -->
+            <div class="border-t border-border-dark p-4 flex items-center gap-3">
+                <div
+                    class="size-8 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center flex-shrink-0">
+                    <span class="material-symbols-outlined text-primary" style="font-size:16px">person</span>
+                </div>
+                <div class="sidebar-label flex-1 min-w-0">
+                    <p class="text-white text-xs font-bold truncate">Admin</p>
+                    <p class="text-slate-600 text-[10px] truncate">admin@estateflow.com</p>
+                </div>
+                <button onclick="handleLogout()" title="Cerrar sesión"
+                    class="text-slate-600 hover:text-red-400 transition-colors flex-shrink-0">
+                    <span class="material-symbols-outlined" style="font-size:18px">logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ===== MAIN CONTENT ===== -->
+        <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
+
+            <!-- TOP BAR -->
+            <header
+                class="flex items-center justify-between border-b border-border-dark bg-card-dark px-6 py-3 flex-shrink-0">
+                <div id="topBarTitle" class="text-base font-bold text-white">Dashboard</div>
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleTheme()"
+                        class="text-slate-400 hover:text-primary transition-colors flex items-center justify-center size-9 rounded-lg hover:bg-white/5"
+                        title="Cambiar Tema">
+                        <span id="themeIcon" class="material-symbols-outlined select-none"
+                            style="font-size:22px">light_mode</span>
+                    </button>
+                    <div class="relative hidden sm:block">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500"
+                            style="font-size:16px">search</span>
+                        <input id="globalSearch" type="text" placeholder="Buscar leads..." oninput="applyFilters()"
+                            class="bg-bg-dark border border-border-dark rounded-lg pl-9 pr-4 py-2 text-sm w-56 focus:ring-1 focus:ring-primary outline-none" />
+                    </div>
+                    <button onclick="openLeadModal()"
+                        class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-500 transition-all shadow-md shadow-primary/20">
+                        <span class="material-symbols-outlined text-sm">add</span>Nuevo Lead
+                    </button>
+                </div>
+            </header>
+
+            <!-- FILTER BAR (kanban only) -->
+            <div id="filterBar"
+                class="hidden border-b border-border-dark bg-card-dark/50 px-6 py-3 flex flex-wrap items-center gap-3 flex-shrink-0">
+                <select id="filterAgent" onchange="applyFilters()"
+                    class="rounded-lg px-3 py-1.5 text-xs text-slate-300 font-semibold border focus:ring-1 focus:ring-primary outline-none">
+                    <option value="">Asesor</option>
+                </select>
+                <div class="w-[1px] h-6 bg-border-dark mx-1"></div>
+                <select id="filterOp" onchange="applyFilters()"
+                    class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
+                    <option value="">Operación</option>
+                    <option value="compra">Compra</option>
+                    <option value="venta">Venta</option>
+                    <option value="alquiler">Alquiler</option>
+                </select>
+                <select id="filterSource" onchange="applyFilters()"
+                    class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
+                    <option value="">Fuente</option>
+                    <option value="portal">Portal</option>
+                    <option value="web">Web</option>
+                    <option value="recomendacion">Recomendación</option>
+                    <option value="llamada">Llamada</option>
+                    <option value="whatsapp">WhatsApp</option>
+                </select>
+                <select id="filterNextAction" onchange="applyFilters()"
+                    class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
+                    <option value="">Próxima Acción</option>
+                    <option value="overdue">Vencidos</option>
+                    <option value="today">Hoy</option>
+                    <option value="week">Próximos 7 días</option>
+                    <option value="none">Sin fecha</option>
+                </select>
+                <button onclick="clearFilters()"
+                    class="text-xs text-slate-500 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all">Limpiar
+                    filtros</button>
+                <span id="filterCount" class="ml-auto text-xs text-slate-500"></span>
+            </div>
+
+            <!-- ===== DASHBOARD VIEW ===== -->
+            <div id="dashboardView" class="flex-1 overflow-y-auto p-6">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                    <div class="stat-card">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Total Leads</p>
+                        <p class="text-3xl font-extrabold text-white" id="statTotal">—</p>
+                        <p class="text-xs text-slate-500 mt-1">Activos en pipeline</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Vencidos</p>
+                        <p class="text-3xl font-extrabold text-red-400" id="statOverdue">—</p>
+                        <p class="text-xs text-slate-500 mt-1">Requieren atención</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">En Oferta</p>
+                        <p class="text-3xl font-extrabold text-amber-400" id="statOferta">—</p>
+                        <p class="text-xs text-slate-500 mt-1">Negociación activa</p>
+                    </div>
+                    <div class="stat-card">
+                        <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Clientes</p>
+                        <p class="text-3xl font-extrabold text-emerald-400" id="statClients">—</p>
+                        <p class="text-xs text-slate-500 mt-1">Conversiones totales</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end mb-4">
+                    <button onclick="toggleAgentStats()" id="toggleAgentStatsBtn"
+                        class="flex items-center gap-1.5 text-xs font-bold text-slate-400 hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined" style="font-size:16px">visibility_off</span>
+                        <span>Quitar Rendimiento de Asesores</span>
+                    </button>
+                </div>
+
+                <div id="dashMiddleGrid" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                    <!-- Pipeline mini snapshot -->
+                    <div class="stat-card">
+                        <h3 class="text-sm font-bold text-white mb-4">Estado del Pipeline</h3>
+                        <div id="dashPipeline" class="space-y-4"></div>
+                    </div>
+                    <!-- Agent Performance -->
+                    <div id="dashAgentStatsCard" class="stat-card">
+                        <h3 class="text-sm font-bold text-white mb-4">Rendimiento por Asesor</h3>
+                        <div id="dashAgentStats" class="space-y-4"></div>
+                    </div>
+                </div>
+                <!-- Vencidos list -->
+                <div class="stat-card">
+                    <h3 class="text-sm font-bold text-white mb-4">⚠️ Leads con Acción Vencida</h3>
+                    <div id="dashOverdueList"></div>
+                </div>
+            </div>
+
+            <!-- ===== KANBAN VIEW ===== -->
+            <div id="kanbanView" class="hidden flex-1 overflow-x-auto p-6">
+                <div class="flex gap-4 pb-4" style="min-width:1100px">
+                    <div id="col-Nuevo" class="kanban-col w-72 flex-shrink-0" data-status="Nuevo"></div>
+                    <div id="col-Contactado" class="kanban-col w-72 flex-shrink-0" data-status="Contactado"></div>
+                    <div id="col-Visita" class="kanban-col w-72 flex-shrink-0" data-status="Visita"></div>
+                    <div id="col-Oferta" class="kanban-col w-72 flex-shrink-0" data-status="Oferta"></div>
+                    <div id="col-CerradoPerdido" class="kanban-col w-72 flex-shrink-0" data-status="CerradoPerdido">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CLIENTS VIEW ===== -->
+            <div id="clientsView" class="hidden flex-1 overflow-y-auto p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-extrabold">Clientes</h2>
+                    <div class="relative">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+                        <input id="clientSearch" type="text" placeholder="Buscar clientes..." oninput="renderClients()"
+                            class="bg-card-dark border border-border-dark rounded-lg pl-9 pr-4 py-2 text-sm w-64 focus:ring-1 focus:ring-primary outline-none" />
+                    </div>
+                </div>
+                <div class="bg-card-dark border border-border-dark rounded-xl overflow-hidden">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-border-dark">
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Nombre</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Operación</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Zona</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Presupuesto</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Contacto</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Fecha</th>
+                                <th class="px-4 py-3"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientsTableBody"></tbody>
+                    </table>
+                    <div id="clientsEmpty" class="hidden p-12 text-center text-slate-500">
+                        <span class="material-symbols-outlined text-5xl block mb-3 opacity-30">people</span>
+                        <p>No hay clientes aún. Convierte un lead para empezar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== PROPERTIES PLACEHOLDER ===== -->
+            <div id="propertiesView" class="hidden flex-1 overflow-y-auto p-6">
+                <div class="placeholder-view">
+                    <span class="material-symbols-outlined text-slate-500">home_work</span>
+                    <p class="text-slate-500 font-bold text-lg">Properties</p>
+                    <p class="text-slate-600 text-sm">Módulo disponible en V2</p>
+                </div>
+            </div>
+
+            <!-- ===== AGENTS VIEW ===== -->
+            <div id="agentsView" class="hidden flex-1 overflow-y-auto p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-2xl font-extrabold">Lista de Asesores</h2>
+                    <button onclick="openAgentModal()"
+                        class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-500 transition-all shadow-md shadow-primary/20">
+                        <span class="material-symbols-outlined text-sm">person_add</span>Nuevo Asesor
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="agentsListContainer">
+                    <!-- Agent cards here -->
+                </div>
+            </div>
+
+            <!-- ===== TASKS PLACEHOLDER ===== -->
+            <div id="tasksView" class="hidden flex-1 overflow-y-auto p-6">
+                <div class="placeholder-view">
+                    <span class="material-symbols-outlined text-slate-500">checklist</span>
+                    <p class="text-slate-500 font-bold text-lg">Tasks</p>
+                    <p class="text-slate-600 text-sm">Módulo disponible en V2</p>
+                </div>
+            </div>
+
+            <!-- ===== ANALYTICS PLACEHOLDER ===== -->
+            <div id="analyticsView" class="hidden flex-1 overflow-y-auto p-6">
+                <div class="placeholder-view">
+                    <span class="material-symbols-outlined text-slate-500">monitoring</span>
+                    <p class="text-slate-500 font-bold text-lg">Analytics</p>
+                    <p class="text-slate-600 text-sm">Módulo disponible en V2</p>
+                </div>
+            </div>
+
+        </div><!-- /main content -->
+    </div><!-- /app -->
+
+    <!-- ==================== LEAD MODAL ==================== -->
+    <div id="leadModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4"
+        onclick="if(event.target===this)closeLeadModal()">
+        <div
+            class="bg-card-dark border border-border-dark rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div
+                class="flex items-center justify-between p-6 border-b border-border-dark sticky top-0 bg-card-dark z-10">
+                <div class="flex items-center gap-3">
+                    <h3 id="modalTitle" class="text-lg font-bold">Nuevo Lead</h3>
+                    <select id="fAgentId"
+                        class="bg-bg-dark border border-border-dark text-slate-300 px-2 py-1 rounded text-xs font-semibold outline-none focus:border-primary">
+                        <!-- options built dynamically -->
+                    </select>
+                </div>
+                <button onclick="closeLeadModal()"
+                    class="p-2 hover:bg-white/5 rounded-lg text-slate-400 hover:text-white transition-all">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6 space-y-6">
+                <input type="hidden" id="leadId" />
+                <!-- Status bar -->
+                <div id="modalStatusBar" class="hidden">
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-2">Estado</label>
+                    <div class="bg-bg-dark p-1 rounded-xl flex flex-wrap gap-1" id="statusButtons"></div>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Datos de Contacto</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Nombre
+                                *</label>
+                            <input id="fName" type="text" placeholder="Nombre completo"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Teléfono</label>
+                            <input id="fPhone" type="tel" placeholder="+34 600 000 000"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Email</label>
+                            <input id="fEmail" type="email" placeholder="correo@ejemplo.com"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Commercial info -->
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Información Comercial
+                    </h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Operación</label>
+                            <select id="fOperation"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none">
+                                <option value="">Seleccionar...</option>
+                                <option value="compra">Compra</option>
+                                <option value="venta">Venta</option>
+                                <option value="alquiler">Alquiler</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Fuente</label>
+                            <select id="fSource"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none">
+                                <option value="">Seleccionar...</option>
+                                <option value="portal">Portal</option>
+                                <option value="web">Web</option>
+                                <option value="recomendacion">Recomendación</option>
+                                <option value="llamada">Llamada</option>
+                                <option value="whatsapp">WhatsApp</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Zona</label>
+                            <input id="fZone" type="text" placeholder="Ej: Madrid Centro, Salamanca..."
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Presupuesto
+                                Mín (€)</label>
+                            <input id="fBudgetMin" type="number" min="0" placeholder="0"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Presupuesto
+                                Máx (€)</label>
+                            <input id="fBudgetMax" type="number" min="0" placeholder="0"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Next action -->
+                <div>
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Planificación</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="col-span-2">
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Próxima
+                                Acción</label>
+                            <input id="fNextAction" type="text" placeholder="Ej: Llamar para confirmar visita"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Fecha
+                                Próxima Acción</label>
+                            <input id="fNextActionAt" type="date"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                    </div>
+                </div>
+                <!-- Closing (only when CerradoPerdido) -->
+                <div id="closingSection" class="hidden">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-4">Resultado</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Resultado</label>
+                            <select id="fClosingResult" onchange="toggleClosingFields()"
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none">
+                                <option value="">Seleccionar...</option>
+                                <option value="Ganado">Ganado</option>
+                                <option value="Perdido">Perdido</option>
+                            </select>
+                        </div>
+                        <div id="lostReasonDiv" class="hidden">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Motivo
+                                pérdida</label>
+                            <input id="fLostReason" type="text" placeholder="Ej: Precio, competencia..."
+                                class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                        </div>
+                        <div id="convertBtn" class="hidden col-span-2">
+                            <button onclick="convertToClient()"
+                                class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2.5 rounded-xl font-bold text-sm hover:bg-emerald-500 transition-all">
+                                <span class="material-symbols-outlined text-sm">person_add</span>Convertir a Cliente
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Notes -->
+                <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Notas</label>
+                    <textarea id="fNotes" rows="3" placeholder="Observaciones, detalles del lead..."
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none resize-none"></textarea>
+                </div>
+                <!-- Error -->
+                <div id="formError"
+                    class="hidden p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm"></div>
+            </div>
+            <div class="flex items-center justify-between p-6 border-t border-border-dark">
+                <button id="deleteLead" onclick="deleteLead()"
+                    class="hidden flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-2 hover:bg-red-500/10 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-sm">delete</span>Eliminar
+                </button>
+                <div class="flex gap-3 ml-auto">
+                    <button onclick="closeLeadModal()"
+                        class="px-4 py-2.5 rounded-xl bg-white/5 text-slate-300 font-semibold text-sm hover:bg-white/10 transition-all">Cancelar</button>
+                    <button onclick="saveLead()"
+                        class="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-white font-bold text-sm hover:bg-blue-500 transition-all shadow-md shadow-primary/20">
+                        <span class="material-symbols-outlined text-sm">save</span>Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CONFIRM MODAL ==================== -->
+    <div id="confirmModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+        <div class="bg-card-dark border border-border-dark rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+            <h3 class="text-lg font-bold mb-2" id="confirmTitle">¿Confirmar acción?</h3>
+            <p class="text-slate-400 text-sm mb-6" id="confirmText"></p>
+            <div class="flex gap-3 justify-end">
+                <button onclick="document.getElementById('confirmModal').classList.add('hidden')"
+                    class="px-4 py-2 rounded-xl bg-white/5 text-slate-300 font-semibold text-sm hover:bg-white/10">Cancelar</button>
+                <button id="confirmOkBtn"
+                    class="px-4 py-2 rounded-xl bg-red-600 text-white font-bold text-sm hover:bg-red-500">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== TOAST ==================== -->
+    <div id="toast"
+        class="hidden fixed bottom-6 right-6 z-50 flex items-center gap-3 bg-card-dark border border-border-dark rounded-xl px-4 py-3 shadow-2xl text-sm font-semibold max-w-xs">
+        <span id="toastIcon" class="material-symbols-outlined text-lg"></span>
+        <span id="toastMsg"></span>
+    </div>
+
+    <!-- ==================== AGENT MODAL ==================== -->
+    <div id="agentModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4"
+        onclick="if(event.target===this)closeAgentModal()">
+        <div class="bg-card-dark border border-border-dark rounded-2xl w-full max-w-md overflow-hidden shadow-2xl">
+            <div class="flex items-center justify-between p-6 border-b border-border-dark">
+                <h3 id="agentModalTitle" class="text-lg font-bold">Nuevo Asesor</h3>
+                <button onclick="closeAgentModal()"
+                    class="p-2 hover:bg-white/5 rounded-lg text-slate-400 hover:text-white transition-all">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 text-left">
+                <input type="hidden" id="aId" />
+                <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Nombre
+                        *</label>
+                    <input id="aName" type="text" placeholder="Nombre completo"
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Email
+                        *</label>
+                    <input id="aEmail" type="email" placeholder="correo@ejemplo.com"
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                </div>
+                <div>
+                    <label
+                        class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1.5">Teléfono</label>
+                    <input id="aPhone" type="tel" placeholder="+34 600 000 000"
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border focus:ring-1 focus:ring-primary outline-none" />
+                </div>
+                <div id="agFormError" class="hidden text-red-500 text-sm mb-4"></div>
+            </div>
+            <div class="p-6 border-t border-border-dark flex justify-between gap-3 bg-bg-dark">
+                <button id="deleteAgentBtn" type="button" onclick="deleteAgent()"
+                    class="hidden flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-2 hover:bg-red-500/10 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-sm">delete</span>Eliminar
+                </button>
+                <div class="flex gap-3 ml-auto">
+                    <button type="button" onclick="closeAgentModal()"
+                        class="px-4 py-2.5 rounded-xl bg-white/5 text-slate-300 font-semibold text-sm hover:bg-white/10 transition-all">
+                        Cancelar
+                    </button>
+                    <button type="button" onclick="saveAgent()"
+                        class="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-primary text-white font-bold text-sm hover:bg-blue-500 transition-all shadow-md shadow-primary/20">
+                        <span class="material-symbols-outlined text-sm">save</span>Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== STATE & CONSTANTS ====================
+        const STATUSES = ['Nuevo', 'Contactado', 'Visita', 'Oferta', 'CerradoPerdido'];
+        const STATUS_LABELS = { Nuevo: 'Nuevo', Contactado: 'Contactado', Visita: 'Visita', Oferta: 'Oferta', CerradoPerdido: 'Cerrado/Perdido' };
+        const STATUS_COLORS = {
+            Nuevo: 'border-l-slate-500',
+            Contactado: 'border-l-blue-500',
+            Visita: 'border-l-violet-500',
+            Oferta: 'border-l-amber-500',
+            CerradoPerdido: 'border-l-emerald-500'
+        };
+
+        // Agent color palette
+        const AGENT_COLORS = [
+            { bg: '#1d4ed8', light: 'rgba(29,78,216,0.18)', text: '#93c5fd' },
+            { bg: '#7c3aed', light: 'rgba(124,58,237,0.18)', text: '#c4b5fd' },
+            { bg: '#be185d', light: 'rgba(190,24,93,0.18)', text: '#f9a8d4' },
+            { bg: '#0f766e', light: 'rgba(15,118,110,0.18)', text: '#5eead4' },
+            { bg: '#b45309', light: 'rgba(180,83,9,0.18)', text: '#fcd34d' },
+            { bg: '#15803d', light: 'rgba(21,128,61,0.18)', text: '#86efac' },
+        ];
+
+        let state = {
+            leads: [],
+            clients: [],
+            agents: [],
+            currentView: 'kanban',
+            filteredLeads: [],
+            dragId: null,
+            showAgentStats: localStorage.getItem('crm_show_agent_stats') !== '0',
+        };
+
+        // ==================== AUTH ====================
+        const DEMO_USER = { email: 'admin@estateflow.com', password: 'demo1234' };
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const errEl = document.getElementById('loginError');
+            if (email === DEMO_USER.email && password === DEMO_USER.password) {
+                localStorage.setItem('crm_session', '1');
+                showApp();
+            } else {
+                errEl.textContent = 'Credenciales incorrectas. Usa admin@estateflow.com / demo1234';
+                errEl.classList.remove('hidden');
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('crm_session');
+            document.getElementById('app').classList.add('hidden');
+            document.getElementById('loginScreen').classList.remove('hidden');
+        }
+
+        function showApp() {
+            document.getElementById('loginScreen').classList.add('hidden');
+            const appEl = document.getElementById('app');
+            appEl.style.display = 'flex';
+            loadData();
+            showView('dashboard');
+        }
+
+        // ==================== DATA PERSISTENCE ====================
+        function loadData() {
+            state.leads = JSON.parse(localStorage.getItem('crm_leads') || '[]');
+            state.clients = JSON.parse(localStorage.getItem('crm_clients') || '[]');
+            state.agents = JSON.parse(localStorage.getItem('crm_agents') || '[]');
+            if (state.agents.length === 0 || state.leads.length === 0) seedDemoData();
+        }
+
+        function saveData() {
+            localStorage.setItem('crm_leads', JSON.stringify(state.leads));
+            localStorage.setItem('crm_clients', JSON.stringify(state.clients));
+            localStorage.setItem('crm_agents', JSON.stringify(state.agents));
+        }
+
+        function seedDemoData() {
+            const now = new Date();
+            const d = (days) => { const dt = new Date(now); dt.setDate(dt.getDate() + days); return dt.toISOString().split('T')[0]; };
+            // Seed agents
+            if (state.agents.length === 0) {
+                state.agents = [
+                    { id: 'ag1', name: 'Laura Sánchez', initials: 'LS', colorIdx: 0, email: 'laura@estatecrm.es', phone: '+34 600 100 001' },
+                    { id: 'ag2', name: 'Carlos Mendoza', initials: 'CM', colorIdx: 1, email: 'carlos@estatecrm.es', phone: '+34 600 100 002' },
+                    { id: 'ag3', name: 'Ana Torres', initials: 'AT', colorIdx: 2, email: 'ana@estatecrm.es', phone: '+34 600 100 003' },
+                ];
+            }
+            if (state.leads.length === 0) {
+                state.leads = [
+                    { id: '1', agent_id: 'ag1', full_name: 'Carmen López', phone: '+34 612 345 678', email: 'carmen@gmail.com', source: 'portal', operation: 'compra', zone: 'Madrid Centro', budget_min: 300000, budget_max: 450000, status: 'Nuevo', next_action: 'Llamar para presentar opciones', next_action_at: d(-1), notes: 'Busca piso de 3 habitaciones con terraza.', created_at: now.toISOString(), updated_at: now.toISOString() },
+                    { id: '2', agent_id: 'ag2', full_name: 'Alejandro Ruiz', phone: '+34 654 321 987', email: 'alex.ruiz@hotmail.com', source: 'recomendacion', operation: 'compra', zone: 'Salamanca', budget_min: 600000, budget_max: 900000, status: 'Contactado', next_action: 'Preparar dossier de propiedades', next_action_at: d(0), notes: 'Pre-aprobado hipoteca. Busca inversión.', created_at: now.toISOString(), updated_at: now.toISOString() },
+                    { id: '3', agent_id: 'ag1', full_name: 'María García', phone: '+34 600 111 222', email: 'maria.garcia@empresa.es', source: 'web', operation: 'alquiler', zone: 'Barcelona Eixample', budget_min: 1200, budget_max: 1800, status: 'Visita', next_action: 'Confirmar visita al piso de la calle Aragó', next_action_at: d(2), notes: 'Ejecutiva, busca piso amueblado cerca metro.', created_at: now.toISOString(), updated_at: now.toISOString() },
+                    { id: '4', agent_id: 'ag3', full_name: 'Roberto Fernández', phone: '+34 699 888 777', email: 'roberto.f@gmail.com', source: 'llamada', operation: 'venta', zone: 'Valencia', budget_min: 250000, budget_max: 350000, status: 'Oferta', next_action: 'Negociar contraoferta del vendedor', next_action_at: d(1), notes: 'Vendedor motivado, quiere cerrar este mes.', created_at: now.toISOString(), updated_at: now.toISOString() },
+                    { id: '5', agent_id: 'ag2', full_name: 'Lucía Martínez', phone: '+34 611 222 333', email: 'lucia.m@yahoo.es', source: 'whatsapp', operation: 'compra', zone: 'Sevilla', budget_min: 200000, budget_max: 280000, status: 'CerradoPerdido', closing_result: 'Ganado', lost_reason: '', next_action: '', next_action_at: '', notes: 'Compra en el barrio de Triana completada.', created_at: now.toISOString(), updated_at: now.toISOString() },
+                    { id: '6', agent_id: 'ag3', full_name: 'Javier Sánchez', phone: '+34 677 444 555', email: 'j.sanchez@outlook.com', source: 'portal', operation: 'alquiler', zone: 'Madrid Norte', budget_min: 900, budget_max: 1200, status: 'Nuevo', next_action: '', next_action_at: '', notes: '', created_at: now.toISOString(), updated_at: now.toISOString() },
+                ];
+                state.clients = [{ id: 'c1', lead_id: '5', full_name: 'Lucía Martínez', phone: '+34 611 222 333', email: 'lucia.m@yahoo.es', operation: 'compra', zone: 'Sevilla', budget_min: 200000, budget_max: 280000, notes: 'Compra en el barrio de Triana completada.', created_at: now.toISOString(), updated_at: now.toISOString() }];
+            }
+            saveData();
+        }
+
+        // ==================== THEME ====================
+        function toggleTheme() {
+            const htmlEl = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            if (htmlEl.classList.contains('light')) {
+                htmlEl.classList.remove('light');
+                htmlEl.classList.add('dark');
+                icon.textContent = 'light_mode';
+                localStorage.setItem('crm_theme', 'dark');
+            } else {
+                htmlEl.classList.remove('dark');
+                htmlEl.classList.add('light');
+                icon.textContent = 'dark_mode';
+                localStorage.setItem('crm_theme', 'light');
+            }
+        }
+
+        // Initialize theme
+        if (localStorage.getItem('crm_theme') === 'light') {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+            document.addEventListener('DOMContentLoaded', () => {
+                const icon = document.getElementById('themeIcon');
+                if (icon) icon.textContent = 'dark_mode';
+            });
+        }
+
+        // ==================== AGENT HELPERS ====================
+        function getAgent(id) { return state.agents.find(a => a.id === id) || null; }
+        function agentColor(idx) { return AGENT_COLORS[idx % AGENT_COLORS.length]; }
+        function agentAvatar(agent, size = 'sm') {
+            if (!agent) return '';
+            const c = agentColor(agent.colorIdx);
+            const sz = size === 'sm' ? 'width:22px;height:22px;font-size:9px' : 'width:32px;height:32px;font-size:11px';
+            return `<span title="${escHtml(agent.name)}" style="${sz};background:${c.light};color:${c.text};border:1.5px solid ${c.bg};border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;cursor:default">${escHtml(agent.initials)}</span>`;
+        }
+        function buildAgentOptions(selected = '') {
+            const none = `<option value="">Sin asignar</option>`;
+            return none + state.agents.map(a =>
+                `<option value="${a.id}" ${a.id === selected ? 'selected' : ''}>${escHtml(a.name)}</option>`
+            ).join('');
+        }
+        function populateAgentFilter() {
+            const sel = document.getElementById('filterAgent');
+            if (!sel) return;
+            sel.innerHTML = `<option value="">Asesor</option>` + state.agents.map(a =>
+                `<option value="${a.id}">${escHtml(a.name)}</option>`
+            ).join('');
+        }
+
+        // ==================== VIEWS ====================
+        const ALL_VIEWS = ['dashboard', 'kanban', 'clients', 'agents', 'properties', 'tasks', 'analytics'];
+        const VIEW_TITLES = {
+            dashboard: 'Dashboard', kanban: 'Leads', clients: 'Clientes',
+            agents: 'Asesores', properties: 'Propiedades', tasks: 'Tasks', analytics: 'Analytics'
+        };
+
+        function showView(view) {
+            state.currentView = view;
+            // toggle view panels
+            ALL_VIEWS.forEach(v => {
+                const el = document.getElementById(v + 'View');
+                if (el) el.classList.toggle('hidden', v !== view);
+            });
+            // filter bar only for kanban
+            document.getElementById('filterBar').classList.toggle('hidden', view !== 'kanban');
+            // sidebar active state
+            ALL_VIEWS.forEach(v => {
+                const btn = document.getElementById('nav-' + v);
+                if (btn) btn.classList.toggle('active', v === view);
+            });
+            // top bar title
+            const titleEl = document.getElementById('topBarTitle');
+            if (titleEl) titleEl.textContent = VIEW_TITLES[view] || view;
+            // actions
+            if (view === 'kanban') { populateAgentFilter(); applyFilters(); }
+            if (view === 'clients') renderClients();
+            if (view === 'dashboard') renderDashboard();
+            if (view === 'agents') renderAgentsView();
+        }
+
+        // ==================== UTILS ====================
+        function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2); }
+
+        function formatBudget(min, max) {
+            const fmt = (n) => n >= 1000000 ? (n / 1000000).toFixed(1) + 'M' : n >= 1000 ? (n / 1000).toFixed(0) + 'k' : n;
+            if (min && max) return '€' + fmt(min) + ' – €' + fmt(max);
+            if (min) return 'Desde €' + fmt(min);
+            if (max) return 'Hasta €' + fmt(max);
+            return '';
+        }
+
+        function getActionBadge(next_action_at) {
+            if (!next_action_at) return { cls: 'badge-none', label: 'Sin fecha' };
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const d = new Date(next_action_at + 'T00:00:00');
+            if (d < today) return { cls: 'badge-overdue', label: 'Vencido' };
+            if (d.getTime() === today.getTime()) return { cls: 'badge-today', label: 'Hoy' };
+            const week = new Date(today); week.setDate(week.getDate() + 7);
+            if (d <= week) return { cls: 'badge-soon', label: next_action_at };
+            return { cls: 'badge-none', label: next_action_at };
+        }
+
+        function showToast(msg, type = 'success') {
+            const el = document.getElementById('toast');
+            const icon = document.getElementById('toastIcon');
+            const msgEl = document.getElementById('toastMsg');
+            icon.textContent = type === 'success' ? 'check_circle' : type === 'error' ? 'error' : 'info';
+            icon.className = 'material-symbols-outlined text-lg ' + (type === 'success' ? 'text-emerald-400' : type === 'error' ? 'text-red-400' : 'text-blue-400');
+            msgEl.textContent = msg;
+            el.classList.remove('hidden');
+            setTimeout(() => el.classList.add('hidden'), 3000);
+        }
+
+        // ==================== KANBAN ====================
+        function applyFilters() {
+            const q = (document.getElementById('globalSearch')?.value || '').toLowerCase();
+            const ag = document.getElementById('filterAgent')?.value || '';
+            const op = document.getElementById('filterOp')?.value || '';
+            const src = document.getElementById('filterSource')?.value || '';
+            const nxt = document.getElementById('filterNextAction')?.value || '';
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+
+            state.filteredLeads = state.leads.filter(l => {
+                if (l.deleted_at) return false;
+                if (q) {
+                    const hay = [l.full_name, l.phone, l.email, l.zone, l.notes].join(' ').toLowerCase();
+                    if (!hay.includes(q)) return false;
+                }
+                if (ag && l.agent_id !== ag) return false;
+                if (op && l.operation !== op) return false;
+                if (src && l.source !== src) return false;
+                if (nxt) {
+                    if (nxt === 'none' && l.next_action_at) return false;
+                    if (nxt !== 'none' && !l.next_action_at) return false;
+                    if (nxt === 'overdue') { const d = new Date(l.next_action_at + 'T00:00:00'); if (d >= today) return false; }
+                    if (nxt === 'today') { const d = new Date(l.next_action_at + 'T00:00:00'); if (d.getTime() !== today.getTime()) return false; }
+                    if (nxt === 'week') { const d = new Date(l.next_action_at + 'T00:00:00'); const w = new Date(today); w.setDate(w.getDate() + 7); if (d < today || d > w) return false; }
+                }
+                return true;
+            });
+
+            document.getElementById('filterCount').textContent = state.filteredLeads.length + ' lead' + (state.filteredLeads.length !== 1 ? 's' : '') + ' encontrado' + (state.filteredLeads.length !== 1 ? 's' : '');
+            renderKanban();
+        }
+
+        function clearFilters() {
+            document.getElementById('globalSearch').value = '';
+            const elAg = document.getElementById('filterAgent'); if (elAg) elAg.value = '';
+            document.getElementById('filterOp').value = '';
+            document.getElementById('filterSource').value = '';
+            document.getElementById('filterNextAction').value = '';
+            applyFilters();
+        }
+
+        function sortLeads(leads) {
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            return [...leads].sort((a, b) => {
+                const aDate = a.next_action_at ? new Date(a.next_action_at + 'T00:00:00') : null;
+                const bDate = b.next_action_at ? new Date(b.next_action_at + 'T00:00:00') : null;
+                const aOver = aDate && aDate < today ? 1 : 0;
+                const bOver = bDate && bDate < today ? 1 : 0;
+                if (aOver !== bOver) return bOver - aOver;
+                if (aDate && bDate) return aDate - bDate;
+                if (aDate) return -1;
+                if (bDate) return 1;
+                return new Date(b.updated_at) - new Date(a.updated_at);
+            });
+        }
+
+        function renderKanban() {
+            STATUSES.forEach(status => {
+                const col = document.getElementById('col-' + status);
+                const leads = sortLeads(state.filteredLeads.filter(l => l.status === status));
+                col.innerHTML = `
+      <div class="bg-card-dark border border-border-dark rounded-xl overflow-hidden">
+        <div class="px-4 py-3 border-b border-border-dark flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-sm text-white">${STATUS_LABELS[status]}</span>
+            <span class="text-xs bg-white/10 text-slate-400 px-2 py-0.5 rounded-full font-semibold">${leads.length}</span>
+          </div>
+        </div>
+        <div class="p-3 space-y-3 min-h-[160px] kanban-cards" data-status="${status}" 
+          ondragover="onDragOver(event,this)" ondragleave="onDragLeave(this)" ondrop="onDrop(event,'${status}')">
+          ${leads.map(l => renderCard(l)).join('')}
+          ${leads.length === 0 ? '<div class="text-center py-6 text-slate-600 text-xs">Sin leads en esta fase</div>' : ''}
+        </div>
+      </div>`;
+            });
+        }
+
+        function renderCard(l) {
+            const badge = getActionBadge(l.next_action_at);
+            const budget = formatBudget(l.budget_min, l.budget_max);
+            const opLabel = { compra: 'Compra', venta: 'Venta', alquiler: 'Alquiler' }[l.operation] || '';
+            const agent = getAgent(l.agent_id);
+            return `
+    <div class="bg-bg-dark border-l-4 ${STATUS_COLORS[l.status]} border border-border-dark rounded-xl p-3.5 cursor-pointer group hover:border-primary/50 transition-all select-none"
+      id="card-${l.id}" draggable="true"
+      ondragstart="onDragStart(event,'${l.id}')" ondragend="onDragEnd(this)"
+      onclick="openLeadModal('${l.id}')">
+      <div class="flex items-start justify-between mb-2 gap-2">
+        <p class="font-bold text-sm text-white leading-tight flex-1">${escHtml(l.full_name)}</p>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.cls} flex-shrink-0">${badge.label}</span>
+      </div>
+      ${l.zone ? `<p class="text-xs text-slate-500 mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-xs">location_on</span>${escHtml(l.zone)}</p>` : ''}
+      ${budget ? `<p class="text-xs text-primary font-semibold mb-2">${budget}</p>` : ''}
+      ${l.next_action ? `<p class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-xs">task_alt</span>${escHtml(l.next_action)}</p>` : ''}
+      <div class="flex items-center justify-between mt-2 pt-2 border-t border-border-dark">
+        <div class="flex gap-2">
+          ${opLabel ? `<span class="text-[10px] bg-white/5 text-slate-400 px-2 py-0.5 rounded font-semibold uppercase">${opLabel}</span>` : ''}
+          ${l.source ? `<span class="text-[10px] text-slate-600 capitalize">${escHtml(l.source)}</span>` : ''}
+        </div>
+        ${agentAvatar(agent, 'sm')}
+      </div>
+    </div>`;
+        }
+
+        function escHtml(str) {
+            return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        // ==================== DRAG AND DROP ====================
+        function onDragStart(e, id) {
+            state.dragId = id;
+            e.dataTransfer.effectAllowed = 'move';
+            setTimeout(() => { const el = document.getElementById('card-' + id); if (el) el.classList.add('card-dragging'); }, 0);
+        }
+
+        function onDragEnd(el) {
+            el.classList.remove('card-dragging');
+            document.querySelectorAll('.kanban-cards').forEach(c => { c.classList.remove('drag-over'); });
+        }
+
+        function onDragOver(e, el) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            document.querySelectorAll('.kanban-cards').forEach(c => c.classList.remove('drag-over'));
+            el.classList.add('drag-over');
+        }
+
+        function onDragLeave(el) {
+            el.classList.remove('drag-over');
+        }
+
+        function onDrop(e, newStatus) {
+            e.preventDefault();
+            document.querySelectorAll('.kanban-cards').forEach(c => c.classList.remove('drag-over'));
+            if (!state.dragId) return;
+            const lead = state.leads.find(l => l.id === state.dragId);
+            if (lead && lead.status !== newStatus) {
+                lead.status = newStatus;
+                lead.updated_at = new Date().toISOString();
+                saveData();
+                applyFilters();
+                showToast(`Lead movido a "${STATUS_LABELS[newStatus]}"`, 'success');
+            }
+            state.dragId = null;
+        }
+
+        // ==================== LEAD MODAL ====================
+        let editingLeadId = null;
+
+        function openLeadModal(id) {
+            editingLeadId = id || null;
+            const lead = id ? state.leads.find(l => l.id === id) : null;
+
+            document.getElementById('modalTitle').textContent = lead ? 'Editar Lead' : 'Nuevo Lead';
+            document.getElementById('leadId').value = lead ? lead.id : '';
+            document.getElementById('fName').value = lead?.full_name || '';
+            document.getElementById('fPhone').value = lead?.phone || '';
+            document.getElementById('fEmail').value = lead?.email || '';
+            document.getElementById('fOperation').value = lead?.operation || '';
+            document.getElementById('fSource').value = lead?.source || '';
+            document.getElementById('fZone').value = lead?.zone || '';
+            document.getElementById('fAgentId').innerHTML = buildAgentOptions(lead?.agent_id);
+            document.getElementById('fBudgetMin').value = lead?.budget_min || '';
+            document.getElementById('fBudgetMax').value = lead?.budget_max || '';
+            document.getElementById('fNextAction').value = lead?.next_action || '';
+            document.getElementById('fNextActionAt').value = lead?.next_action_at || '';
+            document.getElementById('fNotes').value = lead?.notes || '';
+            document.getElementById('fClosingResult').value = lead?.closing_result || '';
+            document.getElementById('fLostReason').value = lead?.lost_reason || '';
+            document.getElementById('formError').classList.add('hidden');
+            document.getElementById('deleteLead').classList.toggle('hidden', !lead);
+
+            // Status bar
+            const statusBar = document.getElementById('modalStatusBar');
+            const btns = document.getElementById('statusButtons');
+            if (lead) {
+                statusBar.classList.remove('hidden');
+                btns.innerHTML = STATUSES.map(s => `
+      <button onclick="quickSetStatus('${s}')" class="flex-1 py-2 px-2 rounded-lg text-xs font-bold transition-all ${lead.status === s ? 'bg-primary text-white shadow' : 'hover:bg-white/5 text-slate-400'}" id="sbtn-${s}">${STATUS_LABELS[s]}</button>
+    `).join('');
+            } else {
+                statusBar.classList.add('hidden');
+            }
+
+            // Closing section
+            const closed = lead?.status === 'CerradoPerdido';
+            document.getElementById('closingSection').classList.toggle('hidden', !closed);
+            toggleClosingFields();
+
+            // Convert btn visibility
+            const alreadyClient = lead ? state.clients.some(c => c.lead_id === lead.id) : false;
+            const showConvert = closed && lead?.closing_result === 'Ganado' && !alreadyClient;
+            document.getElementById('convertBtn').classList.toggle('hidden', !showConvert);
+
+            document.getElementById('leadModal').classList.remove('hidden');
+            document.getElementById('fName').focus();
+        }
+
+        function quickSetStatus(s) {
+            const lead = state.leads.find(l => l.id === editingLeadId);
+            if (!lead) return;
+            lead.status = s;
+            lead.updated_at = new Date().toISOString();
+            // Update button UI
+            document.querySelectorAll('[id^="sbtn-"]').forEach(b => b.className = b.className.replace('bg-primary text-white shadow', '').replace('text-white', '') + ' hover:bg-white/5 text-slate-400');
+            document.getElementById('sbtn-' + s).className = document.getElementById('sbtn-' + s).className.replace('hover:bg-white/5 text-slate-400', '') + ' bg-primary text-white shadow';
+            // Toggle closing section
+            document.getElementById('closingSection').classList.toggle('hidden', s !== 'CerradoPerdido');
+        }
+
+        function toggleClosingFields() {
+            const res = document.getElementById('fClosingResult').value;
+            document.getElementById('lostReasonDiv').classList.toggle('hidden', res !== 'Perdido');
+            const lead = editingLeadId ? state.leads.find(l => l.id === editingLeadId) : null;
+            const alreadyClient = lead ? state.clients.some(c => c.lead_id === lead.id) : false;
+            document.getElementById('convertBtn').classList.toggle('hidden', res !== 'Ganado' || alreadyClient);
+        }
+
+        function closeLeadModal() {
+            document.getElementById('leadModal').classList.add('hidden');
+            editingLeadId = null;
+        }
+
+        function validateLead() {
+            const name = document.getElementById('fName').value.trim();
+            const email = document.getElementById('fEmail').value.trim();
+            const bMin = document.getElementById('fBudgetMin').value;
+            const bMax = document.getElementById('fBudgetMax').value;
+            if (!name) return 'El nombre es obligatorio.';
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return 'El email no tiene formato válido.';
+            if (bMin && isNaN(bMin)) return 'El presupuesto mínimo debe ser un número.';
+            if (bMax && isNaN(bMax)) return 'El presupuesto máximo debe ser un número.';
+            if (bMin && bMax && Number(bMin) > Number(bMax)) return 'El presupuesto mínimo no puede ser mayor que el máximo.';
+            return null;
+        }
+
+        function saveLead() {
+            const err = validateLead();
+            const errEl = document.getElementById('formError');
+            if (err) { errEl.textContent = err; errEl.classList.remove('hidden'); return; }
+            errEl.classList.add('hidden');
+
+            const now = new Date().toISOString();
+            // Get current status from status bar if editing
+            const currentStatus = (() => {
+                if (!editingLeadId) return 'Nuevo';
+                const lead = state.leads.find(l => l.id === editingLeadId);
+                return lead ? lead.status : 'Nuevo';
+            })();
+
+            const data = {
+                full_name: document.getElementById('fName').value.trim(),
+                phone: document.getElementById('fPhone').value.trim(),
+                email: document.getElementById('fEmail').value.trim(),
+                operation: document.getElementById('fOperation').value,
+                source: document.getElementById('fSource').value,
+                agent_id: document.getElementById('fAgentId').value,
+                zone: document.getElementById('fZone').value.trim(),
+                budget_min: Number(document.getElementById('fBudgetMin').value) || null,
+                budget_max: Number(document.getElementById('fBudgetMax').value) || null,
+                next_action: document.getElementById('fNextAction').value.trim(),
+                next_action_at: document.getElementById('fNextActionAt').value,
+                notes: document.getElementById('fNotes').value.trim(),
+                closing_result: document.getElementById('fClosingResult').value,
+                lost_reason: document.getElementById('fLostReason').value.trim(),
+                updated_at: now,
+            };
+
+            if (editingLeadId) {
+                const idx = state.leads.findIndex(l => l.id === editingLeadId);
+                state.leads[idx] = { ...state.leads[idx], ...data, status: currentStatus };
+            } else {
+                state.leads.push({ id: uid(), status: 'Nuevo', created_at: now, ...data });
+            }
+
+            saveData();
+            closeLeadModal();
+            applyFilters();
+            showToast(editingLeadId ? 'Lead actualizado' : 'Lead creado', 'success');
+        }
+
+        function deleteLead() {
+            if (!editingLeadId) return;
+            const lead = state.leads.find(l => l.id === editingLeadId);
+            showConfirm(
+                '¿Eliminar este lead?',
+                `Se eliminará "${lead?.full_name}". Esta acción no se puede deshacer.`,
+                () => {
+                    const idx = state.leads.findIndex(l => l.id === editingLeadId);
+                    state.leads[idx].deleted_at = new Date().toISOString();
+                    saveData();
+                    closeLeadModal();
+                    applyFilters();
+                    showToast('Lead eliminado', 'error');
+                }
+            );
+        }
+
+        // ==================== CLIENTS ====================
+        function convertToClient() {
+            const lead = state.leads.find(l => l.id === editingLeadId);
+            if (!lead) return;
+            if (state.clients.some(c => c.lead_id === lead.id)) {
+                showToast('Este lead ya tiene un cliente asociado', 'info');
+                return;
+            }
+            const now = new Date().toISOString();
+            state.clients.push({
+                id: uid(),
+                lead_id: lead.id,
+                full_name: lead.full_name,
+                phone: lead.phone,
+                email: lead.email,
+                operation: lead.operation,
+                zone: lead.zone,
+                budget_min: lead.budget_min,
+                budget_max: lead.budget_max,
+                notes: lead.notes,
+                created_at: now,
+                updated_at: now,
+            });
+            saveData();
+            document.getElementById('convertBtn').classList.add('hidden');
+            showToast('¡Lead convertido a cliente!', 'success');
+        }
+
+        function renderClients() {
+            const q = (document.getElementById('clientSearch')?.value || '').toLowerCase();
+            const clients = state.clients.filter(c => {
+                if (!q) return true;
+                return [c.full_name, c.email, c.phone, c.zone].join(' ').toLowerCase().includes(q);
+            });
+
+            const tbody = document.getElementById('clientsTableBody');
+            const empty = document.getElementById('clientsEmpty');
+            if (clients.length === 0) {
+                tbody.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+            empty.classList.add('hidden');
+            const opLabel = { compra: 'Compra', venta: 'Venta', alquiler: 'Alquiler' };
+            tbody.innerHTML = clients.map(c => `
+    <tr class="border-b border-border-dark hover:bg-white/[0.02] transition-colors">
+      <td class="px-4 py-3.5">
+        <p class="font-semibold text-white text-sm">${escHtml(c.full_name)}</p>
+        <p class="text-xs text-slate-500">${escHtml(c.email || '')}</p>
+      </td>
+      <td class="px-4 py-3.5">
+        <span class="text-xs bg-white/5 text-slate-300 px-2 py-1 rounded font-semibold uppercase">${opLabel[c.operation] || '—'}</span>
+      </td>
+      <td class="px-4 py-3.5 text-sm text-slate-300">${escHtml(c.zone || '—')}</td>
+      <td class="px-4 py-3.5 text-sm text-primary font-semibold">${formatBudget(c.budget_min, c.budget_max) || '—'}</td>
+      <td class="px-4 py-3.5 text-sm text-slate-400">${escHtml(c.phone || '—')}</td>
+      <td class="px-4 py-3.5 text-xs text-slate-500">${new Date(c.created_at).toLocaleDateString('es-ES')}</td>
+      <td class="px-4 py-3.5">
+        <button onclick="openLeadModal('${escHtml(c.lead_id)}')" class="text-xs text-primary hover:underline font-semibold flex items-center gap-1">
+          <span class="material-symbols-outlined text-xs">open_in_new</span>Ver lead
+        </button>
+      </td>
+    </tr>`).join('');
+        }
+
+        // ==================== AGENTS VIEW ====================
+        let editingAgentId = null;
+
+        function renderAgentsView() {
+            const container = document.getElementById('agentsListContainer');
+            if (state.agents.length === 0) {
+                container.innerHTML = '<div class="col-span-full py-12 text-center text-slate-500"><p>No hay asesores configurados.</p></div>';
+                return;
+            }
+            container.innerHTML = state.agents.map(a => {
+                const aLeads = state.leads.filter(l => l.agent_id === a.id && !l.deleted_at);
+                const aClients = state.clients.filter(c => aLeads.some(l => l.id === c.lead_id) || state.leads.find(l => l.id === c.lead_id)?.agent_id === a.id);
+                return `
+                <div class="bg-card-dark border border-border-dark rounded-xl p-5 hover:border-primary/50 transition-all flex flex-col group relative">
+                    <div class="absolute top-4 right-4 flex gap-1 bg-card-dark rounded-md p-1 border border-border-dark opacity-0 group-hover:opacity-100 transition-opacity">
+                        <button onclick="openAgentModal('${a.id}')" class="p-1.5 text-slate-400 hover:text-white hover:bg-white/5 rounded transition-all" title="Editar">
+                            <span class="material-symbols-outlined text-sm block">edit</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-4 mb-5">
+                        ${agentAvatar(a, 'lg')}
+                        <div class="flex-1 min-w-0 pr-8">
+                            <h3 class="font-bold text-white text-base truncate pr-2">${escHtml(a.name)}</h3>
+                            <p class="text-xs text-slate-500 truncate flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">mail</span>${escHtml(a.email)}</p>
+                            ${a.phone ? `<p class="text-xs text-slate-500 truncate flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[12px]">phone</span>${escHtml(a.phone)}</p>` : ''}
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 border-t border-border-dark pt-5 mt-auto">
+                        <div class="text-center bg-bg-dark rounded-lg py-2 border border-border-dark/50">
+                            <p class="text-xl font-extrabold text-white leading-none">${aLeads.length}</p>
+                            <p class="text-[10px] font-bold text-slate-500 uppercase mt-1">Leads Activos</p>
+                        </div>
+                        <div class="text-center bg-emerald-900/10 rounded-lg py-2 border border-emerald-900/30">
+                            <p class="text-xl font-extrabold text-emerald-400 leading-none">${aClients.length}</p>
+                            <p class="text-[10px] font-bold text-emerald-600/70 uppercase mt-1">Conversiones</p>
+                        </div>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function openAgentModal(id = null) {
+            editingAgentId = id;
+            const ag = id ? state.agents.find(a => a.id === id) : null;
+            document.getElementById('agentModalTitle').textContent = ag ? 'Editar Asesor' : 'Nuevo Asesor';
+            document.getElementById('aId').value = ag?.id || '';
+            document.getElementById('aName').value = ag?.name || '';
+            document.getElementById('aEmail').value = ag?.email || '';
+            document.getElementById('aPhone').value = ag?.phone || '';
+            document.getElementById('agFormError').classList.add('hidden');
+            document.getElementById('deleteAgentBtn').classList.toggle('hidden', !ag);
+            document.getElementById('agentModal').classList.remove('hidden');
+            document.getElementById('aName').focus();
+        }
+
+        function closeAgentModal() {
+            document.getElementById('agentModal').classList.add('hidden');
+            editingAgentId = null;
+        }
+
+        function saveAgent() {
+            const name = document.getElementById('aName').value.trim();
+            const email = document.getElementById('aEmail').value.trim();
+            const phone = document.getElementById('aPhone').value.trim();
+            const errEl = document.getElementById('agFormError');
+
+            if (!name || !email) { errEl.textContent = 'Nombre y email son requeridos.'; errEl.classList.remove('hidden'); return; }
+            if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEl.textContent = 'Email inválido.'; errEl.classList.remove('hidden'); return; }
+
+            errEl.classList.add('hidden');
+
+            if (editingAgentId) {
+                const idx = state.agents.findIndex(a => a.id === editingAgentId);
+                const ag = state.agents[idx];
+                const parts = name.split(' ');
+                const inits = parts.length > 1 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
+                state.agents[idx] = { ...ag, name, email, phone, initials: inits.toUpperCase() };
+            } else {
+                const parts = name.split(' ');
+                const inits = parts.length > 1 ? parts[0][0] + parts[1][0] : name.slice(0, 2);
+                state.agents.push({ id: 'ag_r' + uid(), name, email, phone, initials: inits.toUpperCase(), colorIdx: state.agents.length });
+            }
+            saveData();
+            closeAgentModal();
+            renderAgentsView();
+            if (state.currentView === 'kanban') { populateAgentFilter(); applyFilters(); }
+            showToast(editingAgentId ? 'Asesor actualizado' : 'Asesor creado', 'success');
+        }
+
+        function deleteAgent() {
+            if (!editingAgentId) return;
+            const ag = state.agents.find(a => a.id === editingAgentId);
+            const aLeads = state.leads.filter(l => l.agent_id === ag.id);
+            if (aLeads.length > 0) {
+                document.getElementById('agFormError').textContent = 'No se puede eliminar un asesor con leads asignados.';
+                document.getElementById('agFormError').classList.remove('hidden');
+                return;
+            }
+            showConfirm(
+                '¿Eliminar Asesor?',
+                `Se eliminará "${ag.name}". Esta acción no se puede deshacer.`,
+                () => {
+                    const idx = state.agents.findIndex(a => a.id === editingAgentId);
+                    if (idx > -1) state.agents.splice(idx, 1);
+                    saveData();
+                    closeAgentModal();
+                    renderAgentsView();
+                    if (state.currentView === 'kanban') { populateAgentFilter(); applyFilters(); }
+                    showToast('Asesor eliminado', 'success');
+                }
+            );
+        }
+
+        // ==================== DASHBOARD ====================
+        function renderDashboard() {
+            const active = state.leads.filter(l => !l.deleted_at);
+            const today = new Date(); today.setHours(0, 0, 0, 0);
+            const overdue = active.filter(l => l.next_action_at && new Date(l.next_action_at + 'T00:00:00') < today);
+            const oferta = active.filter(l => l.status === 'Oferta');
+
+            document.getElementById('statTotal').textContent = active.length;
+            document.getElementById('statOverdue').textContent = overdue.length;
+            document.getElementById('statOferta').textContent = oferta.length;
+            document.getElementById('statClients').textContent = state.clients.length;
+
+            // Pipeline bars
+            const pipelineEl = document.getElementById('dashPipeline');
+            const total = active.length || 1;
+            pipelineEl.innerHTML = STATUSES.map(s => {
+                const count = active.filter(l => l.status === s).length;
+                const pct = Math.round((count / total) * 100);
+                const colors = { Nuevo: 'bg-slate-500', Contactado: 'bg-blue-500', Visita: 'bg-violet-500', Oferta: 'bg-amber-500', CerradoPerdido: 'bg-emerald-500' };
+                return `<div class="flex items-center gap-3">
+                  <span class="text-xs text-slate-400 w-28 flex-shrink-0">${STATUS_LABELS[s]}</span>
+                  <div class="flex-1 h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div class="${colors[s]} h-full rounded-full" style="width:${pct}%"></div>
+                  </div>
+                  <span class="text-xs font-bold text-slate-300 w-6 text-right">${count}</span>
+                </div>`;
+            }).join('');
+
+            // Agent Stats
+            const agentStatsEl = document.getElementById('dashAgentStats');
+            const agentCard = document.getElementById('dashAgentStatsCard');
+            const toggleBtn = document.getElementById('toggleAgentStatsBtn');
+            const middleGrid = document.getElementById('dashMiddleGrid');
+
+            if (state.showAgentStats) {
+                middleGrid.classList.add('lg:grid-cols-2');
+                agentCard.classList.remove('hidden');
+                toggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">visibility_off</span><span>Quitar Rendimiento de Asesores</span>`;
+
+                agentStatsEl.innerHTML = state.agents.slice(0, 5).map(ag => {
+                    const aLeads = active.filter(l => l.agent_id === ag.id).length;
+                    const aClients = state.clients.filter(c => state.leads.find(l => l.id === c.lead_id)?.agent_id === ag.id).length;
+                    return `
+                    <div class="flex items-center justify-between border-b border-white/5 pb-2 last:border-0 last:pb-0">
+                        <div class="flex items-center gap-2">
+                            ${agentAvatar(ag)}
+                            <span class="text-sm font-semibold text-white truncate max-w-[120px]">${escHtml(ag.name)}</span>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs font-bold font-mono">
+                            <span class="text-slate-400" title="Leads activos">${aLeads} L</span>
+                            <span class="text-emerald-400" title="Clientes ganados">${aClients} C</span>
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                middleGrid.classList.remove('lg:grid-cols-2');
+                agentCard.classList.add('hidden');
+                toggleBtn.innerHTML = `<span class="material-symbols-outlined" style="font-size:16px">visibility</span><span>Agregar Rendimiento de Asesores</span>`;
+            }
+
+            // Overdue leads list
+            const overdueEl = document.getElementById('dashOverdueList');
+            if (overdue.length === 0) {
+                overdueEl.innerHTML = '<p class="text-slate-600 text-sm text-center py-4">✅ Sin acciones vencidas. ¡Buen trabajo!</p>';
+            } else {
+                overdueEl.innerHTML = overdue.slice(0, 8).map(l => {
+                    const agent = getAgent(l.agent_id);
+                    return `
+                  <div class="flex items-center gap-3 py-2.5 border-b border-border-dark last:border-0 cursor-pointer hover:bg-white/[0.02] -mx-5 px-5 rounded transition-colors" onclick="openLeadModal('${escHtml(l.id)}')">
+                    <div class="size-8 rounded-lg bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                      <span class="material-symbols-outlined text-red-500" style="font-size:16px">warning</span>
+                    </div>
+                    <div class="flex-1 min-w-0 pr-2">
+                      <p class="text-sm font-semibold text-white truncate leading-tight">${escHtml(l.full_name)}</p>
+                      <p class="text-[11px] text-slate-500 truncate mt-0.5">${escHtml(l.next_action || 'Sin acción definida')} · <span class="text-red-400">${l.next_action_at}</span></p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        ${agentAvatar(agent)}
+                        <span class="text-[10px] text-slate-500 bg-white/5 px-2 py-0.5 rounded flex-shrink-0 font-semibold">${STATUS_LABELS[l.status]}</span>
+                    </div>
+                  </div>`
+                }).join('');
+            }
+        }
+
+        // ==================== CONFIRM ====================
+        function showConfirm(title, text, onOk) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmText').textContent = text;
+            const modal = document.getElementById('confirmModal');
+            const btn = document.getElementById('confirmOkBtn');
+            modal.classList.remove('hidden');
+            btn.onclick = () => { modal.classList.add('hidden'); onOk(); };
+        }
+
+        // ==================== KEYBOARD ====================
+
+        function toggleAgentStats() {
+            state.showAgentStats = !state.showAgentStats;
+            localStorage.setItem('crm_show_agent_stats', state.showAgentStats ? '1' : '0');
+            renderDashboard();
+        }
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                closeLeadModal();
+                document.getElementById('confirmModal').classList.add('hidden');
+            }
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                document.getElementById('globalSearch')?.focus();
+            }
+        });
+
+        // ==================== INIT ====================
+        (function init() {
+            if (localStorage.getItem('crm_session')) {
+                showApp();
+            }
+            // Enter key on login
+            document.getElementById('loginPassword').addEventListener('keydown', e => {
+                if (e.key === 'Enter') handleLogin();
+            });
+        })();
+    </script>
+</body>
+
+</html>
