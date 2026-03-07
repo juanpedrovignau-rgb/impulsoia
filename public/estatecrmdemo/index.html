@@ -383,8 +383,22 @@
                 <div class="sidebar-divider"></div>
 
                 <a class="sidebar-item" id="nav-performance" onclick="showView('performance')">
-                    <span class="material-symbols-outlined">rocket_launch</span>
+                    <span class="material-symbols-outlined"> rocket_launch </span>
                     <span class="sidebar-label">Performance Engine</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+                <p class="text-[10px] font-bold text-slate-600 uppercase tracking-wider px-6 mb-2 mt-2 sidebar-label">
+                    Crecimiento</p>
+
+                <a class="sidebar-item" id="nav-prospects" onclick="showView('prospects')">
+                    <span class="material-symbols-outlined"> target </span>
+                    <span class="sidebar-label">Prospección</span>
+                </a>
+
+                <a class="sidebar-item" id="nav-content" onclick="showView('content')">
+                    <span class="material-symbols-outlined"> auto_graph </span>
+                    <span class="sidebar-label">Contenido</span>
                 </a>
             </nav>
 
@@ -605,6 +619,63 @@
                     <span class="material-symbols-outlined text-slate-500">checklist</span>
                     <p class="text-slate-500 font-bold text-lg">Tasks</p>
                     <p class="text-slate-600 text-sm">Módulo disponible en V2</p>
+                </div>
+            </div>
+
+            <!-- ===== PROSPECTING VIEW ===== -->
+            <div id="prospectsView" class="hidden flex-1 overflow-y-auto p-6 space-y-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-2xl font-extrabold flex items-center gap-3">
+                        <span class="material-symbols-outlined text-primary" style="font-size: 32px">target</span>
+                        Módulo de Prospección
+                    </h2>
+                    <button onclick="openProspectModal()"
+                        class="flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-blue-500 transition-all shadow-md shadow-primary/20">
+                        <span class="material-symbols-outlined text-sm">person_add</span>Nuevo Contacto
+                    </button>
+                </div>
+
+                <!-- Stats summary -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="prospectStatsSummary"></div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Today's Followups -->
+                    <div class="bg-card-dark border border-border-dark rounded-xl p-6">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-amber-500">event_upcoming</span> Seguimientos
+                            para Hoy
+                        </h3>
+                        <div id="todayFollowupsContainer" class="space-y-3"></div>
+                    </div>
+
+                    <!-- All Prospects -->
+                    <div class="bg-card-dark border border-border-dark rounded-xl p-6">
+                        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
+                            <span class="material-symbols-outlined text-primary">group</span> Lista de Contactos
+                        </h3>
+                        <div id="allProspectsContainer" class="space-y-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CONTENT VIEW ===== -->
+            <div id="contentView" class="hidden flex-1 overflow-y-auto p-6 space-y-6">
+                <div class="flex items-center justify-between mb-2">
+                    <h2 class="text-2xl font-extrabold flex items-center gap-3">
+                        <span class="material-symbols-outlined text-emerald-400"
+                            style="font-size: 32px">auto_graph</span>
+                        Productor de Contenido
+                    </h2>
+                    <button onclick="openContentModal()"
+                        class="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-emerald-500 transition-all shadow-md shadow-emerald-500/20">
+                        <span class="material-symbols-outlined text-sm">add</span>Nueva Idea
+                    </button>
+                </div>
+
+                <div class="placeholder-view">
+                    <span class="material-symbols-outlined text-slate-500">calendar_month</span>
+                    <p class="text-slate-500 font-bold text-lg">Calendario de Contenidos</p>
+                    <p class="text-slate-600 text-sm">Módulo disponible en V2 (Implementación en curso)</p>
                 </div>
             </div>
 
@@ -902,6 +973,146 @@
         </div>
     </div>
 
+    <!-- ==================== PROSPECT MODAL ==================== -->
+    <div id="prospectModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+        <div
+            class="bg-card-dark border border-border-dark w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+            <div class="p-6 border-b border-border-dark flex items-center justify-between">
+                <h3 class="text-xl font-black text-white" id="prospectModalTitle">Nuevo Prospecto</h3>
+                <button onclick="closeProspectModal()" class="text-slate-500 hover:text-white transition-colors">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6 space-y-6 max-h-[70vh] overflow-y-auto">
+                <input type="hidden" id="pId">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="col-span-2">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Nombre
+                            Completo</label>
+                        <input type="text" id="pName" placeholder="Ej. Juan Pérez"
+                            class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white">
+                    </div>
+                    <div>
+                        <label
+                            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Empresa/Contexto</label>
+                        <input type="text" id="pCompany" placeholder="Ej. Inmobiliaria X"
+                            class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white">
+                    </div>
+                    <div>
+                        <label
+                            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Canal</label>
+                        <select id="pChannel"
+                            class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white">
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Email">Email</option>
+                            <option value="Referido">Referido</option>
+                            <option value="Otro">Otro</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Nota
+                        Inicial</label>
+                    <textarea id="pNote" rows="3"
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none resize-none text-white"></textarea>
+                </div>
+                <div class="grid grid-cols-2 gap-4 pt-4 border-t border-white/5">
+                    <div>
+                        <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Próxima
+                            Acción (Manual Override)</label>
+                        <input type="date" id="pNextDate"
+                            class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white">
+                    </div>
+                    <div class="flex items-end pb-2">
+                        <p class="text-[10px] text-slate-600 italic leading-tight">Las fechas de seguimiento (2, 5 y 8
+                            días) se calculan automáticamente al guardar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-border-dark flex justify-between gap-3 bg-bg-dark">
+                <button id="deleteProspectBtn" onclick="deleteProspect()"
+                    class="hidden flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-semibold px-3 py-2 hover:bg-red-500/10 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-sm">delete</span>Eliminar
+                </button>
+                <div class="flex gap-3 ml-auto">
+                    <button id="convertProspectBtn"
+                        onclick="convertProspectToLead(document.getElementById('pId').value)"
+                        class="hidden flex items-center gap-2 px-4 py-2.5 rounded-xl bg-amber-500/10 text-amber-500 font-bold text-sm hover:bg-amber-500 hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-sm">rocket_launch</span>Convertir a Lead
+                    </button>
+                    <button onclick="closeProspectModal()"
+                        class="px-4 py-2.5 rounded-xl bg-white/5 text-slate-300 font-semibold text-sm hover:bg-white/10 transition-all">Cancelar</button>
+                    <button onclick="saveProspect()"
+                        class="px-6 py-2.5 rounded-xl bg-primary text-white font-bold text-sm hover:bg-blue-500 shadow-md">Guardar
+                        Contacto</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== CONTENT MODAL ==================== -->
+    <div id="contentModal" class="hidden fixed inset-0 z-50 modal-bg flex items-center justify-center p-4">
+        <div
+            class="bg-card-dark border border-border-dark w-full max-w-xl rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up">
+            <div class="p-6 border-b border-border-dark flex items-center justify-between">
+                <h3 class="text-xl font-black text-white">Nueva Idea de Post</h3>
+                <button onclick="closeContentModal()" class="text-slate-500 hover:text-white">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Título o
+                        Tema</label>
+                    <input type="text" id="cTitle" placeholder="Ej. 3 Errores al Tasar su propiedad"
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white">
+                </div>
+                <div>
+                    <label
+                        class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Plataformas</label>
+                    <div class="flex gap-4">
+                        <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer"><input
+                                type="checkbox" value="Instagram"
+                                class="cNetwork rounded border-slate-700 bg-slate-800 text-primary"> Instagram</label>
+                        <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer"><input
+                                type="checkbox" value="LinkedIn"
+                                class="cNetwork rounded border-slate-700 bg-slate-800 text-primary"> LinkedIn</label>
+                        <label class="flex items-center gap-2 text-xs text-slate-400 cursor-pointer"><input
+                                type="checkbox" value="TikTok"
+                                class="cNetwork rounded border-slate-700 bg-slate-800 text-primary"> TikTok</label>
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Descripción
+                        / Copia</label>
+                    <textarea id="cBody" rows="4" placeholder="Escribe aquí el guión o descripción..."
+                        class="w-full rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2 block">Imágenes de
+                        Referencia (Imgur URL)</label>
+                    <div class="flex gap-2">
+                        <input type="text" id="cImageUrl" placeholder="https://i.imgur.com/..."
+                            class="flex-1 rounded-lg px-3 py-2.5 text-sm border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-white">
+                        <button onclick="triggerImgurUpload()"
+                            class="px-3 bg-white/5 rounded-lg text-slate-400 hover:text-primary transition-colors"
+                            title="Subir a Imgur">
+                            <span class="material-symbols-outlined">upload</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 border-t border-border-dark flex justify-end gap-3 bg-bg-dark">
+                <button onclick="closeContentModal()"
+                    class="px-4 py-2.5 rounded-xl bg-white/5 text-slate-300 font-semibold text-sm hover:bg-white/10 transition-all">Cancelar</button>
+                <button onclick="saveContentIdea()"
+                    class="px-6 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-sm hover:bg-emerald-500 shadow-md">Guardar
+                    Idea</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // ==================== STATE & CONSTANTS ====================
         const STATUSES = ['Nuevo', 'Contactado', 'Visita', 'Oferta', 'CerradoPerdido'];
@@ -932,6 +1143,8 @@
             filteredLeads: [],
             dragId: null,
             showAgentStats: localStorage.getItem('crm_show_agent_stats') !== '0',
+            prospects: [],
+            contentIdeas: [],
         };
 
         // ==================== AUTH ====================
@@ -969,6 +1182,8 @@
             state.leads = JSON.parse(localStorage.getItem('crm_leads') || '[]');
             state.clients = JSON.parse(localStorage.getItem('crm_clients') || '[]');
             state.agents = JSON.parse(localStorage.getItem('crm_agents') || '[]');
+            state.prospects = JSON.parse(localStorage.getItem('crm_prospects') || '[]');
+            state.contentIdeas = JSON.parse(localStorage.getItem('crm_content_ideas') || '[]');
             if (state.agents.length === 0 || state.leads.length === 0) seedDemoData();
         }
 
@@ -976,6 +1191,8 @@
             localStorage.setItem('crm_leads', JSON.stringify(state.leads));
             localStorage.setItem('crm_clients', JSON.stringify(state.clients));
             localStorage.setItem('crm_agents', JSON.stringify(state.agents));
+            localStorage.setItem('crm_prospects', JSON.stringify(state.prospects));
+            localStorage.setItem('crm_content_ideas', JSON.stringify(state.contentIdeas));
         }
 
         function seedDemoData() {
@@ -1054,10 +1271,11 @@
         }
 
         // ==================== VIEWS ====================
-        const ALL_VIEWS = ['dashboard', 'kanban', 'clients', 'agents', 'properties', 'tasks', 'performance'];
+        const ALL_VIEWS = ['dashboard', 'kanban', 'clients', 'agents', 'properties', 'tasks', 'performance', 'prospects', 'content'];
         const VIEW_TITLES = {
             dashboard: 'Dashboard', kanban: 'Leads', clients: 'Clientes',
-            agents: 'Asesores', properties: 'Propiedades', tasks: 'Tasks', performance: 'Performance Engine'
+            agents: 'Asesores', properties: 'Propiedades', tasks: 'Tasks', performance: 'Performance Engine',
+            prospects: 'Prospección', content: 'Contenido'
         };
 
         function showView(view) {
@@ -1083,6 +1301,8 @@
             if (view === 'dashboard') renderDashboard();
             if (view === 'agents') renderAgentsView();
             if (view === 'performance') renderPerformanceEngine();
+            if (view === 'prospects') renderProspectsView();
+            if (view === 'content') renderContentView();
         }
 
         // ==================== PERFORMANCE ENGINE ====================
@@ -1330,6 +1550,304 @@
 
         function onDragLeave(el) {
             el.classList.remove('drag-over');
+        }
+
+        // ==================== PROSPECTING LOGIC ====================
+        function addDays(date, days) {
+            const result = new Date(date);
+            result.setDate(result.getDate() + days);
+            return result.toISOString().split('T')[0];
+        }
+
+        function renderProspectsView() {
+            const today = new Date().toISOString().split('T')[0];
+            const prospects = state.prospects || [];
+
+            // Stats
+            const todayFollowups = prospects.filter(p =>
+                p.status === 'pendiente' && (
+                    (!p.s1_done && p.s1_date === today) ||
+                    (p.s1_done && !p.s2_done && p.s2_date === today) ||
+                    (p.s1_done && p.s2_done && !p.s3_done && p.s3_date === today)
+                )
+            ).length;
+
+            const pendingTotal = prospects.filter(p => p.status === 'pendiente').length;
+            const closedThisMonth = prospects.filter(p => p.status === 'cerrado').length;
+
+            document.getElementById('prospectStatsSummary').innerHTML = `
+                <div class="bg-bg-dark border border-border-dark p-4 rounded-xl">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Hoy</p>
+                    <p class="text-2xl font-black text-amber-500">${todayFollowups} Seguimientos</p>
+                </div>
+                <div class="bg-bg-dark border border-border-dark p-4 rounded-xl">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Activos</p>
+                    <p class="text-2xl font-black text-primary">${pendingTotal} Prospectos</p>
+                </div>
+                <div class="bg-bg-dark border border-border-dark p-4 rounded-xl">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Convertidos / Archivados</p>
+                    <p class="text-2xl font-black text-emerald-400">${closedThisMonth} Realizados</p>
+                </div>
+            `;
+
+            // Today's Followups
+            const todayList = prospects.filter(p =>
+                p.status === 'pendiente' && (
+                    (!p.s1_done && p.s1_date <= today) ||
+                    (p.s1_done && !p.s2_done && p.s2_date <= today) ||
+                    (p.s1_done && p.s2_done && !p.s3_done && p.s3_date <= today)
+                )
+            ).sort((a, b) => (a.next_date || '').localeCompare(b.next_date || ''));
+
+            document.getElementById('todayFollowupsContainer').innerHTML = todayList.length ? todayList.map(p => `
+                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5 group hover:border-primary/30 transition-all">
+                    <div class="flex items-center gap-3">
+                        <div class="size-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">
+                            ${p.name.charAt(0)}
+                        </div>
+                        <div>
+                            <p class="text-xs font-bold text-white">${escHtml(p.name)}</p>
+                            <p class="text-[10px] text-slate-500">${escHtml(p.channel)} • ${p.s1_done ? (p.s2_done ? '3er Seguimiento' : '2do Seguimiento') : '1er Seguimiento'}</p>
+                        </div>
+                    </div>
+                    <button onclick="markFollowupDone('${p.id}')" class="text-[10px] font-bold bg-primary/10 text-primary px-3 py-1 rounded hover:bg-primary hover:text-white transition-all">Completar</button>
+                </div>
+            `).join('') : '<p class="text-center py-4 text-slate-600 text-xs italic">No hay seguimientos para hoy</p>';
+
+            // All Prospects
+            document.getElementById('allProspectsContainer').innerHTML = prospects.length ? prospects.map(p => {
+                const doneCount = (p.s1_done ? 1 : 0) + (p.s2_done ? 1 : 0) + (p.s3_done ? 1 : 0);
+                return `
+                <div onclick="openProspectModal('${p.id}')" class="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5 cursor-pointer hover:bg-white/10 transition-all">
+                    <div>
+                        <p class="text-xs font-bold text-white">${escHtml(p.name)}</p>
+                        <p class="text-[10px] text-slate-500">${escHtml(p.company || 'Personal')} • ${escHtml(p.channel)}</p>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="text-right">
+                             <div class="flex gap-1 mb-1">
+                                <div class="size-1.5 rounded-full ${p.s1_done ? 'bg-emerald-500' : 'bg-slate-700'}"></div>
+                                <div class="size-1.5 rounded-full ${p.s2_done ? 'bg-emerald-500' : 'bg-slate-700'}"></div>
+                                <div class="size-1.5 rounded-full ${p.s3_done ? 'bg-emerald-500' : 'bg-slate-700'}"></div>
+                             </div>
+                             <p class="text-[9px] font-bold text-slate-500 uppercase">${doneCount}/3 Seguimientos</p>
+                        </div>
+                        <span class="material-symbols-outlined text-slate-600" style="font-size:16px">chevron_right</span>
+                    </div>
+                </div>
+                `;
+            }).join('') : '<p class="text-center py-4 text-slate-600 text-xs italic">Crea tu primer prospecto para empezar</p>';
+        }
+
+        function renderContentView() {
+            const container = document.getElementById('contentModuleLayout');
+            const ideas = state.contentIdeas || [];
+
+            container.innerHTML = ideas.length ? `
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    ${ideas.map(idea => `
+                        <div onclick="openContentModal('${idea.id}')" class="bg-card-dark border border-border-dark rounded-2xl overflow-hidden hover:border-primary/50 transition-all cursor-pointer group animate-fade-in">
+                            ${idea.image_url ? `
+                                <div class="h-40 overflow-hidden">
+                                    <img src="${idea.image_url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                </div>
+                            ` : `
+                                <div class="h-40 bg-white/5 flex items-center justify-center text-slate-700">
+                                    <span class="material-symbols-outlined text-4xl">image</span>
+                                </div>
+                            `}
+                            <div class="p-5">
+                                <div class="flex gap-1 mb-3">
+                                    ${(idea.platforms || []).map(p => `
+                                        <span class="text-[9px] font-bold px-2 py-0.5 rounded bg-primary/10 text-primary uppercase">${p}</span>
+                                    `).join('')}
+                                </div>
+                                <h4 class="text-sm font-bold text-white mb-2 line-clamp-1">${escHtml(idea.title)}</h4>
+                                <p class="text-xs text-slate-500 line-clamp-2">${escHtml(idea.body || 'Sin descripción')}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            ` : `
+                <div class="flex flex-col items-center justify-center py-20 text-center">
+                    <div class="size-16 rounded-full bg-white/5 flex items-center justify-center mb-4 text-slate-600">
+                        <span class="material-symbols-outlined text-3xl">lightbulb</span>
+                    </div>
+                    <p class="text-slate-400 font-bold mb-1">No tienes ideas de contenido aún</p>
+                    <p class="text-xs text-slate-600 max-w-xs mx-auto">Organiza tus posts para Instagram, LinkedIn y TikTok en un solo lugar.</p>
+                </div>
+            `;
+        }
+
+        function convertProspectToLead(id) {
+            const p = state.prospects.find(x => x.id === id);
+            if (!p) return;
+
+            confirmAction('¿Convertir a Lead?', 'Este prospecto pasará al Pipeline de Ventas.', () => {
+                const newLead = {
+                    id: 'l-' + Date.now(),
+                    name: p.name,
+                    company: p.company,
+                    source: p.channel.toLowerCase(),
+                    score: 74, // High score for manual prospects usually
+                    status: 'Nuevo',
+                    notes: p.notes,
+                    created_at: new Date().toISOString(),
+                    updated_at: new Date().toISOString()
+                };
+
+                state.leads.push(newLead);
+                state.prospects = state.prospects.filter(x => x.id !== id);
+
+                saveData();
+                closeProspectModal();
+                showView('leads');
+                showToast('Convertido a Lead exitosamente', 'success');
+            });
+        }
+
+        function markFollowupDone(id) {
+            const p = state.prospects.find(x => x.id === id);
+            if (!p) return;
+            if (!p.s1_done) p.s1_done = true;
+            else if (!p.s2_done) p.s2_done = true;
+            else if (!p.s3_done) {
+                p.s3_done = true;
+                p.status = 'cerrado';
+            }
+            p.updated_at = new Date().toISOString();
+            saveData();
+            renderProspectsView();
+            showToast('Seguimiento completado', 'success');
+        }
+
+        // ==================== PROSPECT MODALS & ACTIONS ====================
+        function openProspectModal(id = null) {
+            document.getElementById('prospectModal').classList.remove('hidden');
+            const p = (typeof id === 'string' && id) ? state.prospects.find(x => x.id === id) : null;
+
+            document.getElementById('prospectModalTitle').innerText = p ? 'Editar Prospecto' : 'Nuevo Prospecto';
+            document.getElementById('pId').value = p ? p.id : '';
+            document.getElementById('pName').value = p ? p.name : '';
+            document.getElementById('pCompany').value = p ? p.company : '';
+            document.getElementById('pChannel').value = p ? p.channel : 'LinkedIn';
+            document.getElementById('pNote').value = p ? (p.notes || '') : '';
+            document.getElementById('pNextDate').value = p ? (p.next_date || '') : '';
+
+            document.getElementById('deleteProspectBtn').classList.toggle('hidden', !p);
+            document.getElementById('convertProspectBtn').classList.toggle('hidden', !p);
+        }
+
+        function closeProspectModal() {
+            document.getElementById('prospectModal').classList.add('hidden');
+        }
+
+        function saveProspect() {
+            const id = document.getElementById('pId').value;
+            const name = document.getElementById('pName').value;
+            const company = document.getElementById('pCompany').value;
+            const channel = document.getElementById('pChannel').value;
+            const notes = document.getElementById('pNote').value;
+            const next_date = document.getElementById('pNextDate').value;
+
+            if (!name) {
+                showToast('El nombre es obligatorio', 'error');
+                return;
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+
+            if (id) {
+                const idx = state.prospects.findIndex(x => x.id === id);
+                if (idx !== -1) {
+                    state.prospects[idx] = {
+                        ...state.prospects[idx],
+                        name, company, channel, notes, next_date,
+                        updated_at: new Date().toISOString()
+                    };
+                }
+            } else {
+                const newId = 'p-' + Date.now();
+                state.prospects.push({
+                    id: newId,
+                    name, company, channel, notes,
+                    status: 'pendiente',
+                    created_at: today,
+                    updated_at: new Date().toISOString(),
+                    s1_date: addDays(today, 2),
+                    s1_done: false,
+                    s2_date: addDays(today, 5),
+                    s2_done: false,
+                    s3_date: addDays(today, 8),
+                    s3_done: false,
+                    next_date: next_date || addDays(today, 2)
+                });
+            }
+
+            saveData();
+            closeProspectModal();
+            renderProspectsView();
+            showToast('Prospecto guardado correctamente', 'success');
+        }
+
+        function deleteProspect() {
+            const id = document.getElementById('pId').value;
+            if (!id) return;
+
+            confirmAction('¿Eliminar prospecto?', 'Se perderán todos los datos de seguimiento.', () => {
+                state.prospects = state.prospects.filter(x => x.id !== id);
+                saveData();
+                closeProspectModal();
+                renderProspectsView();
+                showToast('Prospecto eliminado', 'success');
+            });
+        }
+
+        // ==================== CONTENT MODALS & ACTIONS ====================
+        function openContentModal(id = null) {
+            document.getElementById('contentModal').classList.remove('hidden');
+            const idea = id ? state.contentIdeas.find(x => x.id === id) : null;
+
+            document.getElementById('cTitle').value = idea ? idea.title : '';
+            document.getElementById('cBody').value = idea ? (idea.body || '') : '';
+            document.getElementById('cImageUrl').value = idea ? (idea.image_url || '') : '';
+
+            const networks = idea ? (idea.platforms || []) : [];
+            document.querySelectorAll('.cNetwork').forEach(cb => {
+                cb.checked = networks.includes(cb.value);
+            });
+        }
+
+        function closeContentModal() {
+            document.getElementById('contentModal').classList.add('hidden');
+        }
+
+        function saveContentIdea() {
+            const title = document.getElementById('cTitle').value;
+            const body = document.getElementById('cBody').value;
+            const image_url = document.getElementById('cImageUrl').value;
+            const platforms = Array.from(document.querySelectorAll('.cNetwork:checked')).map(cb => cb.value);
+
+            if (!title) {
+                showToast('El título es obligatorio', 'error');
+                return;
+            }
+
+            const newId = 'c-' + Date.now();
+            state.contentIdeas.push({
+                id: newId,
+                title, body, image_url, platforms,
+                created_at: new Date().toISOString()
+            });
+
+            saveData();
+            closeContentModal();
+            renderContentView();
+            showToast('Idea de contenido guardada', 'success');
+        }
+
+        function triggerImgurUpload() {
+            showToast('Sube tu imagen a Imgur y pega el link aquí (v1.1 integrará API)', 'info');
         }
 
         function onDrop(e, newStatus) {
