@@ -522,61 +522,73 @@
                 </div>
             </header>
 
-            <!-- FILTER BAR (kanban only) -->
+            <!-- FILTER BAR (kanban & list only) -->
             <div id="filterBar"
-                class="hidden border-b border-border-dark bg-card-dark/50 px-6 py-3 flex flex-wrap items-center gap-3 flex-shrink-0">
-                <select id="filterAgent" onchange="applyFilters()"
-                    class="rounded-lg px-3 py-1.5 text-xs text-slate-300 font-semibold border focus:ring-1 focus:ring-primary outline-none">
-                    <option value="">Asesor</option>
-                </select>
-                <div class="w-[1px] h-6 bg-border-dark mx-1"></div>
-                <select id="filterOp" onchange="applyFilters()"
-                    class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
-                    <option value="">Operación</option>
-                    <option value="compra">Compra</option>
-                    <option value="venta">Venta</option>
-                    <option value="alquiler">Alquiler</option>
-                </select>
-                <select id="filterSource" onchange="applyFilters()"
-                    class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
-                    <option value="">Fuente</option>
-                    <option value="portal">Portal</option>
-                    <option value="web">Web</option>
-                    <option value="recomendacion">Recomendación</option>
-                    <option value="llamada">Llamada</option>
-                    <option value="whatsapp">WhatsApp</option>
-                </select>
-                <select id="filterNextAction" onchange="applyFilters()"
-                    class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
-                    <option value="">Próxima Acción</option>
-                    <option value="overdue">Vencidos</option>
-                    <option value="today">Hoy</option>
-                    <option value="week">Próximos 7 días</option>
-                    <option value="none">Sin fecha</option>
-                </select>
-                <button onclick="clearFilters()"
-                    class="text-xs text-slate-500 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all">Limpiar
-                    filtros</button>
-                <span id="filterCount" class="ml-auto text-xs text-slate-500"></span>
+                class="hidden border-b border-border-dark bg-card-dark/50 px-6 py-3 flex flex-wrap items-center justify-between gap-3 flex-shrink-0">
+                <div class="flex flex-wrap items-center gap-3">
+                    <select id="filterAgent" onchange="applyFilters()"
+                        class="rounded-lg px-3 py-1.5 text-xs text-slate-300 font-semibold border focus:ring-1 focus:ring-primary outline-none">
+                        <option value="">Asesor</option>
+                    </select>
+                    <div class="w-[1px] h-6 bg-border-dark mx-1"></div>
+                    <select id="filterOp" onchange="applyFilters()"
+                        class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
+                        <option value="">Operación</option>
+                        <option value="compra">Compra</option>
+                        <option value="venta">Venta</option>
+                        <option value="alquiler">Alquiler</option>
+                    </select>
+                    <select id="filterSource" onchange="applyFilters()"
+                        class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
+                        <option value="">Fuente</option>
+                        <option value="portal">Portal</option>
+                        <option value="web">Web</option>
+                        <option value="recomendacion">Recomendación</option>
+                        <option value="llamada">Llamada</option>
+                        <option value="whatsapp">WhatsApp</option>
+                    </select>
+                    <select id="filterNextAction" onchange="applyFilters()"
+                        class="rounded-lg px-3 py-1.5 text-xs border focus:ring-1 focus:ring-primary outline-none">
+                        <option value="">Próxima Acción</option>
+                        <option value="overdue">Vencidos</option>
+                        <option value="today">Hoy</option>
+                        <option value="week">Próximos 7 días</option>
+                        <option value="none">Sin fecha</option>
+                    </select>
+                    <button onclick="clearFilters()"
+                        class="text-xs text-slate-500 hover:text-white px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all">Limpiar
+                        filtros</button>
+                    <span id="filterCount" class="ml-auto text-xs text-slate-500 hidden sm:block"></span>
+                </div>
+                <div class="flex items-center gap-1 bg-white/5 rounded-lg p-1 border border-white/5 self-end">
+                    <button onclick="showView('leadsList')" id="btnViewList" title="Vista Lista"
+                        class="size-8 rounded flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">format_list_bulleted</span>
+                    </button>
+                    <button onclick="showView('kanban')" id="btnViewKanban" title="Vista Tablero"
+                        class="size-8 rounded flex items-center justify-center text-slate-400 hover:text-white transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">view_kanban</span>
+                    </button>
+                </div>
             </div>
 
             <!-- ===== DASHBOARD VIEW ===== -->
             <div id="dashboardView" class="flex-1 overflow-y-auto p-6">
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                     <div class="stat-card cursor-pointer hover:border-primary/50 transition-colors"
-                        onclick="clearFilters(); showView('kanban');">
+                        onclick="clearFilters(); showView('leadsList');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Total Leads</p>
                         <p class="text-3xl font-extrabold text-white" id="statTotal">—</p>
                         <p class="text-xs text-slate-500 mt-1">Activos en pipeline</p>
                     </div>
                     <div class="stat-card cursor-pointer hover:border-red-500/50 transition-colors"
-                        onclick="clearFilters(); document.getElementById('filterNextAction').value = 'overdue'; applyFilters(); showView('kanban');">
+                        onclick="clearFilters(); document.getElementById('filterNextAction').value = 'overdue'; applyFilters(); showView('leadsList');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Vencidos</p>
                         <p class="text-3xl font-extrabold text-red-400" id="statOverdue">—</p>
                         <p class="text-xs text-slate-500 mt-1">Requieren atención</p>
                     </div>
                     <div class="stat-card cursor-pointer hover:border-amber-500/50 transition-colors"
-                        onclick="clearFilters(); showView('kanban');">
+                        onclick="clearFilters(); showView('leadsList');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">En Oferta</p>
                         <p class="text-3xl font-extrabold text-amber-400" id="statOferta">—</p>
                         <p class="text-xs text-slate-500 mt-1">Negociación activa</p>
@@ -625,6 +637,13 @@
                     <div id="col-Oferta" class="kanban-col w-72 flex-shrink-0" data-status="Oferta"></div>
                     <div id="col-CerradoPerdido" class="kanban-col w-72 flex-shrink-0" data-status="CerradoPerdido">
                     </div>
+                </div>
+            </div>
+
+            <!-- ===== LEADS LIST VIEW ===== -->
+            <div id="leadsListView" class="hidden flex-1 overflow-y-auto p-6">
+                <div id="leadsListGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <!-- list of lead cards injected here -->
                 </div>
             </div>
 
@@ -1382,9 +1401,9 @@
         }
 
         // ==================== VIEWS ====================
-        const ALL_VIEWS = ['dashboard', 'kanban', 'clients', 'agents', 'properties', 'tasks', 'performance', 'prospects', 'content'];
+        const ALL_VIEWS = ['dashboard', 'kanban', 'leadsList', 'clients', 'agents', 'properties', 'tasks', 'performance', 'prospects', 'content'];
         const VIEW_TITLES = {
-            dashboard: 'Dashboard', kanban: 'Leads', clients: 'Clientes',
+            dashboard: 'Dashboard', kanban: 'Leads (Tablero)', leadsList: 'Leads (Lista)', clients: 'Clientes',
             agents: 'Asesores', properties: 'Propiedades', tasks: 'Tasks', performance: 'Performance Engine',
             prospects: 'Prospección', content: 'Contenido'
         };
@@ -1392,21 +1411,40 @@
         function showView(view) {
             closeMobileSidebar(); // auto-close drawer when navigating on mobile
             state.currentView = view;
+
             // toggle view panels
             ALL_VIEWS.forEach(v => {
                 const el = document.getElementById(v + 'View');
                 if (el) el.classList.toggle('hidden', v !== view);
             });
-            // filter bar only for kanban
-            document.getElementById('filterBar').classList.toggle('hidden', view !== 'kanban');
+
+            // filter bar for kanban & list views
+            document.getElementById('filterBar').classList.toggle('hidden', view !== 'kanban' && view !== 'leadsList');
+
+            // Layout view toggle active state 
+            const btnList = document.getElementById('btnViewList');
+            const btnKanban = document.getElementById('btnViewKanban');
+            if (btnList && btnKanban) {
+                btnList.className = `size-8 rounded flex items-center justify-center transition-colors ${view === 'leadsList' ? 'bg-primary text-white shadow' : 'text-slate-400 hover:text-white'}`;
+                btnKanban.className = `size-8 rounded flex items-center justify-center transition-colors ${view === 'kanban' ? 'bg-primary text-white shadow' : 'text-slate-400 hover:text-white'}`;
+            }
+
             // sidebar active state
             ALL_VIEWS.forEach(v => {
-                const btn = document.getElementById('nav-' + v);
-                if (btn) btn.classList.toggle('active', v === view);
+                const navKey = v === 'leadsList' ? 'kanban' : v;
+                const btn = document.getElementById('nav-' + navKey);
+                if (btn) {
+                    // Remove active from all first
+                    if (v !== 'leadsList') btn.classList.remove('active');
+                }
             });
+            const validNavBtn = document.getElementById('nav-' + (view === 'leadsList' ? 'kanban' : view));
+            if (validNavBtn) validNavBtn.classList.add('active');
+
             // top bar title
             const titleEl = document.getElementById('topBarTitle');
             if (titleEl) titleEl.textContent = VIEW_TITLES[view] || view;
+
             // actions
             if (view === 'kanban') { populateAgentFilter(); applyFilters(); }
             if (view === 'clients') renderClients();
@@ -1563,6 +1601,58 @@
 
             document.getElementById('filterCount').textContent = state.filteredLeads.length + ' lead' + (state.filteredLeads.length !== 1 ? 's' : '') + ' encontrado' + (state.filteredLeads.length !== 1 ? 's' : '');
             renderKanban();
+            renderLeadsList(); // En caso de estar en vista lista
+        }
+
+        function renderLeadsList() {
+            const container = document.getElementById('leadsListGrid');
+            if (!container) return;
+            // Ordenar todos los leads filtrados para la vista general de lista
+            const sorted = sortLeads(state.filteredLeads);
+
+            if (sorted.length === 0) {
+                container.parentElement.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-20 text-center w-full" id="leadsListGridWrapper">
+                    <span class="material-symbols-outlined text-5xl block mb-3 opacity-30">inbox</span>
+                    <p class="text-slate-400 font-bold mb-1">No hay leads que coincidan con los filtros</p>
+                    <div id="leadsListGrid" class="hidden"></div>
+                </div>`;
+                return;
+            }
+
+            // Si el layout interno fue sobreescrito con error message, resetear 
+            const parent = document.getElementById('leadsListView');
+            if (!parent.querySelector('#leadsListGrid') || parent.querySelector('#leadsListGrid').classList.contains('hidden')) {
+                parent.innerHTML = `<div id="leadsListGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>`;
+            }
+
+            document.getElementById('leadsListGrid').innerHTML = sorted.map(l => {
+                const badge = getActionBadge(l.next_action_at);
+                const budget = formatBudget(l.budget_min, l.budget_max);
+                const opLabel = { compra: 'Compra', venta: 'Venta', alquiler: 'Alquiler' }[l.operation] || '';
+                const agent = getAgent(l.agent_id);
+                return `
+                <div class="bg-card-dark border-l-4 ${STATUS_COLORS[l.status]} border border-border-dark rounded-xl p-4 cursor-pointer group hover:border-primary/50 transition-all shadow select-none"
+                  onclick="openLeadModal('${l.id}')">
+                  <div class="flex items-start justify-between mb-2 gap-2">
+                    <div class="flex-1">
+                        <p class="font-bold text-sm text-white leading-tight">${escHtml(l.full_name)}</p>
+                        <p class="text-[10px] text-slate-500 font-bold uppercase mt-0.5">${STATUS_LABELS[l.status]}</p>
+                    </div>
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.cls} flex-shrink-0">${badge.label}</span>
+                  </div>
+                  ${l.zone ? `<p class="text-xs text-slate-500 mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span>${escHtml(l.zone)}</p>` : ''}
+                  ${budget ? `<p class="text-xs text-primary font-semibold mb-2">${budget}</p>` : ''}
+                  ${l.next_action ? `<p class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">task_alt</span><span class="line-clamp-1">${escHtml(l.next_action)}</span></p>` : ''}
+                  <div class="flex items-center justify-between mt-3 pt-3 border-t border-border-dark">
+                    <div class="flex gap-2">
+                      ${opLabel ? `<span class="text-[10px] bg-white/5 text-slate-400 px-2.5 py-1 rounded font-semibold uppercase">${opLabel}</span>` : ''}
+                      ${l.source ? `<span class="text-[10px] text-slate-600 capitalize py-1">${escHtml(l.source)}</span>` : ''}
+                    </div>
+                    ${agentAvatar(agent, 'sm')}
+                  </div>
+                </div>`;
+            }).join('');
         }
 
         function clearFilters() {
