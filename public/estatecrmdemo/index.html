@@ -1661,6 +1661,7 @@
                                 <th scope="col" class="px-4 py-3 font-bold">Próxima Acción</th>
                                 <th scope="col" class="px-4 py-3 font-bold">Detalles</th>
                                 <th scope="col" class="px-4 py-3 font-bold text-right">Agente</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-center w-24">Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="leadsListGrid"></tbody>
@@ -1668,36 +1669,104 @@
                 </div>`;
             }
 
+            window.inlineEditLeadId = window.inlineEditLeadId || null;
+
             document.getElementById('leadsListGrid').innerHTML = sorted.map(l => {
+                const isEditing = window.inlineEditLeadId === l.id;
                 const badge = getActionBadge(l.next_action_at);
                 const budget = formatBudget(l.budget_min, l.budget_max);
                 const opLabel = { compra: 'Compra', venta: 'Venta', alquiler: 'Alquiler' }[l.operation] || '';
                 const agent = getAgent(l.agent_id);
+
+                if (isEditing) {
+                    return `
+                    <tr class="bg-primary/5 border-b border-border-dark" onclick="event.stopPropagation()">
+                        <td class="px-4 py-3 align-top min-w-[200px]">
+                            <input id="il_name_${l.id}" value="${escHtml(l.full_name)}" class="w-full text-xs p-1.5 mb-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" placeholder="Nombre completo" />
+                            <div class="flex gap-1.5 mb-1.5 text-slate-400 items-center"><span class="material-symbols-outlined text-[12px]">phone</span>
+                                <input id="il_phone_${l.id}" value="${escHtml(l.phone || '')}" class="flex-1 text-[10px] p-1 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" placeholder="Teléfono" />
+                            </div>
+                            <div class="flex gap-1.5 text-slate-400 items-center"><span class="material-symbols-outlined text-[12px]">mail</span>
+                                <input id="il_email_${l.id}" value="${escHtml(l.email || '')}" class="flex-1 text-[10px] p-1 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" placeholder="Email" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 align-top min-w-[150px]">
+                            <select id="il_op_${l.id}" class="w-full text-xs p-1.5 mb-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none cursor-pointer">
+                                <option value="compra" ${l.operation === 'compra' ? 'selected' : ''}>Compra</option>
+                                <option value="venta" ${l.operation === 'venta' ? 'selected' : ''}>Venta</option>
+                                <option value="alquiler" ${l.operation === 'alquiler' ? 'selected' : ''}>Alquiler</option>
+                            </select>
+                            <div class="flex gap-1.5 text-slate-400 items-center"><span class="material-symbols-outlined text-[14px]">location_on</span>
+                                <input id="il_zone_${l.id}" value="${escHtml(l.zone || '')}" class="flex-1 text-[11px] p-1 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" placeholder="Zona" />
+                            </div>
+                        </td>
+                        <td class="px-4 py-3 align-top min-w-[130px]">
+                            <select id="il_status_${l.id}" class="w-full text-xs p-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none cursor-pointer">
+                                ${STATUSES.map(s => `<option value="${s}" ${l.status === s ? 'selected' : ''}>${STATUS_LABELS[s]}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td class="px-4 py-3 align-top min-w-[150px]">
+                            <input type="date" id="il_date_${l.id}" value="${l.next_action_at || ''}" class="w-full text-xs p-1.5 mb-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" />
+                            <input id="il_action_${l.id}" value="${escHtml(l.next_action || '')}" class="w-full text-xs p-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" placeholder="Próxima Acción" />
+                        </td>
+                        <td class="px-4 py-3 align-top min-w-[150px]">
+                            <div class="flex gap-1 mb-1.5">
+                                <input type="number" id="il_min_${l.id}" placeholder="P. Min" value="${l.budget_min || ''}" class="w-1/2 text-[10px] p-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" />
+                                <input type="number" id="il_max_${l.id}" placeholder="P. Max" value="${l.budget_max || ''}" class="w-1/2 text-[10px] p-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none" />
+                            </div>
+                            <select id="il_source_${l.id}" class="w-full text-[10px] p-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none cursor-pointer">
+                                <option value="portal" ${l.source === 'portal' ? 'selected' : ''}>Portal</option>
+                                <option value="web" ${l.source === 'web' ? 'selected' : ''}>Web</option>
+                                <option value="recomendacion" ${l.source === 'recomendacion' ? 'selected' : ''}>Recomendación</option>
+                                <option value="whatsapp" ${l.source === 'whatsapp' ? 'selected' : ''}>WhatsApp</option>
+                                <option value="llamada" ${l.source === 'llamada' ? 'selected' : ''}>Llamada</option>
+                            </select>
+                        </td>
+                        <td class="px-4 py-3 align-top text-right min-w-[120px]">
+                            <select id="il_agent_${l.id}" class="w-full text-[10px] p-1.5 rounded bg-bg-dark border border-border-dark focus:ring-1 focus:ring-primary outline-none mb-1.5 cursor-pointer">
+                                <option value="">Sin asignar</option>
+                                ${state.agents.map(a => `<option value="${a.id}" ${l.agent_id === a.id ? 'selected' : ''}>${escHtml(a.name)}</option>`).join('')}
+                            </select>
+                        </td>
+                        <td class="px-4 py-3 text-center align-middle border-l border-border-dark/50">
+                            <button onclick="saveInlineEdit(event, '${l.id}')" title="Guardar cambios" class="bg-primary/20 text-primary w-8 h-8 rounded mb-2 font-bold hover:bg-primary hover:text-white transition-colors shadow flex items-center justify-center mx-auto"><span class="material-symbols-outlined text-[16px]">save</span></button>
+                            <button onclick="cancelInlineEdit(event)" title="Cancelar" class="bg-card-dark border border-border-dark text-slate-400 w-8 h-8 rounded hover:bg-white/5 hover:text-white transition-colors flex items-center justify-center mx-auto"><span class="material-symbols-outlined text-[16px]">close</span></button>
+                        </td>
+                    </tr>`;
+                }
+
                 return `
                 <tr class="hover:bg-white/5 cursor-pointer transition-colors group" onclick="openLeadModal('${l.id}')">
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         <p class="text-sm font-bold text-white">${escHtml(l.full_name)}</p>
                         ${l.phone ? `<p class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[12px]">phone</span>${escHtml(l.phone)}</p>` : ''}
                         ${l.email ? `<p class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[12px]">mail</span>${escHtml(l.email)}</p>` : ''}
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         ${opLabel ? `<span class="text-[10px] bg-white/10 text-slate-300 px-2.5 py-1 rounded font-semibold uppercase">${opLabel}</span>` : '<span class="text-xs text-slate-600">-</span>'}
                         ${l.zone ? `<p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span>${escHtml(l.zone)}</p>` : ''}
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         <span class="text-[11px] font-bold px-2 py-0.5 rounded border border-current ${STATUS_COLORS[l.status].replace('border-l-4 border', 'text').replace('bg-bg-dark', '')}">${STATUS_LABELS[l.status]}</span>
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${badge.cls} block w-fit mb-1">${badge.label}</span>
                         ${l.next_action ? `<span class="text-[11px] text-slate-400 block line-clamp-1">${escHtml(l.next_action)}</span>` : ''}
                     </td>
-                    <td class="px-4 py-3">
+                    <td class="px-4 py-3 align-middle">
                         ${budget ? `<p class="text-[11px] text-primary font-semibold mb-1">${budget}</p>` : ''}
                         ${l.source ? `<span class="text-[10px] text-slate-500 capitalize bg-bg-dark px-2 py-0.5 rounded">${escHtml(l.source)}</span>` : ''}
                     </td>
-                    <td class="px-4 py-3 text-right">
-                        ${agentAvatar(agent, 'sm')}
-                        <p class="text-[9px] text-slate-500 mt-0.5">${agent ? escHtml(agent.name) : 'Sin asignar'}</p>
+                    <td class="px-4 py-3 text-right align-middle">
+                        <div class="flex flex-col items-end">
+                            ${agentAvatar(agent, 'sm')}
+                            <p class="text-[9px] text-slate-500 mt-0.5">${agent ? escHtml(agent.name) : 'Sin asignar'}</p>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3 text-center align-middle">
+                        <button onclick="startInlineEdit(event, '${l.id}')" title="Edición rápida" class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/5 hover:bg-primary/20 hover:text-primary text-slate-400 size-8 rounded-lg flex items-center justify-center mx-auto border border-white/5 hover:border-primary/20">
+                            <span class="material-symbols-outlined text-[16px]">edit_note</span>
+                        </button>
                     </td>
                 </tr>`;
             }).join('');
@@ -1711,6 +1780,45 @@
             document.getElementById('filterNextAction').value = '';
             applyFilters();
         }
+
+        // --- Inline Editing Functions ---
+        function startInlineEdit(e, id) {
+            e.stopPropagation(); // Evitar que abra el modal
+            window.inlineEditLeadId = id;
+            renderLeadsList();
+        }
+
+        function cancelInlineEdit(e) {
+            e.stopPropagation();
+            window.inlineEditLeadId = null;
+            renderLeadsList();
+        }
+
+        function saveInlineEdit(e, id) {
+            e.stopPropagation();
+            const l = state.leads.find(x => x.id === id);
+            if (l) {
+                l.full_name = document.getElementById('il_name_' + id).value;
+                l.phone = document.getElementById('il_phone_' + id).value;
+                l.email = document.getElementById('il_email_' + id).value;
+                l.operation = document.getElementById('il_op_' + id).value;
+                l.zone = document.getElementById('il_zone_' + id).value;
+                l.status = document.getElementById('il_status_' + id).value;
+                l.next_action_at = document.getElementById('il_date_' + id).value;
+                l.next_action = document.getElementById('il_action_' + id).value;
+                l.budget_min = document.getElementById('il_min_' + id).value;
+                l.budget_max = document.getElementById('il_max_' + id).value;
+                l.source = document.getElementById('il_source_' + id).value;
+                l.agent_id = document.getElementById('il_agent_' + id).value;
+
+                l.updated_at = new Date().toISOString();
+                saveData();
+                window.inlineEditLeadId = null;
+                showToast("Cambios del lead guardados", "success");
+                applyFilters(); // Re-renderiza vista limpia
+            }
+        }
+        // -------------------------------
 
         function sortLeads(leads) {
             const today = new Date(); today.setHours(0, 0, 0, 0);
