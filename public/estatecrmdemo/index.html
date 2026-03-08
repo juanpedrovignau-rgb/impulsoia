@@ -563,22 +563,26 @@
             <!-- ===== DASHBOARD VIEW ===== -->
             <div id="dashboardView" class="flex-1 overflow-y-auto p-6">
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    <div class="stat-card">
+                    <div class="stat-card cursor-pointer hover:border-primary/50 transition-colors"
+                        onclick="clearFilters(); showView('kanban');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Total Leads</p>
                         <p class="text-3xl font-extrabold text-white" id="statTotal">—</p>
                         <p class="text-xs text-slate-500 mt-1">Activos en pipeline</p>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card cursor-pointer hover:border-red-500/50 transition-colors"
+                        onclick="clearFilters(); document.getElementById('filterNextAction').value = 'overdue'; applyFilters(); showView('kanban');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Vencidos</p>
                         <p class="text-3xl font-extrabold text-red-400" id="statOverdue">—</p>
                         <p class="text-xs text-slate-500 mt-1">Requieren atención</p>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card cursor-pointer hover:border-amber-500/50 transition-colors"
+                        onclick="clearFilters(); showView('kanban');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">En Oferta</p>
                         <p class="text-3xl font-extrabold text-amber-400" id="statOferta">—</p>
                         <p class="text-xs text-slate-500 mt-1">Negociación activa</p>
                     </div>
-                    <div class="stat-card">
+                    <div class="stat-card cursor-pointer hover:border-emerald-500/50 transition-colors"
+                        onclick="showView('clients');">
                         <p class="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Clientes</p>
                         <p class="text-3xl font-extrabold text-emerald-400" id="statClients">—</p>
                         <p class="text-xs text-slate-500 mt-1">Conversiones totales</p>
