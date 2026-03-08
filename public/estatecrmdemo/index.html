@@ -642,8 +642,34 @@
 
             <!-- ===== LEADS LIST VIEW ===== -->
             <div id="leadsListView" class="hidden flex-1 overflow-y-auto p-6">
-                <div id="leadsListGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    <!-- list of lead cards injected here -->
+                <div class="bg-card-dark border border-border-dark rounded-xl overflow-x-auto">
+                    <table class="w-full text-sm min-w-[900px]">
+                        <thead>
+                            <tr class="border-b border-border-dark bg-white/5">
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Lead & Contacto</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Operación / Zona</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Estado</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Próxima Acción</th>
+                                <th
+                                    class="text-left px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider">
+                                    Detalles / Origen</th>
+                                <th
+                                    class="px-4 py-3 text-xs font-bold text-slate-500 uppercase tracking-wider text-right">
+                                    Asesor</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsListGrid" class="divide-y divide-border-dark">
+                            <!-- list of lead rows injected here -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -1611,19 +1637,35 @@
             const sorted = sortLeads(state.filteredLeads);
 
             if (sorted.length === 0) {
-                container.parentElement.innerHTML = `
-                <div class="flex flex-col items-center justify-center py-20 text-center w-full" id="leadsListGridWrapper">
-                    <span class="material-symbols-outlined text-5xl block mb-3 opacity-30">inbox</span>
-                    <p class="text-slate-400 font-bold mb-1">No hay leads que coincidan con los filtros</p>
-                    <div id="leadsListGrid" class="hidden"></div>
-                </div>`;
+                container.innerHTML = `
+                <tr>
+                    <td colspan="6" class="py-12 text-center">
+                        <span class="material-symbols-outlined text-5xl flex justify-center mb-3 opacity-30 text-white">inbox</span>
+                        <p class="text-slate-400 font-bold mb-1">No hay leads que coincidan con los filtros</p>
+                    </td>
+                </tr>`;
                 return;
             }
 
             // Si el layout interno fue sobreescrito con error message, resetear 
             const parent = document.getElementById('leadsListView');
             if (!parent.querySelector('#leadsListGrid') || parent.querySelector('#leadsListGrid').classList.contains('hidden')) {
-                parent.innerHTML = `<div id="leadsListGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>`;
+                parent.innerHTML = `
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-slate-400" id="leadsListTable">
+                        <thead class="text-[10px] text-slate-500 uppercase bg-bg-dark border-y border-border-dark">
+                            <tr>
+                                <th scope="col" class="px-4 py-3 font-bold">Contacto</th>
+                                <th scope="col" class="px-4 py-3 font-bold">Propiedad</th>
+                                <th scope="col" class="px-4 py-3 font-bold">Estado</th>
+                                <th scope="col" class="px-4 py-3 font-bold">Próxima Acción</th>
+                                <th scope="col" class="px-4 py-3 font-bold">Detalles</th>
+                                <th scope="col" class="px-4 py-3 font-bold text-right">Agente</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsListGrid"></tbody>
+                    </table>
+                </div>`;
             }
 
             document.getElementById('leadsListGrid').innerHTML = sorted.map(l => {
@@ -1632,26 +1674,32 @@
                 const opLabel = { compra: 'Compra', venta: 'Venta', alquiler: 'Alquiler' }[l.operation] || '';
                 const agent = getAgent(l.agent_id);
                 return `
-                <div class="bg-card-dark border-l-4 ${STATUS_COLORS[l.status]} border border-border-dark rounded-xl p-4 cursor-pointer group hover:border-primary/50 transition-all shadow select-none"
-                  onclick="openLeadModal('${l.id}')">
-                  <div class="flex items-start justify-between mb-2 gap-2">
-                    <div class="flex-1">
-                        <p class="font-bold text-sm text-white leading-tight">${escHtml(l.full_name)}</p>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase mt-0.5">${STATUS_LABELS[l.status]}</p>
-                    </div>
-                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badge.cls} flex-shrink-0">${badge.label}</span>
-                  </div>
-                  ${l.zone ? `<p class="text-xs text-slate-500 mb-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span>${escHtml(l.zone)}</p>` : ''}
-                  ${budget ? `<p class="text-xs text-primary font-semibold mb-2">${budget}</p>` : ''}
-                  ${l.next_action ? `<p class="text-xs text-slate-400 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">task_alt</span><span class="line-clamp-1">${escHtml(l.next_action)}</span></p>` : ''}
-                  <div class="flex items-center justify-between mt-3 pt-3 border-t border-border-dark">
-                    <div class="flex gap-2">
-                      ${opLabel ? `<span class="text-[10px] bg-white/5 text-slate-400 px-2.5 py-1 rounded font-semibold uppercase">${opLabel}</span>` : ''}
-                      ${l.source ? `<span class="text-[10px] text-slate-600 capitalize py-1">${escHtml(l.source)}</span>` : ''}
-                    </div>
-                    ${agentAvatar(agent, 'sm')}
-                  </div>
-                </div>`;
+                <tr class="hover:bg-white/5 cursor-pointer transition-colors group" onclick="openLeadModal('${l.id}')">
+                    <td class="px-4 py-3">
+                        <p class="text-sm font-bold text-white">${escHtml(l.full_name)}</p>
+                        ${l.phone ? `<p class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[12px]">phone</span>${escHtml(l.phone)}</p>` : ''}
+                        ${l.email ? `<p class="text-[10px] text-slate-500 flex items-center gap-1 mt-0.5"><span class="material-symbols-outlined text-[12px]">mail</span>${escHtml(l.email)}</p>` : ''}
+                    </td>
+                    <td class="px-4 py-3">
+                        ${opLabel ? `<span class="text-[10px] bg-white/10 text-slate-300 px-2.5 py-1 rounded font-semibold uppercase">${opLabel}</span>` : '<span class="text-xs text-slate-600">-</span>'}
+                        ${l.zone ? `<p class="text-[11px] text-slate-400 mt-1 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">location_on</span>${escHtml(l.zone)}</p>` : ''}
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded border border-current ${STATUS_COLORS[l.status].replace('border-l-4 border', 'text').replace('bg-bg-dark', '')}">${STATUS_LABELS[l.status]}</span>
+                    </td>
+                    <td class="px-4 py-3">
+                        <span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${badge.cls} block w-fit mb-1">${badge.label}</span>
+                        ${l.next_action ? `<span class="text-[11px] text-slate-400 block line-clamp-1">${escHtml(l.next_action)}</span>` : ''}
+                    </td>
+                    <td class="px-4 py-3">
+                        ${budget ? `<p class="text-[11px] text-primary font-semibold mb-1">${budget}</p>` : ''}
+                        ${l.source ? `<span class="text-[10px] text-slate-500 capitalize bg-bg-dark px-2 py-0.5 rounded">${escHtml(l.source)}</span>` : ''}
+                    </td>
+                    <td class="px-4 py-3 text-right">
+                        ${agentAvatar(agent, 'sm')}
+                        <p class="text-[9px] text-slate-500 mt-0.5">${agent ? escHtml(agent.name) : 'Sin asignar'}</p>
+                    </td>
+                </tr>`;
             }).join('');
         }
 
