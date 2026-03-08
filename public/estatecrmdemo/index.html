@@ -278,6 +278,71 @@
         html.light .bg-white\/5 {
             background-color: rgba(0, 0, 0, 0.05) !important;
         }
+
+        /* ---- RESPONSIVE: MOBILE SIDEBAR DRAWER ---- */
+        #sidebarOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 39;
+        }
+
+        #sidebarOverlay.open {
+            display: block;
+        }
+
+        @media (max-width: 767px) {
+            #sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                height: 100vh;
+                width: 260px;
+                min-width: 260px;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                z-index: 40;
+            }
+
+            #sidebar.mobile-open {
+                transform: translateX(0);
+            }
+
+            #hamburgerBtn {
+                display: flex !important;
+            }
+
+            /* Stat cards 1 column on small phones */
+            .grid.grid-cols-2.lg\:grid-cols-4 {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            /* Reduce padding on small screens */
+            #dashboardView,
+            #clientsView,
+            #agentsView,
+            #prospectsView,
+            #contentView,
+            #performanceView,
+            #kanbanView,
+            #propertiesView,
+            #tasksView {
+                padding: 16px !important;
+            }
+
+            /* Top bar compact */
+            header .text-base.font-bold {
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (min-width: 768px) {
+            #hamburgerBtn {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 
@@ -325,6 +390,8 @@
     </div>
 
     <!-- ==================== MAIN APP ==================== -->
+    <!-- Mobile sidebar overlay -->
+    <div id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
     <div id="app" class="hidden"
         style="display:none; flex-direction:row; min-height:100vh; height:100vh; overflow:hidden">
 
@@ -424,8 +491,15 @@
 
             <!-- TOP BAR -->
             <header
-                class="flex items-center justify-between border-b border-border-dark bg-card-dark px-6 py-3 flex-shrink-0">
-                <div id="topBarTitle" class="text-base font-bold text-white">Dashboard</div>
+                class="flex items-center justify-between border-b border-border-dark bg-card-dark px-4 py-3 flex-shrink-0 gap-3">
+                <div class="flex items-center gap-3">
+                    <!-- Hamburger: visible only on mobile -->
+                    <button id="hamburgerBtn" onclick="toggleMobileSidebar()" title="Menú" style="display:none"
+                        class="text-slate-400 hover:text-white transition-colors flex items-center justify-center size-9 rounded-lg hover:bg-white/5 flex-shrink-0">
+                        <span class="material-symbols-outlined" style="font-size:22px">menu</span>
+                    </button>
+                    <div id="topBarTitle" class="text-base font-bold text-white">Dashboard</div>
+                </div>
                 <div class="flex items-center gap-3">
                     <button onclick="toggleTheme()"
                         class="text-slate-400 hover:text-primary transition-colors flex items-center justify-center size-9 rounded-lg hover:bg-white/5"
@@ -1270,6 +1344,25 @@
             ).join('');
         }
 
+        // ==================== MOBILE SIDEBAR ====================
+        function toggleMobileSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            const isOpen = sidebar.classList.contains('mobile-open');
+            if (isOpen) {
+                sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('open');
+            } else {
+                sidebar.classList.add('mobile-open');
+                overlay.classList.add('open');
+            }
+        }
+
+        function closeMobileSidebar() {
+            document.getElementById('sidebar').classList.remove('mobile-open');
+            document.getElementById('sidebarOverlay').classList.remove('open');
+        }
+
         // ==================== VIEWS ====================
         const ALL_VIEWS = ['dashboard', 'kanban', 'clients', 'agents', 'properties', 'tasks', 'performance', 'prospects', 'content'];
         const VIEW_TITLES = {
@@ -1279,6 +1372,7 @@
         };
 
         function showView(view) {
+            closeMobileSidebar(); // auto-close drawer when navigating on mobile
             state.currentView = view;
             // toggle view panels
             ALL_VIEWS.forEach(v => {
