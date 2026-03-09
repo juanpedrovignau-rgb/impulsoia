@@ -86,9 +86,13 @@ export default function Services() {
                                         }}
                                     >
                                         <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
-                                        {(i === 0 || i === 1) && (
+                                        {(i >= 0 && i <= 2) && (
                                             <video
-                                                src={i === 0 ? "/metrics-video.mp4" : "/agente-ventas-ia.mp4"}
+                                                src={
+                                                    i === 0 ? "/metrics-video.mp4" :
+                                                        i === 1 ? "/agente-ventas-ia.mp4" :
+                                                            "/agente-facturas-ia.mp4"
+                                                }
                                                 muted
                                                 loop
                                                 playsInline
