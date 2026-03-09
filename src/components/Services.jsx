@@ -73,7 +73,7 @@ export default function Services() {
 
                                 <div className="card-content">
                                     <div className="card-image-container">
-                                        <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
+                                        <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.png`} alt={s.title} className="service-pack-image" />
                                         {(i >= 0 && i <= 2) && (
                                             <video
                                                 src={
