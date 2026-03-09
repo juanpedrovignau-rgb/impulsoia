@@ -72,19 +72,7 @@ export default function Services() {
                                 </div>
 
                                 <div className="card-content">
-                                    <div className="card-image-container"
-                                        onMouseEnter={(e) => {
-                                            const video = e.currentTarget.querySelector('video');
-                                            if (video) video.play().catch(err => console.log(err));
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            const video = e.currentTarget.querySelector('video');
-                                            if (video) {
-                                                video.pause();
-                                                video.currentTime = 0;
-                                            }
-                                        }}
-                                    >
+                                    <div className="card-image-container">
                                         <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
                                         {(i >= 0 && i <= 2) && (
                                             <video
@@ -93,6 +81,7 @@ export default function Services() {
                                                         i === 1 ? "/agente-ventas-ia.mp4" :
                                                             "/agente-facturas-ia.mp4"
                                                 }
+                                                autoPlay
                                                 muted
                                                 loop
                                                 playsInline
