@@ -187,6 +187,11 @@
     overflow: hidden;
     position: relative;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    /* Forzar respeto de bordes en animaciones de escala (Safari/Chrome bug hack) */
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+    mask-image: radial-gradient(white, black);
+    transform: translateZ(0);
+    isolation: isolate;
 }
 
 .service-pack-image {
