@@ -74,25 +74,21 @@ export default function Services() {
                                 <div className="card-content">
                                     <div className="card-image-container"
                                         onMouseEnter={(e) => {
-                                            if (i === 0) {
-                                                const video = e.currentTarget.querySelector('video');
-                                                if (video) video.play().catch(err => console.log(err));
-                                            }
+                                            const video = e.currentTarget.querySelector('video');
+                                            if (video) video.play().catch(err => console.log(err));
                                         }}
                                         onMouseLeave={(e) => {
-                                            if (i === 0) {
-                                                const video = e.currentTarget.querySelector('video');
-                                                if (video) {
-                                                    video.pause();
-                                                    video.currentTime = 0;
-                                                }
+                                            const video = e.currentTarget.querySelector('video');
+                                            if (video) {
+                                                video.pause();
+                                                video.currentTime = 0;
                                             }
                                         }}
                                     >
                                         <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
-                                        {i === 0 && (
+                                        {(i === 0 || i === 1) && (
                                             <video
-                                                src="/metrics-video.mp4"
+                                                src={i === 0 ? "/metrics-video.mp4" : "/agente-ventas-ia.mp4"}
                                                 muted
                                                 loop
                                                 playsInline
