@@ -71,95 +71,98 @@ export default function Services() {
                                     {s.badge} {i === 0 && <span className="recommended-tag">★ MÁS BUSCADO</span>}
                                 </div>
 
-                                <div className="card-image-container"
-                                    onMouseEnter={(e) => {
-                                        if (i === 0) {
-                                            const video = e.currentTarget.querySelector('video');
-                                            if (video) video.play().catch(err => console.log(err));
-                                        }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        if (i === 0) {
-                                            const video = e.currentTarget.querySelector('video');
-                                            if (video) {
-                                                video.pause();
-                                                video.currentTime = 0;
+                                <div className="card-content">
+                                    <div className="card-image-container"
+                                        onMouseEnter={(e) => {
+                                            if (i === 0) {
+                                                const video = e.currentTarget.querySelector('video');
+                                                if (video) video.play().catch(err => console.log(err));
                                             }
-                                        }
-                                    }}
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            if (i === 0) {
+                                                const video = e.currentTarget.querySelector('video');
+                                                if (video) {
+                                                    video.pause();
+                                                    video.currentTime = 0;
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
+                                        {i === 0 && (
+                                            <video
+                                                src="/metrics-video.mp4"
+                                                muted
+                                                loop
+                                                playsInline
+                                                className="service-pack-video"
+                                            />
+                                        )}
+                                    </div>
+
+                                    <h3 className="card-title">{s.title}</h3>
+                                    <p className="card-description">{s.description}</p>
+
+                                    {/* Benefits List */}
+                                    <div className="benefits-list">
+                                        {s.benefits && s.benefits.map((benefit, idx) => (
+                                            <div key={idx} className="benefit-item">
+                                                <span className="benefit-check">✓</span>
+                                                {benefit}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* CTA Button Area */}
+                                <div
+                                    className="card-cta"
+                                    onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}?text=Hola, me interesa el pack: ${s.title}`, '_blank')}
                                 >
-                                    <img src={`/service-${['crm', 'asistente', 'facturas'][i]}.jpg`} alt={s.title} className="service-pack-image" />
-                                    {i === 0 && (
-                                        <video
-                                            src="/metrics-video.mp4"
-                                            muted
-                                            loop
-                                            playsInline
-                                            className="service-pack-video"
-                                        />
-                                    )}
-                                </div>
-                                <p className="card-description">{s.description}</p>
-
-                                {/* Benefits List */}
-                                <div className="benefits-list">
-                                    {s.benefits && s.benefits.map((benefit, idx) => (
-                                        <div key={idx} className="benefit-item">
-                                            <span className="benefit-check">✓</span>
-                                            {benefit}
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-
-                                {/* CTA Button Area */ }
-                        <div
-                            className="card-cta"
-                            onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}?text=Hola, me interesa el pack: ${s.title}`, '_blank')}
-                        >
-                            <span className="cta-text">Consultar Pack</span>
-                            <span className="cta-arrow">→</span>
-                        </div>
-                            </div>
-                );
-                    })}
-            </div>
-
-            <Testimonials isInternal={true} />
-
-            {/* SECOND SECTION: Specialist Solutions */}
-            <div className="specialties-container reveal">
-                <div style={{ marginBottom: '60px', maxWidth: '800px', margin: '0 auto 60px' }}>
-                    <h3 style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', fontWeight: '900', color: '#fff', marginBottom: '15px', letterSpacing: '-1px' }}>Especialidades y Consultoría</h3>
-                    <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '300' }}>Arquitecturas de alto nivel diseñadas para la eficiencia absoluta.</p>
-                </div>
-
-                <div className="specialties-grid">
-                    {businessConfig.services.slice(3).map((s, i) => {
-                        const Icon = iconComponents[s.title];
-                        return (
-                            <div
-                                key={i}
-                                className="specialty-card reveal"
-                                style={{ transitionDelay: `${(i % 2) * 0.1 + 0.2}s` }}
-                            >
-                                <div className="specialty-icon-wrapper">
-                                    {Icon ? <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}><Icon /></div> : <div style={{ fontSize: '2.5rem' }}>{s.icon}</div>}
-                                </div>
-                                <div>
-                                    <h4 className="specialty-title">{s.title}</h4>
-                                    <p className="specialty-description">{s.description}</p>
+                                    <span className="cta-text">Consultar Pack</span>
+                                    <span className="cta-arrow">→</span>
                                 </div>
                             </div>
                         );
                     })}
                 </div>
-            </div>
 
-            <div className="reveal" style={{ marginTop: '80px' }}>
-                <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary">Agendar Consultoría Gratuita</button>
+                <Testimonials isInternal={true} />
+
+                {/* SECOND SECTION: Specialist Solutions */}
+                <div className="specialties-container reveal">
+                    <div style={{ marginBottom: '60px', maxWidth: '800px', margin: '0 auto 60px' }}>
+                        <h3 style={{ fontSize: 'clamp(1.8rem, 6vw, 2.5rem)', fontWeight: '900', color: '#fff', marginBottom: '15px', letterSpacing: '-1px' }}>Especialidades y Consultoría</h3>
+                        <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', fontWeight: '300' }}>Arquitecturas de alto nivel diseñadas para la eficiencia absoluta.</p>
+                    </div>
+
+                    <div className="specialties-grid">
+                        {businessConfig.services.slice(3).map((s, i) => {
+                            const Icon = iconComponents[s.title];
+                            return (
+                                <div
+                                    key={i}
+                                    className="specialty-card reveal"
+                                    style={{ transitionDelay: `${(i % 2) * 0.1 + 0.2}s` }}
+                                >
+                                    <div className="specialty-icon-wrapper">
+                                        {Icon ? <div style={{ transform: 'scale(0.85)', transformOrigin: 'top left' }}><Icon /></div> : <div style={{ fontSize: '2.5rem' }}>{s.icon}</div>}
+                                    </div>
+                                    <div>
+                                        <h4 className="specialty-title">{s.title}</h4>
+                                        <p className="specialty-description">{s.description}</p>
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                <div className="reveal" style={{ marginTop: '80px' }}>
+                    <button onClick={() => window.open(`https://wa.me/${businessConfig.whatsappNumber}`, '_blank')} className="btn btn-primary">Agendar Consultoría Gratuita</button>
+                </div>
             </div>
-        </div>
         </section >
     );
 }
