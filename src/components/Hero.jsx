@@ -142,18 +142,22 @@ export default function Hero() {
                 flexWrap: 'wrap'
             }}>
                 <div style={{ textAlign: 'left', flex: '1', minWidth: '300px' }}>
-                    <span className="section-title-small">Consultoría en Inteligencia Artificial & Automatización</span>
-                    <h1 className="hero-title" style={{ fontSize: '5.5rem', fontWeight: '900', marginBottom: '15px', lineHeight: '0.85', letterSpacing: '-3px' }}>
-                        Impulso <span style={{ color: 'var(--accent-color)' }}>IA</span> <br />
+                    <h1 className="hero-title" style={{ fontSize: '4.5rem', fontWeight: '900', marginBottom: '20px', lineHeight: '0.95', letterSpacing: '-2px' }}>
+                        Automatiza tu negocio con <br />
                         <span style={{
-                            background: 'linear-gradient(to right, #ffffff, var(--accent-yellow))',
+                            background: 'linear-gradient(to right, #ffffff, var(--accent-color))',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
-                            textShadow: '0 0 30px rgba(255, 193, 7, 0.2)'
-                        }}>Inteligente</span>
+                            textShadow: '0 0 30px rgba(0, 206, 209, 0.2)'
+                        }}>Inteligencia Artificial</span>
                     </h1>
-                    <p style={{ fontSize: '1.4rem', maxWidth: '600px', marginBottom: '45px', color: 'var(--text-secondary)', fontWeight: '300', lineHeight: '1.4' }}>
-                        Lideramos la transición hacia procesos autónomos con <b style={{ color: '#fff' }}>arquitecturas de IA</b> de última generación y automatización de alto nivel.
+                    <p style={{ fontSize: '1.4rem', maxWidth: '600px', marginBottom: '15px', color: 'var(--text-secondary)', fontWeight: '300', lineHeight: '1.4' }}>
+                        Creamos sistemas de IA que responden clientes, califican leads y ejecutan procesos automáticamente.
+                    </p>
+                    <p style={{ fontSize: '1.1rem', maxWidth: '600px', marginBottom: '45px', color: '#fff', fontWeight: '600', lineHeight: '1.4', display: 'flex', gap: '8px 15px', flexWrap: 'wrap', alignItems: 'center' }}>
+                        <span><span style={{ color: 'var(--accent-yellow)' }}>✦</span> Más ventas.</span>
+                        <span><span style={{ color: 'var(--accent-yellow)' }}>✦</span> Menos trabajo manual.</span>
+                        <span><span style={{ color: 'var(--accent-yellow)' }}>✦</span> Operaciones inteligentes 24/7.</span>
                     </p>
 
                     {/* Trust Bar */}
