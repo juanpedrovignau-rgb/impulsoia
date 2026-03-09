@@ -750,7 +750,7 @@
             <!-- ===== PROSPECTING VIEW ===== -->
             <div id="prospectsView" class="hidden flex-1 overflow-y-auto p-6 space-y-6">
                 <div class="flex items-center justify-between mb-2">
-                    <h2 class="text-2xl font-extrabold flex items-center gap-3">
+                    <h2 class="text-2xl font-extrabold flex items-center gap-3 text-white">
                         <span class="material-symbols-outlined text-primary" style="font-size: 32px">target</span>
                         Módulo de Prospección
                     </h2>
@@ -760,25 +760,76 @@
                     </button>
                 </div>
 
+                <!-- Filters for Prospects -->
+                <div
+                    class="bg-card-dark/50 border border-border-dark rounded-xl px-4 py-3 flex flex-wrap items-center gap-4">
+                    <div class="relative flex-1 min-w-[200px]">
+                        <span
+                            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 text-sm">search</span>
+                        <input id="prospectSearch" type="text" placeholder="Buscar por nombre o empresa..."
+                            oninput="renderProspectsView()"
+                            class="w-full bg-bg-dark border border-border-dark rounded-lg pl-9 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary outline-none" />
+                    </div>
+                    <select id="filterProspectChannel" onchange="renderProspectsView()"
+                        class="rounded-lg px-3 py-2 text-xs border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-slate-300">
+                        <option value="">Todos los Canales</option>
+                        <option value="LinkedIn">LinkedIn</option>
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Email">Email</option>
+                        <option value="Referido">Referido</option>
+                    </select>
+                    <select id="filterProspectStatus" onchange="renderProspectsView()"
+                        class="rounded-lg px-3 py-2 text-xs border border-border-dark bg-bg-dark focus:ring-1 focus:ring-primary outline-none text-slate-300">
+                        <option value="pendiente">Pendientes</option>
+                        <option value="cerrado">Archivados / Convertidos</option>
+                        <option value="all">Todos</option>
+                    </select>
+                </div>
+
                 <!-- Stats summary -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="prospectStatsSummary"></div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- Today's Followups -->
-                    <div class="bg-card-dark border border-border-dark rounded-xl p-6">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
-                            <span class="material-symbols-outlined text-amber-500">event_upcoming</span> Seguimientos
-                            Pendientes
-                        </h3>
-                        <div id="todayFollowupsContainer" class="space-y-3"></div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Today's Followups (Sidebar Style) -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="bg-card-dark border border-border-dark rounded-xl p-6">
+                            <h3
+                                class="text-sm font-bold text-white flex items-center gap-2 mb-4 uppercase tracking-wider">
+                                <span class="material-symbols-outlined text-amber-500 text-lg">event_upcoming</span>
+                                Seguimientos Hoy
+                            </h3>
+                            <div id="todayFollowupsContainer" class="space-y-3"></div>
+                        </div>
                     </div>
 
-                    <!-- All Prospects -->
-                    <div class="bg-card-dark border border-border-dark rounded-xl p-6">
-                        <h3 class="text-base font-bold text-white flex items-center gap-2 mb-4">
-                            <span class="material-symbols-outlined text-primary">group</span> Lista de Contactos
-                        </h3>
-                        <div id="allProspectsContainer" class="space-y-3"></div>
+                    <!-- All Prospects (Table/List Style) -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-card-dark border border-border-dark rounded-xl overflow-hidden">
+                            <table class="w-full text-left">
+                                <thead class="bg-white/5 border-b border-border-dark">
+                                    <tr>
+                                        <th
+                                            class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                            Contacto</th>
+                                        <th
+                                            class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+                                            Canal / Empresa</th>
+                                        <th
+                                            class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-center">
+                                            Progreso</th>
+                                        <th
+                                            class="px-5 py-3 text-[10px] font-bold text-slate-500 uppercase tracking-widest text-right">
+                                            Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="prospectsTableBody" class="divide-y divide-border-dark/50"></tbody>
+                            </table>
+                            <div id="prospectsEmptyState" class="hidden py-20 text-center">
+                                <span
+                                    class="material-symbols-outlined text-5xl text-slate-700 mb-2">person_search</span>
+                                <p class="text-slate-500 font-bold">No se encontraron prospectos</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1354,6 +1405,14 @@
                 ];
                 state.clients = [{ id: 'c1', lead_id: '5', full_name: 'Lucía Martínez', phone: '+34 611 222 333', email: 'lucia.m@yahoo.es', operation: 'compra', zone: 'Sevilla', budget_min: 200000, budget_max: 280000, notes: 'Compra en el barrio de Triana completada.', created_at: now.toISOString(), updated_at: now.toISOString() }];
             }
+            if (state.prospects.length === 0) {
+                const today = now.toISOString().split('T')[0];
+                state.prospects = [
+                    { id: 'p1', name: 'Federico Bal', company: 'InmoGlobal', channel: 'LinkedIn', notes: 'Interesado en integración de bots.', status: 'pendiente', created_at: d(-5), updated_at: d(-5), s1_date: d(-3), s1_done: true, s2_date: today, s2_done: false, s3_date: d(3), s3_done: false, next_date: today },
+                    { id: 'p2', name: 'Zoe Kravitz', company: 'Cat Real Estate', channel: 'WhatsApp', notes: 'Busca automatizar RRHH.', status: 'pendiente', created_at: today, updated_at: today, s1_date: d(2), s1_done: false, s2_date: d(5), s2_done: false, s3_date: d(8), s3_done: false, next_date: d(2) },
+                    { id: 'p3', name: 'Elon M.', company: 'X Propiedades', channel: 'Email', notes: 'Quiere CRM personalizado.', status: 'pendiente', created_at: d(-2), updated_at: d(-2), s1_date: today, s1_done: false, s2_date: d(3), s2_done: false, s3_date: d(6), s3_done: false, next_date: today },
+                ];
+            }
             saveData();
         }
 
@@ -1919,37 +1978,53 @@
 
         function renderProspectsView() {
             const today = new Date().toISOString().split('T')[0];
-            const prospects = state.prospects || [];
+            const q = (document.getElementById('prospectSearch')?.value || '').toLowerCase();
+            const filterChannel = document.getElementById('filterProspectChannel')?.value || '';
+            const filterStatus = document.getElementById('filterProspectStatus')?.value || 'pendiente';
 
-            // Stats
-            const todayFollowups = prospects.filter(p =>
+            // 1. Filter Logic
+            const filtered = state.prospects.filter(p => {
+                if (filterStatus === 'pendiente' && p.status !== 'pendiente') return false;
+                if (filterStatus === 'cerrado' && p.status !== 'cerrado') return false;
+
+                if (filterChannel && p.channel !== filterChannel) return false;
+
+                if (q) {
+                    const searchStr = `${p.name} ${p.company} ${p.notes}`.toLowerCase();
+                    if (!searchStr.includes(q)) return false;
+                }
+                return true;
+            });
+
+            // 2. Stats Calculation
+            const todayFollowupsCount = state.prospects.filter(p =>
                 p.status === 'pendiente' && (
-                    (!p.s1_done && p.s1_date === today) ||
-                    (p.s1_done && !p.s2_done && p.s2_date === today) ||
-                    (p.s1_done && p.s2_done && !p.s3_done && p.s3_date === today)
+                    (!p.s1_done && p.s1_date <= today) ||
+                    (p.s1_done && !p.s2_done && p.s2_date <= today) ||
+                    (p.s1_done && p.s2_done && !p.s3_done && p.s3_date <= today)
                 )
             ).length;
 
-            const pendingTotal = prospects.filter(p => p.status === 'pendiente').length;
-            const closedThisMonth = prospects.filter(p => p.status === 'cerrado').length;
+            const pendingCount = state.prospects.filter(p => p.status === 'pendiente').length;
+            const closedCount = state.prospects.filter(p => p.status === 'cerrado').length;
 
             document.getElementById('prospectStatsSummary').innerHTML = `
-                <div class="bg-bg-dark border border-border-dark p-4 rounded-xl">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Pendientes</p>
-                    <p class="text-2xl font-black text-amber-500">${todayFollowups} Seguimientos</p>
+                <div class="bg-bg-dark border border-border-dark p-5 rounded-xl">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Para Hoy</p>
+                    <p class="text-2xl font-black text-amber-500">${todayFollowupsCount} Acciones</p>
                 </div>
-                <div class="bg-bg-dark border border-border-dark p-4 rounded-xl">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Activos</p>
-                    <p class="text-2xl font-black text-primary">${pendingTotal} Prospectos</p>
+                <div class="bg-bg-dark border border-border-dark p-5 rounded-xl">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Pipeline Prospección</p>
+                    <p class="text-2xl font-black text-primary">${pendingCount} Activos</p>
                 </div>
-                <div class="bg-bg-dark border border-border-dark p-4 rounded-xl">
-                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Convertidos / Archivados</p>
-                    <p class="text-2xl font-black text-emerald-400">${closedThisMonth} Realizados</p>
+                <div class="bg-bg-dark border border-border-dark p-5 rounded-xl">
+                    <p class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Archivados</p>
+                    <p class="text-2xl font-black text-emerald-400">${closedCount} Completados</p>
                 </div>
             `;
 
-            // Today's Followups
-            const todayList = prospects.filter(p =>
+            // 3. Render Today's List (Sidebar)
+            const todayList = state.prospects.filter(p =>
                 p.status === 'pendiente' && (
                     (!p.s1_done && p.s1_date <= today) ||
                     (p.s1_done && !p.s2_done && p.s2_date <= today) ||
@@ -1958,57 +2033,71 @@
             ).sort((a, b) => (a.next_date || '').localeCompare(b.next_date || ''));
 
             document.getElementById('todayFollowupsContainer').innerHTML = todayList.length ? todayList.map(p => `
-                <div class="flex items-center justify-between p-3 bg-white/5 rounded-lg border border-white/5 group hover:border-primary/30 transition-all">
+                <div class="flex items-center justify-between p-3.5 bg-bg-dark border border-border-dark/50 rounded-xl group hover:border-primary/40 transition-all">
                     <div class="flex items-center gap-3">
-                        <div class="size-8 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500 font-bold text-xs">
+                        <div class="size-9 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-xs border border-primary/20">
                             ${p.name.charAt(0)}
                         </div>
                         <div>
                             <p class="text-xs font-bold text-white">${escHtml(p.name)}</p>
-                            <p class="text-[10px] text-slate-500">${escHtml(p.channel)} • ${p.s1_done ? (p.s2_done ? '3er Seguimiento' : '2do Seguimiento') : '1er Seguimiento'}</p>
+                            <p class="text-[10px] text-slate-500 font-semibold uppercase tracking-tight">
+                                ${p.s1_done ? (p.s2_done ? '👉 3er Followup' : '👉 2do Followup') : '👉 1er Followup'}
+                            </p>
                         </div>
                     </div>
-                    <button onclick="markFollowupDone('${p.id}')" class="text-[10px] font-bold bg-primary/10 text-primary px-3 py-1 rounded hover:bg-primary hover:text-white transition-all">Completar</button>
+                    <button onclick="markFollowupDone('${p.id}')" class="size-8 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-all flex items-center justify-center" title="Marcar completado">
+                        <span class="material-symbols-outlined text-sm">check</span>
+                    </button>
                 </div>
-            `).join('') : '<p class="text-center py-4 text-slate-600 text-xs italic">No hay seguimientos para hoy</p>';
+            `).join('') : '<div class="text-center py-6 text-slate-600 text-[11px] italic">No hay seguimientos urgentes para hoy.</div>';
 
-            // All Prospects
-            document.getElementById('allProspectsContainer').innerHTML = prospects.length ? prospects.map(p => {
-                const doneCount = (p.s1_done ? 1 : 0) + (p.s2_done ? 1 : 0) + (p.s3_done ? 1 : 0);
-                const isConverted = p.status !== 'pendiente';
+            // 4. Render Main Table
+            const tableBody = document.getElementById('prospectsTableBody');
+            const emptyState = document.getElementById('prospectsEmptyState');
 
-                return `
-                <div class="flex flex-col p-3 bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-all ${isConverted ? 'opacity-50' : ''}">
-                    <div class="flex items-start justify-between">
-                        <div class="flex-1 cursor-pointer" onclick="openProspectModal('${p.id}')">
-                            <h4 class="text-xs font-bold text-white mb-1 group-hover:text-primary transition-colors">${escHtml(p.name)} ${isConverted ? '<span class="text-[9px] bg-emerald-500/20 text-emerald-400 px-1.5 py-0.5 rounded ml-1 uppercase">Convertido</span>' : ''}</h4>
-                            <div class="flex flex-wrap items-center gap-2 text-[10px] text-slate-400">
-                                <span><span class="material-symbols-outlined text-[12px] inline-block align-middle mr-0.5">apartment</span>${escHtml(p.company || 'Personal')}</span>
-                                <span class="text-primary px-1.5 py-0.5 bg-primary/10 rounded font-semibold">${escHtml(p.channel)}</span>
+            if (filtered.length === 0) {
+                tableBody.innerHTML = '';
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                tableBody.innerHTML = filtered.map(p => {
+                    const doneCount = (p.s1_done ? 1 : 0) + (p.s2_done ? 1 : 0) + (p.s3_done ? 1 : 0);
+                    const isConverted = p.status === 'cerrado';
+
+                    return `
+                    <tr class="hover:bg-white/[0.02] transition-colors cursor-pointer group" onclick="openProspectModal('${p.id}')">
+                        <td class="px-5 py-4">
+                            <p class="text-sm font-bold text-white group-hover:text-primary transition-colors">${escHtml(p.name)}</p>
+                            <p class="text-[11px] text-slate-500 mt-0.5">${escHtml(p.email || p.phone || 'Sin contacto directo')}</p>
+                        </td>
+                        <td class="px-5 py-4">
+                            <span class="text-[10px] px-2 py-0.5 rounded bg-primary/10 text-primary font-bold uppercase border border-primary/10 mb-1.5 inline-block">${escHtml(p.channel)}</span>
+                            <p class="text-xs text-slate-500 font-medium">${escHtml(p.company || 'Personal')}</p>
+                        </td>
+                        <td class="px-5 py-4">
+                            <div class="flex flex-col items-center gap-1.5">
+                                <div class="flex gap-1">
+                                    <div class="size-2 rounded-full ${p.s1_done ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-slate-700/50'}"></div>
+                                    <div class="size-2 rounded-full ${p.s2_done ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-slate-700/50'}"></div>
+                                    <div class="size-2 rounded-full ${p.s3_done ? 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]' : 'bg-slate-700/50'}"></div>
+                                </div>
+                                <span class="text-[10px] font-bold text-slate-500 uppercase scale-90">${doneCount}/3 PASOS</span>
                             </div>
-                        </div>
-                        <div class="flex flex-col items-end gap-1.5 text-right w-24 flex-shrink-0">
-                             <div class="flex gap-1 mb-0.5" title="${doneCount} de 3 seguimientos completados">
-                                <div class="size-1.5 rounded-full ${p.s1_done ? 'bg-emerald-500' : 'bg-slate-700'}"></div>
-                                <div class="size-1.5 rounded-full ${p.s2_done ? 'bg-emerald-500' : 'bg-slate-700'}"></div>
-                                <div class="size-1.5 rounded-full ${p.s3_done ? 'bg-emerald-500' : 'bg-slate-700'}"></div>
+                        </td>
+                        <td class="px-5 py-4 text-right">
+                             <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button onclick="event.stopPropagation(); window.open('https://wa.me/${(p.phone || '').replace(/[^0-9]/g, '')}')" class="size-8 rounded-lg bg-emerald-500/10 text-emerald-500 hover:bg-emerald-500 hover:text-white transition-all flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm">chat</span>
+                                </button>
+                                <button onclick="event.stopPropagation(); openProspectModal('${p.id}')" class="size-8 rounded-lg bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-sm">edit</span>
+                                </button>
                              </div>
-                             <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">${doneCount}/3 Seg.</p>
-                        </div>
-                    </div>
-                    <div class="mt-3 pt-3 border-t border-border-dark flex items-center justify-between">
-                        <div class="flex gap-2">
-                            ${p.phone ? `<button onclick="window.open('https://wa.me/${p.phone.replace(/[^0-9]/g, '')}')" class="flex items-center justify-center size-7 rounded bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white transition-colors" title="Contactar por WhatsApp"><span class="material-symbols-outlined text-sm">chat</span></button>` : ''}
-                            ${p.email ? `<button onclick="window.location.href='mailto:${p.email}'" class="flex items-center justify-center size-7 rounded bg-blue-500/10 text-blue-400 hover:bg-blue-500 hover:text-white transition-colors" title="Enviar Email"><span class="material-symbols-outlined text-sm">mail</span></button>` : ''}
-                        </div>
-                        ${!isConverted ? `
-                        <button onclick="convertProspectToLead('${p.id}')" class="flex items-center gap-1 text-[10px] font-bold px-2.5 py-1.5 rounded border border-amber-500/30 text-amber-500 hover:bg-amber-500 hover:text-white transition-all ml-auto">
-                            <span class="material-symbols-outlined text-[12px]">rocket_launch</span> Convertir
-                        </button>` : ''}
-                    </div>
-                </div>
-                `;
-            }).join('') : '<p class="text-center py-4 text-slate-600 text-xs italic">Crea tu primer prospecto para empezar</p>';
+                        </td>
+                    </tr>
+                    `;
+                }).join('');
+            }
         }
 
         function renderContentView() {
