@@ -72,22 +72,32 @@ export default function Services() {
                                 </div>
 
                                 <div className="card-content">
-                                    <div className="card-image-container">
-                                        <img src={`/service-${['crm', 'asistente', 'facturas'][i]}-v2.png`} alt={s.title} className="service-pack-image" />
-                                        {(i >= 0 && i <= 2) && (
-                                            <video
-                                                src={
-                                                    i === 0 ? "/agente-ventas-ia.mp4" :
-                                                        i === 1 ? "/chatbot-whatsapp.mp4" :
-                                                            "/agente-facturas-ia.mp4"
-                                                }
-                                                autoPlay
-                                                muted
-                                                loop
-                                                playsInline
-                                                className="service-pack-video"
-                                            />
-                                        )}
+                                    <div
+                                        className="card-image-container"
+                                        onMouseEnter={(e) => {
+                                            const video = e.currentTarget.querySelector('video');
+                                            if (video) video.play();
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            const video = e.currentTarget.querySelector('video');
+                                            if (video) {
+                                                video.pause();
+                                                video.currentTime = 0;
+                                            }
+                                        }}
+                                    >
+                                        <video
+                                            src={
+                                                (i === 0 ? "/agente-ventas-ia.mp4" :
+                                                    i === 1 ? "/chatbot-whatsapp.mp4" :
+                                                        "/agente-facturas-ia.mp4") + "#t=0.1"
+                                            }
+                                            muted
+                                            loop
+                                            playsInline
+                                            preload="auto"
+                                            className="service-pack-video"
+                                        />
                                     </div>
 
                                     <h3 className="card-title">{s.title}</h3>
