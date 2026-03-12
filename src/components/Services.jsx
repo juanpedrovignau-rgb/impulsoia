@@ -88,8 +88,8 @@ export default function Services() {
                                     >
                                         <video
                                             src={
-                                                (i === 0 ? "/agente-ventas-ia.mp4" :
-                                                    i === 1 ? "/chatbot-whatsapp.mp4" :
+                                                (i === 0 ? "/videometrics-video0..mp4" :
+                                                    i === 1 ? "/grok-video-85df4f58-361d-4600-a4b3-bd4edf5520f9 (1).mp4" :
                                                         "/agente-facturas-ia.mp4") + "#t=0.1"
                                             }
                                             muted
