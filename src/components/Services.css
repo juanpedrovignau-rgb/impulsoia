@@ -252,10 +252,20 @@
 }
 
 .service-card-featured:hover {
-    border-color: var(--card-accent);
+    border-color: #00CED1;
     box-shadow:
         0 40px 80px rgba(0, 0, 0, 0.6),
-        0 0 40px var(--card-glow);
+        0 0 40px rgba(0, 206, 209, 0.4);
+}
+
+.service-card-featured:hover .benefit-check {
+    color: #00CED1;
+    text-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
+}
+
+.service-card-featured:hover .card-badge {
+    border-color: #00CED1;
+    box-shadow: 0 0 15px rgba(0, 206, 209, 0.4);
 }
 
 .service-card-featured:hover .card-title {
@@ -294,6 +304,8 @@
 
 .service-card-featured:hover .cta-arrow {
     transform: translateX(8px) scale(1.2);
+    color: #00CED1;
+    text-shadow: 0 0 10px rgba(0, 206, 209, 0.4);
 }
 
 /* Specialties Section */
