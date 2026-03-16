@@ -1,9 +1,51 @@
 import { businessConfig } from '../config';
 import { Link } from 'react-router-dom';
+
+const FOOTER_VIDEO = "/grok-video-85df4f58-361d-4600-a4b3-bd4edf5520f9 (1).mp4";
+
 export default function Footer() {
     return (
-        <footer className="footer-section">
-            <div className="container grid-4-cols footer-grid">
+        <footer className="footer-section" style={{ position: 'relative', overflow: 'hidden' }}>
+            {/* Video Background */}
+            <div style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                zIndex: 0
+            }}>
+                <div style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundColor: 'rgba(0,0,0,0.85)',
+                    zIndex: 2
+                }}></div>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 1
+                    }}
+                >
+                    <source src={FOOTER_VIDEO} type="video/mp4" />
+                </video>
+            </div>
+
+            {/* Footer Content */}
+            <div className="container grid-4-cols footer-grid" style={{ position: 'relative', zIndex: 5 }}>
                 <div className="footer-col">
                     <div className="footer-logo">
                         {businessConfig.name.split(' ')[0]} <span>{businessConfig.name.split(' ').slice(1).join(' ')}</span>
@@ -54,7 +96,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div className="footer-bottom">
+            <div className="footer-bottom" style={{ position: 'relative', zIndex: 5 }}>
                 <div className="container footer-bottom-content">
                     <span>&copy; {new Date().getFullYear()} {businessConfig.name}</span>
                     <div className="legal-links">

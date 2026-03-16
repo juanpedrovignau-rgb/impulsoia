@@ -20,7 +20,7 @@ export const businessConfig = {
         subtitle: "Inteligencia Artificial",
         features: ["Consultoría Estratégica LatAm", "Automatización Global", "Agentes Multilingües", "Estrategia de Ventas USA Spanish Market"],
         image: "/ai-hero-bg.png",
-        video: "/agente-ventas-ia.mp4"
+        video: "/grok-video-85df4f58-361d-4600-a4b3-bd4edf5520f9 (1).mp4"
     },
     about: {
         title: "Expertos en Innovación Digital",
