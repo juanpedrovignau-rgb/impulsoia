@@ -94,7 +94,7 @@ export default function Hero() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundColor: 'rgba(0,0,0,0.8)',
+                    backgroundColor: 'rgba(0,0,0,0.75)',
                     zIndex: 2 // Overlay on top of media
                 }}></div>
 
@@ -111,7 +111,7 @@ export default function Hero() {
                             width: '100%',
                             height: '100%',
                             objectFit: 'cover',
-                            objectPosition: 'right center',
+                            objectPosition: '75% center',
                             transform: 'translate(-50%, -50%)',
                             zIndex: 1
                         }}
