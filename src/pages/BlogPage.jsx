@@ -278,6 +278,9 @@ function Sidebar() {
         const data = Object.fromEntries(formData.entries());
         data.source = 'Blog Sidebar Form';
 
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 8000);
+
         try {
             const payload = new URLSearchParams();
             payload.append('event_type', 'blog_sidebar_lead');
@@ -289,15 +292,22 @@ function Sidebar() {
 
             const response = await fetch('https://tallerisidro-n8n.6shxj1.easypanel.host/webhook/impulsoia-webhook', {
                 method: 'POST',
-                body: payload
+                body: payload,
+                signal: controller.signal
             });
+
+            clearTimeout(timeoutId);
 
             if (!response.ok) throw new Error('Network response was not ok');
 
             setStatus('success');
             e.target.reset();
         } catch (error) {
+            clearTimeout(timeoutId);
             console.error('Error submitting form:', error);
+            if (error.name === 'AbortError') {
+                alert('El formulario tardó demasiado en responder. Verificá tu red e intentá de nuevo.');
+            }
             setStatus('error');
         }
     };

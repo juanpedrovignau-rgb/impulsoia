@@ -27,11 +27,17 @@ const diagnosticAction = async (prevState, formData) => {
     payload.append('raw_instagram', raw.instagram || '');
     payload.append('raw_content', raw.content || '');
 
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
     try {
         const response = await fetch(N8N_FORM_URL, {
             method: 'POST',
-            body: payload
+            body: payload,
+            signal: controller.signal
         });
+
+        clearTimeout(timeoutId);
 
         if (!response.ok) {
             console.error('n8n response:', response.status, response.statusText);
@@ -40,6 +46,10 @@ const diagnosticAction = async (prevState, formData) => {
 
         return { success: true, error: null };
     } catch (error) {
+        clearTimeout(timeoutId);
+        if (error.name === 'AbortError') {
+            return { success: false, error: 'Tiempo de espera agotado. Verificá tu conexión e intentá de nuevo.' };
+        }
         console.error('Error al enviar formulario Hero a n8n:', error);
         return { success: false, error: 'Error de conexión. Por favor, intentá de nuevo.' };
     }
