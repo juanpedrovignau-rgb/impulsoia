@@ -407,7 +407,7 @@ header {
 
 /* Footer Styles */
 .footer-section {
-  background-color: transparent;
+  background-color: var(--bg-primary);
   padding-top: 100px;
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   color: #888;
