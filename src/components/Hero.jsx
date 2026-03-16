@@ -184,7 +184,7 @@ export default function Hero() {
                 </div>
 
                 <div className="glass-card" style={{ padding: '24px 32px', width: '100%', maxWidth: '480px', margin: '0 0 0 auto', border: '1px solid rgba(0, 206, 209, 0.2)', minWidth: '300px', background: 'rgba(255,255,255,0.03)', boxShadow: '0 20px 80px rgba(0,206,209,0.1)' }}>
-                    <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Sesión Estratégica</h3>
+                    <h3 style={{ marginBottom: '5px', textAlign: 'center', fontSize: '1.8rem', fontWeight: '900' }}>Agenda una sesión estratégica</h3>
                     <p style={{ fontSize: '0.9rem', textAlign: 'center', marginBottom: '20px', color: 'var(--accent-yellow)', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>7 Minutos para Transformar tu Empresa</p>
 
                     {state?.success ? (

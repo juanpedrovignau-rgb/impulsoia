@@ -72,10 +72,10 @@
 
 .service-card-featured:hover {
     transform: translateY(-20px) scale(1.02);
-    border-color: var(--card-accent);
+    border-color: #00CED1;
     box-shadow:
         0 40px 80px rgba(0, 0, 0, 0.6),
-        0 0 40px var(--card-glow);
+        0 0 40px rgba(0, 206, 209, 0.4);
 }
 
 /* Shimmer Animation Effect */
@@ -88,7 +88,7 @@
     height: 200%;
     background: linear-gradient(45deg,
             transparent,
-            rgba(var(--card-accent-rgb), 0.1),
+            rgba(0, 206, 209, 0.1),
             transparent);
     transform: rotate(45deg);
     transition: 0.8s;
@@ -259,8 +259,8 @@
 }
 
 .service-card-featured:hover .card-title {
-    color: var(--card-accent);
-    text-shadow: 0 0 20px var(--card-glow);
+    color: #00CED1;
+    text-shadow: 0 0 20px rgba(0, 206, 209, 0.4);
 }
 
 .card-cta {
@@ -276,7 +276,7 @@
 }
 
 .card-cta:hover {
-    background: rgba(var(--card-accent-rgb), 0.15);
+    background: rgba(0, 206, 209, 0.15);
 }
 
 .cta-text {
