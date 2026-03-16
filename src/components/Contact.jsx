@@ -2,7 +2,7 @@ import { businessConfig } from '../config';
 import React, { useActionState } from 'react';
 import { useFormStatus } from 'react-dom';
 
-const N8N_FORM_URL = 'https://n8n.impulsoia.cloud/webhook/impulsoia-webhook';
+const N8N_FORM_URL = 'https://tallerisidro-n8n.6shxj1.easypanel.host/webhook/impulsoia-webhook';
 
 const contactAction = async (prevState, formData) => {
     const raw = Object.fromEntries(formData.entries());

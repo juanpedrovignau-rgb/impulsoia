@@ -287,7 +287,7 @@ function Sidebar() {
             payload.append('source', 'Blog Sidebar — Calculadora ROI');
             payload.append('submitted_at', new Date().toISOString());
 
-            const response = await fetch('https://n8n.impulsoia.cloud/webhook/impulsoia-webhook', {
+            const response = await fetch('https://tallerisidro-n8n.6shxj1.easypanel.host/webhook/impulsoia-webhook', {
                 method: 'POST',
                 body: payload
             });
