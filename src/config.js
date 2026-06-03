@@ -76,6 +76,13 @@ export const businessConfig = {
             description: "Desarrollo de sitios web dinámicos y autogestionables mediante IA.",
             badge: "✨ INNOVACIÓN",
             benefits: ["Despliegue en minutos", "SEO automatizado", "Diseño adaptativo"]
+        },
+            {
+            title: "Agente IA Facturas",
+            icon: "📄",
+            description: "Automatización inteligente de procesos contables y gestión documental.",
+            badge: "💎 PRECISIÓN",
+            benefits: ["Elimina error humano", "Procesamiento en segundos", "Reportes en tiempo real"]
         }
     ],
     metrics: {
