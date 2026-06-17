@@ -6,7 +6,7 @@
 
 /* ── Variables & Design Tokens ── */
 .sal-patagonia-page {
-  --bg-page: #f5f0e8;
+  --bg-page: #f5f0e6;
   --bg-card: #fffdf9;
   --bg-dark: #1c1917;
   --bg-dark-card: #292524;
@@ -16,28 +16,28 @@
   --text-light: #faf8f5;
   --text-muted: #a8a29e;
 
-  --accent: #a3865a;
-  --accent-light: #c9a96e;
-  --accent-subtle: rgba(163, 134, 90, 0.12);
+  --accent: #c5a059;
+  --accent-light: #b08d4a;
+  --accent-subtle: rgba(197, 160, 89, 0.12);
 
   --border-soft: #e7e0d5;
   --border-card: #ebe5da;
-  --border-focus: #a3865a;
+  --border-focus: #c5a059;
 
-  --font-serif: 'Prata', Georgia, 'Times New Roman', serif;
+  --font-serif: 'Cardo', Georgia, serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 
-  --shadow-card: 0 1px 3px rgba(41, 37, 36, 0.04), 0 4px 16px rgba(41, 37, 36, 0.03);
-  --shadow-hover: 0 8px 32px rgba(41, 37, 36, 0.08), 0 2px 8px rgba(41, 37, 36, 0.04);
-  --shadow-selected: 0 0 0 2px var(--accent), 0 8px 32px rgba(163, 134, 90, 0.15);
+  --shadow-card: 0 10px 40px rgba(133, 131, 125, 0.06);
+  --shadow-hover: 0 20px 50px rgba(133, 131, 125, 0.12);
+  --shadow-selected: 0 0 0 2px var(--accent), 0 20px 50px rgba(197, 160, 89, 0.15);
   --shadow-image: 0 2px 12px rgba(41, 37, 36, 0.06);
 
-  --radius: 12px;
-  --radius-sm: 8px;
-  --radius-xs: 6px;
+  --radius: 8px;
+  --radius-sm: 6px;
+  --radius-xs: 4px;
 }
 
 /* ── Base ── */
@@ -159,10 +159,10 @@
   background-color: var(--bg-card);
   border: 1px solid var(--border-card);
   border-radius: var(--radius);
-  padding: 2.5rem;
+  padding: 3rem;
   position: relative;
   transition: var(--transition);
-  cursor: pointer;
+  cursor: default;
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow-card);
@@ -182,21 +182,12 @@
 }
 
 .sal-patagonia-page .brand-card:hover {
-  transform: translateY(-3px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
-  border-color: var(--border-soft);
-}
-
-.sal-patagonia-page .brand-card:hover::before {
-  opacity: 1;
-}
-
-.sal-patagonia-page .brand-card.active {
-  box-shadow: var(--shadow-selected);
   border-color: var(--accent);
 }
 
-.sal-patagonia-page .brand-card.active::before {
+.sal-patagonia-page .brand-card:hover::before {
   opacity: 1;
 }
 
@@ -205,28 +196,7 @@
   display: none;
 }
 
-/* ── Selected Indicator ── */
-.sal-patagonia-page .selected-indicator {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  color: #fff;
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 20px;
-  opacity: 0;
-  transform: translateY(-8px) scale(0.9);
-  transition: var(--transition);
-  font-weight: 600;
-}
 
-.sal-patagonia-page .brand-card.active .selected-indicator {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
 
 /* ── Card Header ── */
 .sal-patagonia-page .card-header {
@@ -428,180 +398,7 @@
   margin-bottom: 2rem;
 }
 
-/* ── Voting Panel ── */
-.sal-patagonia-page .voting-panel {
-  background: var(--bg-dark);
-  color: var(--text-light);
-  border-radius: var(--radius);
-  padding: 3.5rem;
-  margin-top: 2rem;
-  position: relative;
-  overflow: hidden;
-}
 
-.sal-patagonia-page .voting-panel::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), var(--accent-light), transparent);
-}
-
-.sal-patagonia-page .voting-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3.5rem;
-}
-
-.sal-patagonia-page .voting-text h2 {
-  font-family: var(--font-serif);
-  font-size: 2.2rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  color: var(--text-light);
-}
-
-.sal-patagonia-page .voting-text p {
-  color: var(--text-muted);
-  font-weight: 300;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  line-height: 1.7;
-}
-
-.sal-patagonia-page .selection-box {
-  border-top: 1px solid #3a3532;
-  padding-top: 1.8rem;
-}
-
-.sal-patagonia-page .selection-title {
-  display: block;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--text-muted);
-  margin-bottom: 0.5rem;
-}
-
-.sal-patagonia-page .selection-value {
-  font-family: var(--font-serif);
-  font-size: 1.6rem;
-  color: var(--text-light);
-  opacity: 0.35;
-  transition: var(--transition);
-}
-
-.sal-patagonia-page .selection-value.selected {
-  opacity: 1;
-  color: var(--accent-light);
-}
-
-/* ── Form ── */
-.sal-patagonia-page .vote-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-}
-
-.sal-patagonia-page .form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.45rem;
-}
-
-.sal-patagonia-page .form-field label {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-
-.sal-patagonia-page .form-field input,
-.sal-patagonia-page .form-field textarea {
-  background-color: var(--bg-dark-card);
-  border: 1px solid #3a3532;
-  color: var(--text-light);
-  padding: 0.9rem 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  border-radius: var(--radius-xs);
-  transition: var(--transition);
-}
-
-.sal-patagonia-page .form-field input::placeholder,
-.sal-patagonia-page .form-field textarea::placeholder {
-  color: #57534e;
-}
-
-.sal-patagonia-page .form-field input:focus,
-.sal-patagonia-page .form-field textarea:focus {
-  outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-subtle);
-}
-
-.sal-patagonia-page .form-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-  margin-top: 0.5rem;
-}
-
-.sal-patagonia-page .btn-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.8rem;
-}
-
-.sal-patagonia-page button {
-  cursor: pointer;
-  font-family: var(--font-sans);
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 500;
-  padding: 1rem;
-  border-radius: var(--radius-xs);
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  border: 1px solid transparent;
-}
-
-.sal-patagonia-page button.btn-primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-light));
-  color: #fff;
-  border: none;
-  font-weight: 600;
-}
-
-.sal-patagonia-page button.btn-primary:hover:not(:disabled) {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(163, 134, 90, 0.3);
-}
-
-.sal-patagonia-page button.btn-secondary {
-  background-color: transparent;
-  color: var(--text-muted);
-  border-color: #3a3532;
-}
-
-.sal-patagonia-page button.btn-secondary:hover:not(:disabled) {
-  background-color: var(--bg-dark-card);
-  border-color: var(--accent);
-  color: var(--text-light);
-}
-
-.sal-patagonia-page button:disabled {
-  opacity: 0.35;
-  cursor: not-allowed;
-}
 
 /* ── Lightbox ── */
 .sal-patagonia-page .lightbox {
@@ -661,29 +458,7 @@
 }
 
 /* ── Toast ── */
-.sal-patagonia-page .toast {
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%) translateY(100px);
-  background: var(--bg-dark);
-  color: var(--text-light);
-  border: 1px solid #3a3532;
-  padding: 0.9rem 1.8rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.82rem;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-  opacity: 0;
-  z-index: 20000;
-  transition: transform 0.5s var(--ease-out), opacity 0.5s;
-  pointer-events: none;
-  backdrop-filter: blur(12px);
-}
 
-.sal-patagonia-page .toast.show {
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-}
 
 /* ── Fade-in Animation ── */
 .sal-patagonia-page .fade-in {

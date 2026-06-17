@@ -110,16 +110,15 @@ const VOLUME_BRAND = {
   ],
 };
 
-function BrandCard({ brand, isActive, onSelect, onLightbox }) {
+function BrandCard({ brand, onLightbox }) {
   const [premiumImg, setPremiumImg] = useState(brand.premium?.defaultImg || brand.premium?.img);
   const [premiumKey, setPremiumKey] = useState(brand.premium?.switchers?.[0]?.key ?? null);
   const [volImg, setVolImg] = useState(brand.volume?.defaultImg);
   const [volKey, setVolKey] = useState(brand.volume?.switchers?.[0]?.key ?? null);
 
   return (
-    <div className={`brand-card fade-in${isActive ? ' active' : ''}`} onClick={() => onSelect(brand.id)}>
+    <div className="brand-card fade-in">
       <div className="card-glow" />
-      <div className="selected-indicator">Elegido</div>
       <div className="card-header">
         <div className="card-meta">
           <span className="card-num">Propuesta {brand.num}</span>
@@ -177,14 +176,13 @@ function BrandCard({ brand, isActive, onSelect, onLightbox }) {
   );
 }
 
-function VolumeBrandCard({ brand, isActive, onSelect, onLightbox }) {
+function VolumeBrandCard({ brand, onLightbox }) {
   const [currentImg, setCurrentImg] = useState(brand.switchers[1].img);
   const [activeKey, setActiveKey] = useState(brand.switchers[1].key);
 
   return (
-    <div className={`brand-card brand-card-single fade-in${isActive ? ' active' : ''}`} onClick={() => onSelect(brand.id)}>
+    <div className="brand-card brand-card-single fade-in">
       <div className="card-glow" />
-      <div className="selected-indicator">Elegido</div>
       <div className="card-header">
         <div className="card-meta">
           <span className="card-num">Propuesta {brand.num}</span>
@@ -223,43 +221,7 @@ function VolumeBrandCard({ brand, isActive, onSelect, onLightbox }) {
 }
 
 export default function SalPatagoniaPage() {
-  const [activeBrand, setActiveBrand] = useState(null);
   const [lightbox, setLightbox] = useState({ open: false, src: '', caption: '' });
-  const [partnerName, setPartnerName] = useState('');
-  const [comments, setComments] = useState('');
-  const [toast, setToast] = useState('');
-  const [submitting, setSubmitting] = useState(false);
-
-  function showToast(msg) {
-    setToast(msg);
-    setTimeout(() => setToast(''), 4000);
-  }
-
-  function getMessageText() {
-    const name = partnerName.trim() || 'Colaborador';
-    let text = `*Selección de Marca - Sal Marina de la Patagonia*\n\n`;
-    text += `👤 *Socio:* ${name}\n💎 *Propuesta:* ${activeBrand}\n`;
-    if (comments.trim()) text += `💬 *Comentarios:* "${comments.trim()}"\n`;
-    return text;
-  }
-
-  async function handleVoteSubmit(e) {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      const res = await fetch('https://tallerisidro-n8n.6shxj1.easypanel.host/webhook/votos-sal', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: partnerName.trim(), brand: activeBrand, comments: comments.trim(), timestamp: new Date().toISOString() }),
-      });
-      if (res.ok) showToast('✓ Voto registrado en la base de datos de n8n');
-      else throw new Error();
-    } catch {
-      showToast('Nota: Webhook n8n inactivo. Copia el resumen o compártelo por WhatsApp.');
-    } finally {
-      setSubmitting(false);
-    }
-  }
 
   return (
     <div className="sal-patagonia-page">
@@ -271,50 +233,16 @@ export default function SalPatagoniaPage() {
           <span className="brand-badge">Expedición Patagónica · Cosecha 1898</span>
           <h1>Identidad de Marca &amp; Empaque</h1>
           <p className="header-desc">
-            Revisa las cinco propuestas de branding a continuación. Cada concepto está diseñado tanto para la línea Premium (Frasco de vidrio) como para la línea de Volumen/Refill (Doypack mate o tubo de cartón). Haz clic en una propuesta para seleccionarla y votar en la sección inferior.
+            Revisa las cinco propuestas de branding a continuación. Cada concepto está diseñado tanto para la línea Premium (Frasco de vidrio) como para la línea de Volumen/Refill (Doypack mate o tubo de cartón).
           </p>
         </header>
 
         <div className="brands-grid">
           {BRANDS.map(brand => (
-            <BrandCard key={brand.id} brand={brand} isActive={activeBrand === brand.id} onSelect={setActiveBrand} onLightbox={(src, cap) => setLightbox({ open: true, src, caption: cap })} />
+            <BrandCard key={brand.id} brand={brand} onLightbox={(src, cap) => setLightbox({ open: true, src, caption: cap })} />
           ))}
-          <VolumeBrandCard brand={VOLUME_BRAND} isActive={activeBrand === VOLUME_BRAND.id} onSelect={setActiveBrand} onLightbox={(src, cap) => setLightbox({ open: true, src, caption: cap })} />
+          <VolumeBrandCard brand={VOLUME_BRAND} onLightbox={(src, cap) => setLightbox({ open: true, src, caption: cap })} />
         </div>
-
-        <section className="voting-panel fade-in" id="votingSection">
-          <div className="voting-grid">
-            <div className="voting-text">
-              <h2>Registra tu Elección</h2>
-              <p>Selecciona tu propuesta preferida haciendo clic en cualquier tarjeta de arriba. Completa el formulario para registrar tu decisión en nuestro sistema centralizado (n8n) o compartirla con el equipo.</p>
-              <div className="selection-box">
-                <span className="selection-title">Selección Actual:</span>
-                <span className={`selection-value${activeBrand ? ' selected' : ''}`}>{activeBrand || 'Ninguna propuesta seleccionada'}</span>
-              </div>
-            </div>
-            <div className="voting-form-container">
-              <form className="vote-form" onSubmit={handleVoteSubmit}>
-                <div className="form-field">
-                  <label htmlFor="partnerName">Nombre del Socio / Colaborador</label>
-                  <input type="text" id="partnerName" placeholder="Ej. Isidro Martínez" value={partnerName} onChange={e => setPartnerName(e.target.value)} required />
-                </div>
-                <div className="form-field">
-                  <label htmlFor="comments">Observaciones / Comentarios</label>
-                  <textarea id="comments" rows="3" placeholder="Ej. El diseño de Sal de la Patagonia es el más exportable..." value={comments} onChange={e => setComments(e.target.value)} />
-                </div>
-                <div className="form-actions">
-                  <button type="submit" className="btn-primary" disabled={!activeBrand || submitting}>
-                    {submitting ? 'Procesando...' : 'Enviar Elección (n8n Webhook)'}
-                  </button>
-                  <div className="btn-group">
-                    <button type="button" className="btn-secondary" disabled={!activeBrand} onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(getMessageText())}`, '_blank')}>Compartir WhatsApp</button>
-                    <button type="button" className="btn-secondary" disabled={!activeBrand} onClick={() => { navigator.clipboard.writeText(getMessageText()); showToast('¡Resumen copiado!'); }}>Copiar Resumen</button>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </section>
       </div>
 
       {lightbox.open && (
@@ -324,8 +252,6 @@ export default function SalPatagoniaPage() {
           <div className="lightbox-caption">{lightbox.caption}</div>
         </div>
       )}
-
-      {toast && <div className="toast show">{toast}</div>}
     </div>
   );
 }
