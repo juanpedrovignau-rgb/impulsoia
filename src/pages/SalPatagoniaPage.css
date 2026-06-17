@@ -1,0 +1,785 @@
+.sal-patagonia-page {
+/* ==========================================================================
+   CSS SYSTEM: Selector de Marca · Sal Marina de la Patagonia
+   ========================================================================== */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Variables & Design Tokens */
+.sal-patagonia-page {
+  --bg-primary: #f4f1ec;        /* Blanco roto / lino cálido */
+  --bg-card: #ffffff;           /* Fondo de las tarjetas de propuesta */
+  --bg-dark: #1a1a1a;           /* Negro suave / mineral para contraste y formulario */
+  --text-dark: #1a1a1a;
+  --text-light: #f4f1ec;
+  --text-muted: #7e7d79;        /* Gris piedra / medio */
+  --accent-color: #606c38;      /* Verde oliva sutil para interactividad */
+  --accent-hover: #283618;
+  --border-color: #e2ddd5;      /* Borde suave en tono lino */
+  --border-focus: #1a1a1a;
+  
+  --font-serif: 'Cardo', Georgia, serif;
+  --font-sans: 'Inter', sans-serif;
+  
+  --transition-smooth: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-subtle: 0 4px 20px rgba(26, 26, 26, 0.02);
+  --shadow-hover: 0 15px 35px rgba(26, 26, 26, 0.06);
+  --shadow-selected: 0 0 0 2px #1a1a1a, 0 15px 35px rgba(26, 26, 26, 0.1);
+}
+
+/* Reset & Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-dark);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Page Layout */
+.container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+
+/* Header Section */
+header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.brand-badge {
+  display: inline-block;
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.2rem;
+  font-weight: 400;
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 1.8rem;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+}
+
+.header-desc {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  max-width: 620px;
+  margin: 0 auto;
+  font-weight: 300;
+  line-height: 1.65;
+}
+
+/* Grid Layout for Brand Cards */
+.brands-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3.5rem;
+  margin-bottom: 6rem;
+}
+
+/* Card Component */
+.brand-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3rem;
+  position: relative;
+  transition: var(--transition-smooth);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--text-muted);
+  box-shadow: var(--shadow-hover);
+}
+
+.brand-card.active {
+  box-shadow: var(--shadow-selected);
+  border-color: var(--text-dark);
+}
+
+/* Selected Badge */
+.selected-indicator {
+  position: absolute;
+  top: 3rem;
+  right: 3rem;
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.4rem 0.8rem;
+  border-radius: 2px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: var(--transition-smooth);
+}
+
+.brand-card.active .selected-indicator {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card Header */
+.card-header {
+  margin-bottom: 2.5rem;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.card-num {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.archetype {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+  color: var(--text-dark);
+}
+
+.brand-concept {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+/* Product Showcase (Side-by-side Images/Mockups) */
+.product-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.preview-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: zoom-in;
+}
+
+.img-container {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-color: #faf9f6;
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  margin-bottom: 0.8rem;
+  position: relative;
+}
+
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.preview-box:hover .img-container img {
+  transform: scale(1.03);
+}
+
+.zoom-icon {
+  position: absolute;
+  bottom: 0.8rem;
+  right: 0.8rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--text-dark);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: var(--transition-smooth);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.preview-box:hover .zoom-icon {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.preview-tag {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Specs List */
+.specs-list {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1.5rem;
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.85rem;
+}
+
+.spec-label {
+  color: var(--text-muted);
+}
+
+.spec-value {
+  font-weight: 500;
+  text-align: right;
+  max-width: 65%;
+}
+
+/* Voting Panel (Sticky/Footer Block) */
+.voting-panel {
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  border-radius: 4px;
+  padding: 4rem;
+  margin-top: 4rem;
+}
+
+.voting-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+.voting-text h2 {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+
+.voting-text p {
+  color: #cfcfcf;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.selection-box {
+  border-top: 1px solid #333333;
+  padding-top: 2rem;
+}
+
+.selection-title {
+  display: block;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.selection-value {
+  font-family: var(--font-serif);
+  font-size: 1.8rem;
+  color: var(--text-light);
+  opacity: 0.5;
+  transition: var(--transition-smooth);
+}
+
+.selection-value.selected {
+  opacity: 1;
+}
+
+/* Form Styles */
+.vote-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-field label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #cfcfcf;
+}
+
+.form-field input,
+.form-field textarea {
+  background-color: #262626;
+  border: 1px solid #3a3a3a;
+  color: var(--text-light);
+  padding: 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  border-radius: 2px;
+  transition: var(--transition-smooth);
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+  outline: none;
+  border-color: var(--text-light);
+}
+
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.btn-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 500;
+  padding: 1.2rem;
+  border-radius: 2px;
+  transition: var(--transition-smooth);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+}
+
+button.btn-primary {
+  background-color: var(--text-light);
+  color: var(--bg-dark);
+}
+
+button.btn-primary:hover:not(:disabled) {
+  background-color: #e2ddd5;
+}
+
+button.btn-secondary {
+  background-color: transparent;
+  color: var(--text-light);
+  border-color: #444444;
+}
+
+button.btn-secondary:hover:not(:disabled) {
+  background-color: #262626;
+  border-color: var(--text-light);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Lightbox Modal */
+.lightbox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(26, 26, 26, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition-smooth);
+}
+
+.lightbox.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-content {
+  max-width: 85%;
+  max-height: 75vh;
+  object-fit: contain;
+  border: 1px solid #333;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  background-color: #0b0b0b;
+}
+
+.lightbox-caption {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
+  color: var(--text-light);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  color: var(--text-muted);
+  font-size: 3rem;
+  font-weight: 200;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.lightbox-close:hover {
+  color: var(--text-light);
+}
+
+/* Toast Notification */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background-color: var(--bg-dark);
+  color: var(--text-light);
+  border: 1px solid #444444;
+  padding: 1rem 2rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  opacity: 0;
+  z-index: 20000;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s;
+  pointer-events: none;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* ==========================================================================
+   Interactive CSS Mockups (South Salt)
+   ========================================================================== */
+.mockup-container {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: radial-gradient(circle, #f4f1ec 0%, #e2ddd5 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  margin-bottom: 0.8rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Single column showcase styling for South Salt */
+.product-showcase-single {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.preview-box-single {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.mockup-container-single {
+  width: 100%;
+  aspect-ratio: 1.8; /* Wider and shorter ratio for single centered mockup */
+  overflow: hidden;
+  background: radial-gradient(circle, #f4f1ec 0%, #e2ddd5 100%);
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  margin-bottom: 0.8rem;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Glass Jar Mockup (Matte Black) */
+.mockup-jar-body {
+  width: 76px;
+  height: 105px;
+  background: linear-gradient(to right, #111111 0%, #2b2b2b 20%, #1c1c1c 50%, #111111 80%, #050505 100%);
+  border-radius: 4px 4px 6px 6px;
+  position: absolute;
+  bottom: 25px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255,255,255,0.05);
+}
+
+.mockup-jar-lid {
+  width: 78px;
+  height: 18px;
+  background: linear-gradient(to right, #1c1c1c 0%, #3a3a3a 25%, #222222 60%, #0d0d0d 100%);
+  border-radius: 2px 2px 0 0;
+  position: absolute;
+  bottom: 130px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mockup-jar-label {
+  width: 58px;
+  height: 65px;
+  background: #0f0f0f;
+  border: 1px solid #222;
+  position: absolute;
+  bottom: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+}
+
+.mockup-jar-title {
+  font-family: var(--font-sans);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.mockup-jar-sub {
+  font-size: 0.35rem;
+  color: var(--text-muted);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.mockup-jar-weight {
+  font-size: 0.3rem;
+  color: var(--text-muted);
+  position: absolute;
+  bottom: 4px;
+}
+
+/* Doypack Mockup (Matte Black) */
+.mockup-doypack-body {
+  width: 90px;
+  height: 125px;
+  background: linear-gradient(135deg, #121212 0%, #2a2a2a 45%, #151515 70%, #0a0a0a 100%);
+  clip-path: polygon(15% 0%, 85% 0%, 100% 90%, 92% 100%, 8% 100%, 0% 90%);
+  position: absolute;
+  bottom: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Large Single Mockup Pouch for South Salt */
+.mockup-doypack-body-single {
+  width: 110px; /* Slightly wider */
+  height: 155px; /* Taller */
+  background: linear-gradient(135deg, #121212 0%, #2a2a2a 45%, #151515 70%, #0a0a0a 100%);
+  clip-path: polygon(15% 0%, 85% 0%, 100% 90%, 92% 100%, 8% 100%, 0% 90%);
+  position: relative;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mockup-doypack-zipper {
+  width: 100%;
+  height: 1px;
+  background-color: #000;
+  position: absolute;
+  top: 12px;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.mockup-doypack-window {
+  width: 54px; /* Larger circular window */
+  height: 54px;
+  border-radius: 50%;
+  border: 3px solid #000000;
+  background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 40%, rgba(220,220,220,0.9) 70%, rgba(180,180,180,0.8) 100%);
+  position: absolute;
+  top: 45px;
+  overflow: hidden;
+  box-shadow: inset 0 3px 8px rgba(0,0,0,0.5), 0 2px 4px rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mockup-doypack-window::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  background-image: 
+    radial-gradient(circle at 20% 30%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 75% 40%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 40% 70%, #fff 1.5px, transparent 1.5px),
+    radial-gradient(circle at 10% 80%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 90% 15%, #fff 2px, transparent 2px),
+    radial-gradient(circle at 50% 10%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 60% 85%, #fff 2.5px, transparent 2.5px);
+  background-size: 10px 10px;
+}
+
+.mockup-doypack-window-text {
+  font-family: var(--font-sans);
+  font-size: 0.45rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  color: #000000;
+  text-align: center;
+  text-transform: uppercase;
+  z-index: 2;
+  user-select: none;
+  text-shadow: 0 0 2px rgba(255,255,255,0.8);
+  line-height: 1.1;
+}
+
+.mockup-doypack-weight {
+  font-size: 0.35rem;
+  color: #888888;
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  font-weight: 500;
+}
+
+/* Color Switcher for Sal de la Patagonia */
+.color-switcher {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-btn {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.color-btn::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 1px solid transparent;
+  border-radius: 50%;
+  transition: var(--transition-smooth);
+}
+
+.color-btn.active::after {
+  border-color: var(--text-dark);
+}
+
+.color-btn:hover {
+  transform: scale(1.1);
+}
+
+.brand-card-single {
+  grid-column: span 2;
+  max-width: 600px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1024px) {
+  .brands-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .voting-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 3rem 1.5rem;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .brand-card {
+    padding: 2rem;
+  }
+  
+  .card-title {
+    font-size: 1.8rem;
+  }
+  
+  .product-showcase {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  .voting-panel {
+    padding: 2.5rem 1.8rem;
+  }
+}
+
+}
