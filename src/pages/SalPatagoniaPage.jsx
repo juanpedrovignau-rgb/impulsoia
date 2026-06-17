@@ -29,23 +29,8 @@ const BRANDS = [
     ],
   },
   {
-    id: 'Sal Austral',
-    num: '02',
-    archetype: 'Clásico & Geográfico',
-    title: 'Sal Austral',
-    concept: 'Directo, imponente y con fuerte arraigo territorial. Evoca la inmensidad del sur y tiene excelente recordación comercial.',
-    premium: { img: 'sal_austral_premium.png', alt: 'Sal Austral Premium', tag: 'Premium · Frasco' },
-    volume: { defaultImg: 'sal_austral_volumen.png', alt: 'Sal Austral Volumen', tag: 'Volumen · Doypack con Visor' },
-    specs: [
-      { label: 'Premium Jar', value: 'Vidrio alto + tapa negra + etiqueta negra' },
-      { label: 'Doypack Volumen', value: 'Negro mate + visor inferior + silueta patagónica' },
-      { label: 'Tipografía', value: 'Sans-serif geométrica bold de alta legibilidad' },
-      { label: 'Canal Comercial', value: 'Delis locales, tiendas gourmet de alta rotación' },
-    ],
-  },
-  {
     id: 'Atlántico Sur',
-    num: '03',
+    num: '02',
     archetype: 'El Objeto Coleccionable',
     title: 'Atlántico Sur',
     concept: 'Posicionamiento en el segmento de lujo botánico. Estética de laboratorio con etiquetas oscuras, tipografía geométrica y anotaciones técnicas que evocan coordenadas y diarios de expedición.',
@@ -72,6 +57,21 @@ const BRANDS = [
       { label: 'Doypack / Tubo', value: 'Doypack negro mate con visor (500g) o Tubo cilíndrico de cartón negro con brújula' },
       { label: 'Tipografía', value: 'Sans-serif limpia y minimalista (estilo editorial)' },
       { label: 'Canal Comercial', value: 'Tiendas de diseño, delis gourmet y mercados de exportación' },
+    ],
+  },
+  {
+    id: 'Sal Austral',
+    num: '03',
+    archetype: 'Clásico & Geográfico',
+    title: 'Sal Austral',
+    concept: 'Directo, imponente y con fuerte arraigo territorial. Evoca la inmensidad del sur y tiene excelente recordación comercial.',
+    premium: { img: 'sal_austral_premium.png', alt: 'Sal Austral Premium', tag: 'Premium · Frasco' },
+    volume: { defaultImg: 'sal_austral_volumen.png', alt: 'Sal Austral Volumen', tag: 'Volumen · Doypack con Visor' },
+    specs: [
+      { label: 'Premium Jar', value: 'Vidrio alto + tapa negra + etiqueta negra' },
+      { label: 'Doypack Volumen', value: 'Negro mate + visor inferior + silueta patagónica' },
+      { label: 'Tipografía', value: 'Sans-serif geométrica bold de alta legibilidad' },
+      { label: 'Canal Comercial', value: 'Delis locales, tiendas gourmet de alta rotación' },
     ],
   },
   {
@@ -113,8 +113,10 @@ function BrandCard({ brand, onLightbox }) {
   const [volImg, setVolImg] = useState(brand.volume?.defaultImg);
   const [volKey, setVolKey] = useState(brand.volume?.switchers?.[0]?.key ?? null);
 
+  const isAtlanticoSur = brand.id === 'Atlántico Sur';
+
   return (
-    <div className="brand-card fade-in">
+    <div className={`brand-card fade-in${isAtlanticoSur ? ' atlantico-sur-card' : ''}`}>
       <div className="card-glow" />
       <div className="card-header">
         <div className="card-meta">
@@ -136,7 +138,12 @@ function BrandCard({ brand, onLightbox }) {
         {/* Premium panel */}
         <div className="preview-box" onClick={(e) => { e.stopPropagation(); onLightbox(IMAGES_BASE + premiumImg, brand.title + ' - Premium'); }}>
           <div className="img-container">
-            <img src={IMAGES_BASE + premiumImg} alt={brand.premium?.alt} loading="lazy" />
+            <img
+              src={IMAGES_BASE + premiumImg}
+              alt={brand.premium?.alt}
+              loading="lazy"
+              style={isAtlanticoSur && premiumKey === 'lujo-oro' ? { objectPosition: 'center 10%', transform: 'scale(1.15)' } : undefined}
+            />
             <div className="zoom-icon">🔍</div>
           </div>
           <span className="preview-tag">{brand.premium?.tag}</span>
