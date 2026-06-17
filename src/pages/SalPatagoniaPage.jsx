@@ -100,11 +100,11 @@ const VOLUME_BRAND = {
   concept: 'El motor de volumen y eficiencia operativa. Diseñado exclusivamente en formato Doypack para optimizar costos logísticos en retail y distribución masiva.',
   switchers: [
     { key: 'blanco-real', img: 'south_salt_doypack_real.jpg', style: { backgroundColor: '#ffffff', border: '2px solid #c5a059' }, title: 'Foto Real · South Salt' },
-    { key: 'negro-ventana', img: 'v3_patagonia_doypack_window.png', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #f4f1ec 50%)', border: '1px solid #7e7d79' }, title: 'Negro con Ventana' },
+    { key: 'negro-ventana', img: 'south_salt_doypack_negro.jpg', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #ffffff 50%)', border: '1px solid #7e7d79' }, title: 'Foto Real · South Salt Negro' },
   ],
   specs: [
     { label: 'Formato Único', value: 'Doypack stand-up de 500g de alta rotación' },
-    { label: 'Variantes de Color', value: 'Foto real (transparente) o Negro mate con ventana' },
+    { label: 'Variantes de Color', value: 'Foto real (transparente) o Negro mate (real)' },
     { label: 'Posicionamiento', value: 'Sal base pura (sin sabores añadidos) para el canal masivo y recarga' },
     { label: 'Canal Comercial', value: 'Supermercados, tiendas de retail y logística masiva B2B' },
   ],
