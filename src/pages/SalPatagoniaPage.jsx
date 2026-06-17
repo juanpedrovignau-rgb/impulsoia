@@ -50,12 +50,12 @@ const BRANDS = [
     title: 'Atlántico Sur',
     concept: 'Posicionamiento en el segmento de lujo botánico. Estética de laboratorio con etiquetas oscuras, tipografía geométrica y anotaciones técnicas que evocan coordenadas y diarios de expedición.',
     premium: {
-      defaultImg: 'atlantico_sur_premium.png',
+      defaultImg: 'atlantico_sur_premium_ref.png',
       alt: 'Atlántico Sur Premium',
       tag: 'Premium · Envase',
       switchers: [
-        { key: 'original', img: 'atlantico_sur_premium.png', style: { backgroundColor: '#8a8a8a', border: '1px solid #7e7d79' }, title: 'Frasco Ámbar Coordenadas' },
         { key: 'lujo-oro', img: 'atlantico_sur_premium_ref.png', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #c5a059 50%)', border: '1px solid #7e7d79' }, title: 'Frasco Lujo Negro/Oro' },
+        { key: 'original', img: 'atlantico_sur_premium.png', style: { backgroundColor: '#8a8a8a', border: '1px solid #7e7d79' }, title: 'Frasco Ámbar Coordenadas' },
       ],
     },
     volume: {
