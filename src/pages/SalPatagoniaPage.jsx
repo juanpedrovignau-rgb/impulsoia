@@ -12,12 +12,12 @@ const BRANDS = [
     concept: 'Inspirado en la mística de las expediciones de 1898 y la marca país. Es evocador, narrativo y de alto impacto internacional.',
     premium: { img: 'v3_patagonia_jar_black_label.png', alt: 'Sal de la Patagonia Premium', tag: 'Premium · Frasco' },
     volume: {
-      defaultImg: 'sal_patagonia_volumen_claro.png',
+      defaultImg: 'v3_patagonia_doypack_window.png',
       alt: 'Sal de la Patagonia Volumen',
       tag: 'Volumen · Doypack',
       switchers: [
-        { key: 'claro', img: 'sal_patagonia_volumen_claro.png', style: { backgroundColor: '#f4f1ec', border: '1px solid #7e7d79' }, title: 'Lino Claro' },
         { key: 'negro-ventana', img: 'v3_patagonia_doypack_window.png', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #f4f1ec 50%)', border: '1px solid #7e7d79' }, title: 'Negro con Ventana' },
+        { key: 'claro', img: 'sal_patagonia_volumen_claro.png', style: { backgroundColor: '#f4f1ec', border: '1px solid #7e7d79' }, title: 'Lino Claro' },
         { key: 'negro-letras', img: 'sal_patagonia_volumen.png', style: { backgroundColor: '#1a1a1a', border: '1px solid #1a1a1a' }, title: 'Negro con Tipografía Blanca' },
       ],
     },
