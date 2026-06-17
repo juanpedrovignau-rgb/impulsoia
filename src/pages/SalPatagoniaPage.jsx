@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import './SalPatagoniaPage.css';
 
 const IMAGES_BASE = '/images/saldelapatagonia/';
@@ -82,6 +82,7 @@ const BRANDS = [
     concept: 'Referencia directa a la latitud del origen extremo. Posiciona el producto como un registro mineral puro e intelectual.',
     premium: { img: '45_sur_premium.png', alt: '45° Sur Premium', tag: 'Premium · Frasco' },
     volume: { defaultImg: '45_sur_volumen.png', alt: '45° Sur Volumen', tag: 'Volumen · Doypack con Visor' },
+    extra: { img: '45_sur_doypack_real.jpg', alt: '45° Sur Doypack Real', tag: 'Doypack · 45° Sur' },
     specs: [
       { label: 'Premium Jar', value: 'Botella de farmacia + tapa metálica + ficha técnica' },
       { label: 'Doypack Volumen', value: 'Negro mate + visor transparente + etiqueta tipo máquina de escribir' },
@@ -164,6 +165,17 @@ function BrandCard({ brand, onLightbox }) {
         </div>
       </div>
 
+      {/* Extra panel - solo para marcas que lo definan (ej: 45 Sur doypack real) */}
+      {brand.extra && (
+        <div className="preview-box" style={{ marginTop: '1rem' }} onClick={(e) => { e.stopPropagation(); onLightbox(IMAGES_BASE + brand.extra.img, brand.title + ' - Doypack Real'); }}>
+          <div className="img-container">
+            <img src={IMAGES_BASE + brand.extra.img} alt={brand.extra.alt} loading="lazy" />
+            <div className="zoom-icon">🔍</div>
+          </div>
+          <span className="preview-tag">{brand.extra.tag}</span>
+        </div>
+      )}
+
       <div className="specs-list">
         {brand.specs.map(spec => (
           <div key={spec.label} className="spec-item">
@@ -207,6 +219,17 @@ function VolumeBrandCard({ brand, onLightbox }) {
           </div>
         </div>
       </div>
+
+      {/* Extra panel - solo para marcas que lo definan (ej: 45 Sur doypack real) */}
+      {brand.extra && (
+        <div className="preview-box" style={{ marginTop: '1rem' }} onClick={(e) => { e.stopPropagation(); onLightbox(IMAGES_BASE + brand.extra.img, brand.title + ' - Doypack Real'); }}>
+          <div className="img-container">
+            <img src={IMAGES_BASE + brand.extra.img} alt={brand.extra.alt} loading="lazy" />
+            <div className="zoom-icon">🔍</div>
+          </div>
+          <span className="preview-tag">{brand.extra.tag}</span>
+        </div>
+      )}
 
       <div className="specs-list">
         {brand.specs.map(spec => (
