@@ -94,24 +94,29 @@
 }
 
 /* ── Header ── */
-.sal-patagonia-page header {
+.sal-patagonia-page .sal-patagonia-header {
   text-align: center;
-  margin-bottom: 4.5rem;
-  padding-top: 1rem;
+  margin-bottom: 5rem;
+  padding-top: 3rem;
+  display: block;
+  position: relative;
+  background: transparent;
+  height: auto;
+  border: none;
 }
 
 .sal-patagonia-page .brand-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.3em;
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 1.5rem;
+  color: var(--accent-light);
+  margin-bottom: 1.8rem;
   font-weight: 500;
-  padding: 0.5rem 1.2rem;
-  border: 1px solid var(--accent-subtle);
+  padding: 0.6rem 1.5rem;
+  border: 1px solid var(--border-soft);
   border-left: none;
   border-right: none;
   background: transparent;
@@ -119,31 +124,31 @@
 
 .sal-patagonia-page h1 {
   font-family: var(--font-serif);
-  font-size: 3.2rem;
+  font-size: 3.6rem;
   font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 1.5rem;
+  line-height: 1.15;
+  margin-bottom: 1.8rem;
   color: var(--text-primary);
-  letter-spacing: 0.01em;
+  letter-spacing: -0.01em;
 }
 
 .sal-patagonia-page .header-desc {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--text-secondary);
-  max-width: 560px;
+  max-width: 650px;
   margin: 0 auto;
   font-weight: 300;
-  line-height: 1.75;
+  line-height: 1.8;
 }
 
 /* ── Decorative divider ── */
-.sal-patagonia-page header::after {
+.sal-patagonia-page .sal-patagonia-header::after {
   content: '';
   display: block;
-  width: 60px;
+  width: 80px;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  margin: 2.5rem auto 0;
+  margin: 3rem auto 0;
 }
 
 /* ── Brands Grid ── */

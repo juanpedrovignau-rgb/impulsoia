@@ -229,13 +229,13 @@ export default function SalPatagoniaPage() {
       <div className="ambient-glow glow-2" />
 
       <div className="container">
-        <header className="fade-in">
+        <div className="sal-patagonia-header fade-in">
           <span className="brand-badge">Expedición Patagónica · Cosecha 1898</span>
           <h1>Identidad de Marca &amp; Empaque</h1>
           <p className="header-desc">
             Revisa las cinco propuestas de branding a continuación. Cada concepto está diseñado tanto para la línea Premium (Frasco de vidrio) como para la línea de Volumen/Refill (Doypack mate o tubo de cartón).
           </p>
-        </header>
+        </div>
 
         <div className="brands-grid">
           {BRANDS.map(brand => (
