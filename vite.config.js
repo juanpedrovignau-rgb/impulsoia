@@ -7,6 +7,10 @@ export default defineConfig({
   build: {
     target: 'esnext',
     rollupOptions: {
+      input: {
+        main: './index.html',
+        saldelapatagonia: './saldelapatagonia.html'
+      },
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
