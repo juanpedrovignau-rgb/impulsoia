@@ -1,4 +1,4 @@
-﻿import { useState } from 'react';
+import { useState } from 'react';
 import './SalPatagoniaPage.css';
 
 const IMAGES_BASE = '/images/saldelapatagonia/';
@@ -93,19 +93,21 @@ const BRANDS = [
 ];
 
 const VOLUME_BRAND = {
-  id: 'Sal de la Patagonia (Volumen)',
+  id: 'South Salt',
   num: '05',
   archetype: 'Eficiencia & Rotación Comercial',
-  title: 'Sal de la Patagonia (Volumen)',
+  title: 'South Salt',
+  subtitle: 'Sal de la Patagonia (Volumen)',
   concept: 'El motor de volumen y eficiencia operativa. Diseñado exclusivamente en formato Doypack para optimizar costos logísticos en retail y distribución masiva.',
   switchers: [
+    { key: 'blanco-real', img: 'south_salt_doypack_real.jpg', style: { backgroundColor: '#ffffff', border: '2px solid #c5a059' }, title: 'Foto Real · South Salt' },
     { key: 'claro', img: 'sal_patagonia_volumen_claro.png', style: { backgroundColor: '#f4f1ec', border: '1px solid #7e7d79' }, title: 'Lino Claro' },
     { key: 'negro-ventana', img: 'v3_patagonia_doypack_window.png', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #f4f1ec 50%)', border: '1px solid #7e7d79' }, title: 'Negro con Ventana' },
     { key: 'negro-letras', img: 'sal_patagonia_volumen.png', style: { backgroundColor: '#1a1a1a', border: '1px solid #1a1a1a' }, title: 'Negro con Tipografía Blanca' },
   ],
   specs: [
     { label: 'Formato Único', value: 'Doypack stand-up de 500g de alta rotación' },
-    { label: 'Variantes de Color', value: 'Lino claro (referencia), Negro mate con visor o Negro mate con tipografía blanca' },
+    { label: 'Variantes de Color', value: 'Foto real (transparente), Lino claro, Negro mate con visor o Negro mate con tipografía blanca' },
     { label: 'Posicionamiento', value: 'Sal base pura (sin sabores añadidos) para el canal masivo y recarga' },
     { label: 'Canal Comercial', value: 'Supermercados, tiendas de retail y logística masiva B2B' },
   ],
@@ -189,8 +191,8 @@ function BrandCard({ brand, onLightbox }) {
 }
 
 function VolumeBrandCard({ brand, onLightbox }) {
-  const [currentImg, setCurrentImg] = useState(brand.switchers[1].img);
-  const [activeKey, setActiveKey] = useState(brand.switchers[1].key);
+  const [currentImg, setCurrentImg] = useState(brand.switchers[0].img);
+  const [activeKey, setActiveKey] = useState(brand.switchers[0].key);
 
   return (
     <div className="brand-card brand-card-single fade-in">
@@ -200,7 +202,14 @@ function VolumeBrandCard({ brand, onLightbox }) {
           <span className="card-num">Propuesta {brand.num}</span>
           <span className="archetype">{brand.archetype}</span>
         </div>
-        <h2 className="card-title">{brand.title}</h2>
+        <h2 className="card-title">
+          {brand.title}
+          {brand.subtitle && (
+            <span style={{ fontSize: '0.55em', color: 'var(--accent-gold)', fontWeight: 400, display: 'block', marginTop: '0.1em', letterSpacing: '0.15em' }}>
+              {brand.subtitle}
+            </span>
+          )}
+        </h2>
         <p className="brand-concept">{brand.concept}</p>
       </div>
 
@@ -210,7 +219,7 @@ function VolumeBrandCard({ brand, onLightbox }) {
             <img src={IMAGES_BASE + currentImg} alt={brand.title} loading="lazy" style={{ maxHeight: '220px', objectFit: 'contain', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }} />
             <div className="zoom-icon">🔍</div>
           </div>
-          <span className="preview-tag">Formato Único · Doypack 500g</span>
+          <span className="preview-tag">Doypack · South Salt</span>
           <div className="color-switcher">
             {brand.switchers.map(sw => (
               <span key={sw.key} className={`color-btn${activeKey === sw.key ? ' active' : ''}`} style={sw.style} title={sw.title}
