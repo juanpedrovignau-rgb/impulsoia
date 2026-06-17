@@ -89,26 +89,23 @@ const BRANDS = [
       { label: 'Canal Comercial', value: 'Gastronomía de autor, restaurantes de lujo, catas' },
     ],
   },
+  {
+    id: 'South Salt',
+    num: '05',
+    archetype: 'Eficiencia & Rotación Comercial',
+    title: 'South Salt',
+    subtitle: 'Sal de la Patagonia (Volumen)',
+    concept: 'El motor de volumen y eficiencia operativa. Diseñado exclusivamente en formato Doypack para optimizar costos logísticos en retail y distribución masiva.',
+    premium: { img: 'south_salt_doypack_real.jpg', alt: 'South Salt Doypack Transparente', tag: 'Doypack · Transparente' },
+    volume: { defaultImg: 'south_salt_doypack_negro.jpg', alt: 'South Salt Doypack Negro', tag: 'Doypack · Negro' },
+    specs: [
+      { label: 'Formato Único', value: 'Doypack stand-up de 500g de alta rotación' },
+      { label: 'Variantes de Color', value: 'Foto real (transparente) o Negro mate (real)' },
+      { label: 'Posicionamiento', value: 'Sal base pura (sin sabores añadidos) para el canal masivo y recarga' },
+      { label: 'Canal Comercial', value: 'Supermercados, tiendas de retail y logística masiva B2B' },
+    ],
+  },
 ];
-
-const VOLUME_BRAND = {
-  id: 'South Salt',
-  num: '05',
-  archetype: 'Eficiencia & Rotación Comercial',
-  title: 'South Salt',
-  subtitle: 'Sal de la Patagonia (Volumen)',
-  concept: 'El motor de volumen y eficiencia operativa. Diseñado exclusivamente en formato Doypack para optimizar costos logísticos en retail y distribución masiva.',
-  switchers: [
-    { key: 'blanco-real', img: 'south_salt_doypack_real.jpg', style: { backgroundColor: '#ffffff', border: '2px solid #c5a059' }, title: 'Foto Real · South Salt' },
-    { key: 'negro-ventana', img: 'south_salt_doypack_negro.jpg', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #ffffff 50%)', border: '1px solid #7e7d79' }, title: 'Foto Real · South Salt Negro' },
-  ],
-  specs: [
-    { label: 'Formato Único', value: 'Doypack stand-up de 500g de alta rotación' },
-    { label: 'Variantes de Color', value: 'Foto real (transparente) o Negro mate (real)' },
-    { label: 'Posicionamiento', value: 'Sal base pura (sin sabores añadidos) para el canal masivo y recarga' },
-    { label: 'Canal Comercial', value: 'Supermercados, tiendas de retail y logística masiva B2B' },
-  ],
-};
 
 function BrandCard({ brand, onLightbox }) {
   const [premiumImg, setPremiumImg] = useState(brand.premium?.defaultImg || brand.premium?.img);
@@ -124,7 +121,14 @@ function BrandCard({ brand, onLightbox }) {
           <span className="card-num">Propuesta {brand.num}</span>
           <span className="archetype">{brand.archetype}</span>
         </div>
-        <h2 className="card-title">{brand.title}</h2>
+        <h2 className="card-title">
+          {brand.title}
+          {brand.subtitle && (
+            <span style={{ fontSize: '0.55em', color: 'var(--accent-gold)', fontWeight: 400, display: 'block', marginTop: '0.1em', letterSpacing: '0.15em' }}>
+              {brand.subtitle}
+            </span>
+          )}
+        </h2>
         <p className="brand-concept">{brand.concept}</p>
       </div>
 
@@ -176,56 +180,6 @@ function BrandCard({ brand, onLightbox }) {
   );
 }
 
-function VolumeBrandCard({ brand, onLightbox }) {
-  const [currentImg, setCurrentImg] = useState(brand.switchers[0].img);
-  const [activeKey, setActiveKey] = useState(brand.switchers[0].key);
-
-  return (
-    <div className="brand-card brand-card-single fade-in">
-      <div className="card-glow" />
-      <div className="card-header">
-        <div className="card-meta">
-          <span className="card-num">Propuesta {brand.num}</span>
-          <span className="archetype">{brand.archetype}</span>
-        </div>
-        <h2 className="card-title">
-          {brand.title}
-          {brand.subtitle && (
-            <span style={{ fontSize: '0.55em', color: 'var(--accent-gold)', fontWeight: 400, display: 'block', marginTop: '0.1em', letterSpacing: '0.15em' }}>
-              {brand.subtitle}
-            </span>
-          )}
-        </h2>
-        <p className="brand-concept">{brand.concept}</p>
-      </div>
-
-      <div className="product-showcase-single" style={{ marginBottom: '2rem' }}>
-        <div className="preview-box" onClick={(e) => { e.stopPropagation(); onLightbox(IMAGES_BASE + currentImg, brand.title); }}>
-          <div className="img-container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '250px', background: 'radial-gradient(circle, #f4f1ec 0%, #e2ddd5 100%)', padding: '1.5rem', borderRadius: '4px' }}>
-            <img src={IMAGES_BASE + currentImg} alt={brand.title} loading="lazy" style={{ maxHeight: '220px', objectFit: 'contain', transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)' }} />
-            <div className="zoom-icon">🔍</div>
-          </div>
-          <span className="preview-tag">Doypack · South Salt</span>
-          <div className="color-switcher">
-            {brand.switchers.map(sw => (
-              <span key={sw.key} className={`color-btn${activeKey === sw.key ? ' active' : ''}`} style={sw.style} title={sw.title}
-                onClick={(e) => { e.stopPropagation(); setCurrentImg(sw.img); setActiveKey(sw.key); }} />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="specs-list">
-        {brand.specs.map(spec => (
-          <div key={spec.label} className="spec-item">
-            <span className="spec-label">{spec.label}</span>
-            <span className="spec-value">{spec.value}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
 
 export default function SalPatagoniaPage() {
   const [lightbox, setLightbox] = useState({ open: false, src: '', caption: '' });
@@ -248,7 +202,6 @@ export default function SalPatagoniaPage() {
           {BRANDS.map(brand => (
             <BrandCard key={brand.id} brand={brand} onLightbox={(src, cap) => setLightbox({ open: true, src, caption: cap })} />
           ))}
-          <VolumeBrandCard brand={VOLUME_BRAND} onLightbox={(src, cap) => setLightbox({ open: true, src, caption: cap })} />
         </div>
       </div>
 
