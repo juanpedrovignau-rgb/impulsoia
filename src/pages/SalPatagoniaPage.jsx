@@ -81,11 +81,10 @@ const BRANDS = [
     title: '45° Sur',
     concept: 'Referencia directa a la latitud del origen extremo. Posiciona el producto como un registro mineral puro e intelectual.',
     premium: { img: '45_sur_premium.png', alt: '45° Sur Premium', tag: 'Premium · Frasco' },
-    volume: { defaultImg: '45_sur_volumen.png', alt: '45° Sur Volumen', tag: 'Volumen · Doypack con Visor' },
-    extra: { img: '45_sur_doypack_real.jpg', alt: '45° Sur Doypack Real', tag: 'Doypack · 45° Sur' },
+    volume: { defaultImg: '45_sur_doypack_real.jpg', alt: '45° Sur Doypack Real', tag: 'Doypack · 45° Sur' },
     specs: [
       { label: 'Premium Jar', value: 'Botella de farmacia + tapa metálica + ficha técnica' },
-      { label: 'Doypack Volumen', value: 'Negro mate + visor transparente + etiqueta tipo máquina de escribir' },
+      { label: 'Doypack Volumen', value: 'Doypack transparente + etiqueta tipo máquina de escribir' },
       { label: 'Tipografía', value: 'Monospace / Typewriter (estilo Le Labo)' },
       { label: 'Canal Comercial', value: 'Gastronomía de autor, restaurantes de lujo, catas' },
     ],
@@ -101,13 +100,11 @@ const VOLUME_BRAND = {
   concept: 'El motor de volumen y eficiencia operativa. Diseñado exclusivamente en formato Doypack para optimizar costos logísticos en retail y distribución masiva.',
   switchers: [
     { key: 'blanco-real', img: 'south_salt_doypack_real.jpg', style: { backgroundColor: '#ffffff', border: '2px solid #c5a059' }, title: 'Foto Real · South Salt' },
-    { key: 'claro', img: 'sal_patagonia_volumen_claro.png', style: { backgroundColor: '#f4f1ec', border: '1px solid #7e7d79' }, title: 'Lino Claro' },
     { key: 'negro-ventana', img: 'v3_patagonia_doypack_window.png', style: { background: 'linear-gradient(135deg, #1a1a1a 50%, #f4f1ec 50%)', border: '1px solid #7e7d79' }, title: 'Negro con Ventana' },
-    { key: 'negro-letras', img: 'sal_patagonia_volumen.png', style: { backgroundColor: '#1a1a1a', border: '1px solid #1a1a1a' }, title: 'Negro con Tipografía Blanca' },
   ],
   specs: [
     { label: 'Formato Único', value: 'Doypack stand-up de 500g de alta rotación' },
-    { label: 'Variantes de Color', value: 'Foto real (transparente), Lino claro, Negro mate con visor o Negro mate con tipografía blanca' },
+    { label: 'Variantes de Color', value: 'Foto real (transparente) o Negro mate con ventana' },
     { label: 'Posicionamiento', value: 'Sal base pura (sin sabores añadidos) para el canal masivo y recarga' },
     { label: 'Canal Comercial', value: 'Supermercados, tiendas de retail y logística masiva B2B' },
   ],
@@ -167,17 +164,6 @@ function BrandCard({ brand, onLightbox }) {
         </div>
       </div>
 
-      {/* Extra panel - solo para marcas que lo definan (ej: 45 Sur doypack real) */}
-      {brand.extra && (
-        <div className="preview-box" style={{ marginTop: '1rem' }} onClick={(e) => { e.stopPropagation(); onLightbox(IMAGES_BASE + brand.extra.img, brand.title + ' - Doypack Real'); }}>
-          <div className="img-container">
-            <img src={IMAGES_BASE + brand.extra.img} alt={brand.extra.alt} loading="lazy" />
-            <div className="zoom-icon">🔍</div>
-          </div>
-          <span className="preview-tag">{brand.extra.tag}</span>
-        </div>
-      )}
-
       <div className="specs-list">
         {brand.specs.map(spec => (
           <div key={spec.label} className="spec-item">
@@ -228,17 +214,6 @@ function VolumeBrandCard({ brand, onLightbox }) {
           </div>
         </div>
       </div>
-
-      {/* Extra panel - solo para marcas que lo definan (ej: 45 Sur doypack real) */}
-      {brand.extra && (
-        <div className="preview-box" style={{ marginTop: '1rem' }} onClick={(e) => { e.stopPropagation(); onLightbox(IMAGES_BASE + brand.extra.img, brand.title + ' - Doypack Real'); }}>
-          <div className="img-container">
-            <img src={IMAGES_BASE + brand.extra.img} alt={brand.extra.alt} loading="lazy" />
-            <div className="zoom-icon">🔍</div>
-          </div>
-          <span className="preview-tag">{brand.extra.tag}</span>
-        </div>
-      )}
 
       <div className="specs-list">
         {brand.specs.map(spec => (
